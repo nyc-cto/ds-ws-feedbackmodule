@@ -1,0 +1,1 @@
+# Dockerfile for the backend stub that will simply receive feedback requests from widget
