@@ -14,7 +14,7 @@ This folder contains the source files for our feedback module. It produces the w
 
 This folder contains a simple backend that accepts any requests from `feedback-module`. It mainly responds `{ "status": "OK"}` or `{ "status": "error", "message": "An error occured"}` on command.
 
-### `webpage`
+### `homepage`
 
 This is the folder containing an instance of the Landing Page as a Service (LPaaS) service. This would be the landing page dedicated to the feedback module, which will also demo the capabilities of the feedback module. It is run independently from `feedback-module`
 
