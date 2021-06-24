@@ -15,8 +15,8 @@ function App() {
         style={{ cursor: "pointer" }}
         buttonText="Give Feedback"
       />
-      <Textbox id="test" size="long" />
-      <Textbox id="test2" size="short" type="text" />
+      <Textbox id="test" size="area" />
+      <Textbox id="test2" size="input" type="text" />
     </div>
   );
 }
