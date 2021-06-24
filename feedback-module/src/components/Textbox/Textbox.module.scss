@@ -6,6 +6,6 @@
   &:focus {
     background-color: $feedback__lightest;
     border: $selected-border;
-    outline: none;
+    outline: transparent;
   }
 }

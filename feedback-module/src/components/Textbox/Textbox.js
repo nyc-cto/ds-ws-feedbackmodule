@@ -1,10 +1,14 @@
 import React from "react";
-import { Textarea } from "@trussworks/react-uswds";
+import { Textarea, TextInput } from "@trussworks/react-uswds";
 
 import styles from "./Textbox.module.scss";
 
-function Textbox({ id }) {
-  return <Textarea id={id} name={id} className={styles.textbox} />;
+function Textbox({ id, size, type }) {
+  return size === "long" ? (
+    <Textarea id={id} name={id} className={styles.textbox} />
+  ) : (
+    <TextInput id={id} name={id} className={styles.textbox} type={type} />
+  );
 }
 
 export default Textbox;
