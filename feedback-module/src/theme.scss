@@ -26,4 +26,5 @@ $header-height-lg: 40px;
 $header-height-sm: 30px;
 
 $selected-bg-color: $feedback__lightest;
-$input-border: 4px solid $feedback__dark;
+$default-border: 4px solid $feedback__dark;
+$selected-border: 6px solid $feedback__dark;
