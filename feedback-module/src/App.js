@@ -2,6 +2,7 @@ import React from "react";
 
 import ModuleButton from "./components/Button/Button";
 import Header from "./components/Header/Header";
+import Textbox from "./components/Textbox/Textbox";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         style={{ cursor: "pointer" }}
         buttonText="Give Feedback"
       />
+      <Textbox id="test" />
     </div>
   );
 }

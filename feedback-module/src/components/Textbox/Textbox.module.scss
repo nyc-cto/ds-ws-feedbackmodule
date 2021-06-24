@@ -1,0 +1,11 @@
+@import "../../index.scss";
+.textbox {
+  background-color: $feedback__light;
+  border: $default-border;
+  padding: 20px 22px;
+  &:focus {
+    background-color: $feedback__lightest;
+    border: $selected-border;
+    outline: none;
+  }
+}
