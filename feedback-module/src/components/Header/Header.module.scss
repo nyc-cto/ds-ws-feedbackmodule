@@ -1,0 +1,13 @@
+@import "../../index.scss";
+
+.header {
+  background-color: $header-bg-color;
+  border-radius: $button-border-radius;
+  height: $header-height-sm;
+  padding: 9px 10px;
+
+  @media screen and (min-width: 480px) {
+    height: $header-height-lg;
+    padding: 12px 16px;
+  }
+}

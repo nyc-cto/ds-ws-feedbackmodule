@@ -1,6 +1,6 @@
 @import "../../index.scss";
 
-.usa-button {
+.btn {
   background-color: $button-bg-color;
   color: $button-text-color;
   border-radius: $button-border-radius;
@@ -9,7 +9,7 @@
   border: 4px solid transparent;
 }
 
-.usa-button:hover {
+.btn:hover {
   background-color: $button-hover-bg-color;
   color: $button-hover-text-color;
   border: $default-border;
