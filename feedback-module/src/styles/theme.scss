@@ -1,3 +1,4 @@
+@use "sass:map";
 @import "./variables.scss";
 
 $theme-show-notifications: false;
@@ -6,12 +7,28 @@ $theme-image-path: "~uswds/src/img";
 $theme-font-path: "~uswds/src/fonts";
 $theme-hero-image: "~uswds/src/img/hero.png";
 
+$border-settings: map-merge(
+  $border-settings,
+  (
+    focus: true,
+  )
+);
+$background-color-settings: map-merge(
+  $background-color-settings,
+  (
+    focus: true,
+  )
+);
+
 // Colors
 $theme-color-primary: $feedback__dark;
 $theme-color-primary-light: $feedback__light;
+$theme-color-primary-lighter: $feedback__lightest;
 
 // Typography
 $theme-font-type-sans: "public-sans";
 
 // Buttons
 $theme-button-border-radius: 5px;
+
+// Input
