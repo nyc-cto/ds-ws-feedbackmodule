@@ -6,16 +6,20 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@trussworks/react-uswds": "^2.0.0",
     "glob": "^7.1.6",
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "uglifyjs-webpack-plugin": "^1.1.2",
+    "uswds": "^2.10.3",
     "web-vitals": "^1.0.1",
     "y18n": "^5.0.8"
   },
   "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-plugin-react": "^7.24.0",
     "mochawesome": "^6.2.2",
     "react-app-rewired": "^2.1.8",
     "rewire": "^5.0.0"
