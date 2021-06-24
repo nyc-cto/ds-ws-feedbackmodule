@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "@trussworks/react-uswds/lib/index.css";
-import "./index.scss";
+import "./styles/index.scss";
 import App from "./App";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");

@@ -1,0 +1,17 @@
+@import "./variables.scss";
+
+$theme-show-notifications: false;
+
+$theme-image-path: "~uswds/src/img";
+$theme-font-path: "~uswds/src/fonts";
+$theme-hero-image: "~uswds/src/img/hero.png";
+
+// Colors
+$theme-color-primary: $feedback__dark;
+$theme-color-primary-light: $feedback__light;
+
+// Typography
+$theme-font-type-sans: "public-sans";
+
+// Buttons
+$theme-button-border-radius: 5px;
