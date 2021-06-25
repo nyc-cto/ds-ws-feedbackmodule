@@ -1,0 +1,22 @@
+@import "../../index.scss";
+
+.checkbox {
+  #input {
+    color: $checkbox-unchecked;
+  }
+  //   color: $checkbox-unchecked;
+  //   background-color: $header-bg-color;
+  //   border-radius: $button-border-radius;
+  //   height: $header-height-sm;
+  //   padding: 9px 10px;
+
+  //   @media screen and (min-width: 480px) {
+  //     height: $header-height-lg;
+  //     padding: 12px 16px;
+  //   }
+}
+
+.usa-checkbox__input {
+  color: orange;
+  background-color: blue;
+}

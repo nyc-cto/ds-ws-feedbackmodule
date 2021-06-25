@@ -3,6 +3,7 @@ import React from "react";
 import ModuleButton from "./components/Button/Button";
 import Header from "./components/Header/Header";
 import Textbox from "./components/Textbox/Textbox";
+import ModuleCheckbox from "./components/Checkbox/Checkbox";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       />
       <Textbox id="test" size="area" />
       <Textbox id="test2" size="input" type="text" />
+      <ModuleCheckbox label="Checkbox" />
     </div>
   );
 }

@@ -9,9 +9,14 @@ $theme-hero-image: "~uswds/src/img/hero.png";
 // Colors
 $theme-color-primary: $feedback__dark;
 $theme-color-primary-light: $feedback__light;
-
+$theme-color-base: $feedback__dark;
+$theme-respect-user-font-size: false;
+$theme-root-font-size: 30px;
 // Typography
 $theme-font-type-sans: "public-sans";
 
 // Buttons
 $theme-button-border-radius: 5px;
+
+//Checkbox
+$theme-checkbox-border-radius: 0;
