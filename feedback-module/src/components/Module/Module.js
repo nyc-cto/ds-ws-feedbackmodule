@@ -12,7 +12,7 @@ function Module() {
       className="bg-primary-light radius-top-lg padding-x-0"
     >
       <Header />
-      <ModuleCheckbox label="test" />
+      <ModuleCheckbox label="test" id="checkbox-test" />
     </GridContainer>
   );
 }

@@ -19,7 +19,7 @@ function App() {
       />
       <Textbox id="test" size="area" />
       <Textbox id="test2" size="input" type="text" />
-      <ModuleCheckbox label="Checkbox" />
+      <ModuleCheckbox label="Checkbox" id="checkbox" />
       <Module />
     </div>
   );
