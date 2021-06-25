@@ -8,7 +8,7 @@ function ModuleButton({ buttonText, onClick }) {
     <Button
       aria-label={buttonText}
       onClick={onClick}
-      className="border-transparent hover:bg-primary-light hover:text-primary hover:border-primary padding-x-205 padding-y-2 border-05 hover:border-bottom-05"
+      className="border-transparent hover:bg-primary-light hover:text-primary hover:border-primary padding-10px mobile-lg:padding-x-205 mobile-lg:padding-y-2 mobile-lg:font-sans-lg border-05 hover:border-bottom-05"
     >
       {buttonText}
     </Button>

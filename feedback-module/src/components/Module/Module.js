@@ -2,6 +2,7 @@ import React from "react";
 import { GridContainer } from "@trussworks/react-uswds";
 
 import Header from "../Header/Header";
+import ModuleCheckbox from "../Checkbox/Checkbox";
 
 function Module() {
   return (
@@ -11,6 +12,7 @@ function Module() {
       className="bg-primary-light radius-top-lg padding-x-0"
     >
       <Header />
+      <ModuleCheckbox label="test" />
     </GridContainer>
   );
 }

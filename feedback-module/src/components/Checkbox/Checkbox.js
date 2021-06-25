@@ -9,7 +9,7 @@ function ModuleCheckbox({ label }) {
       id="checkbox"
       label={label}
       color="primary"
-      className="text-primary bg-transparent"
+      className="text-primary bg-transparent mobile-lg:font-sans-xl font-sans-md"
     />
   );
 }
