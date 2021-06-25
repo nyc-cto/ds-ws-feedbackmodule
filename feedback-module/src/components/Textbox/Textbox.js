@@ -8,14 +8,14 @@ function Textbox({ id, size, type }) {
     <Textarea
       id={id}
       name={id}
-      className="border-05 border-primary bg-primary-light focus:border-1 focus:bg-primary-lighter"
+      className="border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter"
     />
   ) : (
     <TextInput
       id={id}
       name={id}
       type={type}
-      className="border-05 border-primary bg-primary-light focus:border-1 focus:bg-primary-lighter"
+      className="border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter"
     />
   );
 }
