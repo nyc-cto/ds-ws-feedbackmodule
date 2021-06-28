@@ -1,8 +1,6 @@
 import React from "react";
 import { Checkbox } from "@trussworks/react-uswds";
 
-// import styles from "./Checkbox.module.scss";
-
 function ModuleCheckbox({ label, id }) {
   return (
     <Checkbox
