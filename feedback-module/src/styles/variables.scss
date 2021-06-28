@@ -1,15 +1,8 @@
-$theme-image-path: "~uswds/src/img";
-$theme-font-path: "~uswds/src/fonts";
-$theme-hero-image: "~uswds/src/img/hero.png";
-
 // Colors
 $feedback__dark: #162e51;
 $feedback__light: #e1f3f8;
 $feedback__white: #ffffff;
 $feedback__lightest: #f3fcff;
-
-// Typography
-$theme-font-type-sans: "public-sans";
 
 // Components
 $button-bg-color: $feedback__dark;
@@ -26,4 +19,8 @@ $header-height-lg: 40px;
 $header-height-sm: 30px;
 
 $selected-bg-color: $feedback__lightest;
-$input-border: 4px solid $feedback__dark;
+$default-border: 4px solid $feedback__dark;
+$selected-border: 6px solid $feedback__dark;
+
+$checkbox-unchecked: $feedback__lightest;
+$checkbox-checked: $feedback__dark;
