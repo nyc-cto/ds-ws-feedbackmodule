@@ -2,10 +2,10 @@ import React from "react";
 import { GridContainer, Grid } from "@trussworks/react-uswds";
 
 import Header from "./Header";
-import ModuleCheckbox from "./Checkbox";
-import ModuleButton from "./Button";
+// import ModuleCheckbox from "./Checkbox";
+// import ModuleButton from "./Button";
 
-function Module() {
+function Module({ children }) {
   return (
     <GridContainer
       desktop={{ col: 2 }}
@@ -14,14 +14,15 @@ function Module() {
     >
       <Header />
       <Grid className="padding-x-6 padding-y-5">
-        <ModuleCheckbox label="test" id="checkbox-test" />
+        {/* <ModuleCheckbox label="test" id="checkbox-test" />
         <ModuleButton
           onClick={() => {
             alert("Feedback button has been pressed");
           }}
           style={{ cursor: "pointer" }}
           buttonText="Button"
-        />
+        /> */}
+        {children}
       </Grid>
     </GridContainer>
   );
