@@ -1,6 +1,9 @@
 @import "variables.scss";
 
 h1 {
-  font-size: 3.5rem;
+  font-size: 2rem;
   color: $feedback__dark;
+  @media (min-width: 480px) {
+    font-size: 3.5rem;
+  }
 }
