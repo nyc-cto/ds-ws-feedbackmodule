@@ -2,13 +2,19 @@ export const MISSING_INFO = {
   title:
     "Sorry you couldn't find what you were looking for! Can you tell us a little more?",
   checkboxes: [
-    "I wasn't sure where to look",
-    "I was confused by the information I found",
-    "I don't understand how to use this website",
-    "I hit a dead end",
-    "The content was not available in my preferred language",
-    "There were errors with the translation available",
-    "Other",
+    { label: "I wasn't sure where to look", checked: false },
+    { label: "I was confused by the information I found", checked: false },
+    { label: "I don't understand how to use this website", checked: false },
+    { label: "I hit a dead end", checked: false },
+    {
+      label: "The content was not available in my preferred language",
+      checked: false,
+    },
+    {
+      label: "There were errors with the translation available",
+      checked: false,
+    },
+    { label: "Other", checked: false },
   ],
   textInputs: [
     "What were you looking for or trying to do?",
