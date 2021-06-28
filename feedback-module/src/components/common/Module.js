@@ -1,9 +1,9 @@
 import React from "react";
 import { GridContainer, Grid } from "@trussworks/react-uswds";
 
-import Header from "../Header/Header";
-import ModuleCheckbox from "../Checkbox/Checkbox";
-import ModuleButton from "../Button/Button";
+import Header from "./Header";
+import ModuleCheckbox from "./Checkbox";
+import ModuleButton from "./Button";
 
 function Module() {
   return (

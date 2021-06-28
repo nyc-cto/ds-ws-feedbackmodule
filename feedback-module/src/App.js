@@ -1,9 +1,9 @@
 import React from "react";
 
-import ModuleButton from "./components/Button/Button";
-import Module from "./components/Module/Module";
-import Textbox from "./components/Textbox/Textbox";
-import ModuleCheckbox from "./components/Checkbox/Checkbox";
+import ModuleButton from "./components/common/Button";
+import Module from "./components/common/Module";
+import Textbox from "./components/common/Textbox";
+import ModuleCheckbox from "./components/common/Checkbox";
 
 function App() {
   return (
