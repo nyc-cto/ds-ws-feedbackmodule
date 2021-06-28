@@ -8057,6 +8057,11 @@
   dependencies:
     "node-bin-setup" "^1.0.0"
 
+"nodejs@^0.0.0":
+  "integrity" "sha1-RyL6LhisTrc6Qq4W0B41hKErdTE="
+  "resolved" "https://registry.npmjs.org/nodejs/-/nodejs-0.0.0.tgz"
+  "version" "0.0.0"
+
 "normalize-package-data@^2.3.2", "normalize-package-data@^2.5.0":
   "integrity" "sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA=="
   "resolved" "https://registry.npmjs.org/normalize-package-data/-/normalize-package-data-2.5.0.tgz"
