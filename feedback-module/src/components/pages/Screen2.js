@@ -5,7 +5,7 @@ import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
-function Screen2({ feedbackType, changeScreen }) {
+function Screen2({ feedbackType }) {
   const [checkedFields, setCheckedFields] = useState(
     feedbackType.checkboxes.map((checkboxLabel) => {
       return { label: checkboxLabel, checked: false };
@@ -38,7 +38,6 @@ function Screen2({ feedbackType, changeScreen }) {
     setCheckedFields(checked);
     console.log(inputQuestions);
     e.preventDefault();
-    changeScreen();
   };
 
   return (

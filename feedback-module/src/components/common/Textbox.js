@@ -1,11 +1,12 @@
 import React from "react";
-import { Textarea, TextInput, Form, Label } from "@trussworks/react-uswds";
+import { Textarea, TextInput, Label } from "@trussworks/react-uswds";
 
 function Textbox({ id, size, type, label, className, onChange }) {
   return size === "area" ? (
-    <Form className="maxw-none">
+    <>
       <Label
         className={`${className} text-primary mobile-lg:font-sans-2xl font-sans-lg maxw-none margin-y-3`}
+        htmlFor={id}
       >
         {label}
       </Label>
@@ -15,7 +16,7 @@ function Textbox({ id, size, type, label, className, onChange }) {
         className="border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter"
         onChange={onChange}
       />
-    </Form>
+    </>
   ) : (
     <TextInput
       id={id}

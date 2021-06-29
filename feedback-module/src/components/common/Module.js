@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { GridContainer, Grid } from "@trussworks/react-uswds";
 
 import Header from "./Header";
+import Screen1 from "../pages/Screen1";
 import Screen2 from "../pages/Screen2";
-import { MISSING_INFO } from "../../assets/constants";
 
 function Module() {
   const [screen, setScreen] = useState(
-    <Screen2
-      feedbackType={MISSING_INFO}
-      changeScreen={() => setScreen(<Screen2 feedbackType={MISSING_INFO} />)}
+    <Screen1
+      setData={(data) => setScreen(<Screen2 feedbackType={data} />)}
+      page="[this page]"
     />
   );
 
