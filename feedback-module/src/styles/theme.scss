@@ -47,11 +47,13 @@ $theme-color-primary: $feedback__dark;
 $theme-color-primary-light: $feedback__light;
 $theme-color-base: $feedback__dark;
 $theme-respect-user-font-size: false;
-// $theme-root-font-size: 30px;
 $theme-color-primary-lighter: $feedback__lightest;
 
 // Typography
 $theme-font-type-sans: "public-sans";
+$theme-process-list-heading-color: "primary";
+
+$theme-h1-font-size: "3xl";
 
 // Buttons
 $theme-button-border-radius: 5px;
