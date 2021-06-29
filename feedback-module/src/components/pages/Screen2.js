@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "@trussworks/react-uswds";
 
-import Module from "../common/Module";
 import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
-function Screen2({ feedbackType }) {
+function Screen2({ feedbackType, changeScreen }) {
   const [checkedFields, setCheckedFields] = useState({});
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState({});
@@ -48,10 +47,11 @@ function Screen2({ feedbackType }) {
     setCheckedFields(checked);
     console.log(inputQuestions);
     e.preventDefault();
+    changeScreen();
   };
 
   return (
-    <Module>
+    <>
       <h1>{feedbackType.title}</h1>
       <Form className="maxw-none overflow-hidden">
         <CheckboxList
@@ -70,7 +70,7 @@ function Screen2({ feedbackType }) {
           onClick={onSubmit}
         />
       </Form>
-    </Module>
+    </>
   );
 }
 

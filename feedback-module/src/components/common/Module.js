@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { GridContainer, Grid } from "@trussworks/react-uswds";
 
 import Header from "./Header";
-// import ModuleCheckbox from "./Checkbox";
-// import ModuleButton from "./Button";
+import Screen2 from "../pages/Screen2";
+import { MISSING_INFO } from "../../assets/constants";
 
-function Module({ children }) {
+function Module() {
+  const [screen, setScreen] = useState(
+    <Screen2
+      feedbackType={MISSING_INFO}
+      changeScreen={() => setScreen(<Screen2 feedbackType={MISSING_INFO} />)}
+    />
+  );
+
   return (
     <GridContainer
       desktop={{ col: 2 }}
@@ -13,17 +20,7 @@ function Module({ children }) {
       className="bg-primary-light radius-top-lg padding-x-0"
     >
       <Header />
-      <Grid className="padding-x-6 padding-y-5">
-        {/* <ModuleCheckbox label="test" id="checkbox-test" />
-        <ModuleButton
-          onClick={() => {
-            alert("Feedback button has been pressed");
-          }}
-          style={{ cursor: "pointer" }}
-          buttonText="Button"
-        /> */}
-        {children}
-      </Grid>
+      <Grid className="padding-x-6 padding-y-5">{screen}</Grid>
     </GridContainer>
   );
 }
