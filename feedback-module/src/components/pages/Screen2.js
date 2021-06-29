@@ -7,31 +7,20 @@ import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
 function Screen2({ feedbackType }) {
-  const [checkedFields, setCheckedFields] = useState({});
+  const [checkedFields, setCheckedFields] = useState([]);
 
   useEffect(() => {
-    let fields = {};
-    feedbackType.checkboxes.map((label) => {
-      fields = {
-        ...fields,
-        [label]: false,
-      };
-    });
-    setCheckedFields(fields);
-  }, []);
-
-  const onCheck = (label) => {
-    let checked = checkedFields;
-    checked[label] = !checked[label];
-    setCheckedFields(checked);
-    console.log("hi");
-  };
+    console.log(checkedFields);
+  }, [checkedFields]);
 
   return (
     <Module>
       <h1>{feedbackType.title}</h1>
       <Form className="maxw-none overflow-hidden">
-        <CheckboxList feedbackType={feedbackType} onCheck={() => onCheck} />
+        <CheckboxList
+          feedbackType={feedbackType}
+          setCheckedFields={setCheckedFields}
+        />
         <TextboxList feedbackType={feedbackType} />
         <ModuleButton
           buttonText={feedbackType.button}
