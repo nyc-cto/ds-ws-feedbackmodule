@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "*",
+    "http-proxy-middleware": "^2.0.0",
     "node-fetch": "^2.6.1",
     "redis": "2.8.0"
   },

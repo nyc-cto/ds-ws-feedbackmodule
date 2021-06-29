@@ -3,8 +3,14 @@ require("dotenv").config();
 const express = require("express");
 const redis = require("redis");
 const fetch = require("node-fetch");
+const cors = require("cors");
 
 const app = express();
+app
+  .use(cors())
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }));
+
 // const client = redis.createClient({
 //   host: "redis-server",
 //   port: 6379,
@@ -37,13 +43,23 @@ const apiCall = async (url, data) => {
   }
 };
 
-app.get("/api/test", () => {
+// When a user clicks submit, the application creates a post request to the endpoint
+app.post("/api/feedback", (req, res) => {
+  console.log(req.body);
   apiCall(process.env.ENDPOINT, {
     id: "1",
-    feedback: "another test!!",
+    feedback: req.body.feedback,
   })
-    .then((data) => console.log(data))
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
     .catch((err) => console.log(err));
+});
+
+// For personally identifiable information from the user
+app.post("/api/userinfo", (req, res) => {
+  console.log(req.body);
 });
 
 app.listen(8080, () => {
