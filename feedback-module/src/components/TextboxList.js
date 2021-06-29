@@ -3,13 +3,25 @@ import { Grid } from "@trussworks/react-uswds";
 
 import Textbox from "./common/Textbox";
 
-function TextboxList({ feedbackType }) {
+function TextboxList({ feedbackType, inputQuestions, setInputQuestions }) {
+  const onChange = ({ target }) => {
+    let answers = inputQuestions;
+    answers[target.name] = target.value;
+    setInputQuestions(answers);
+  };
+
   return (
     <Grid>
       {feedbackType.textInputs.map((label, index) => {
         return (
           <Grid col="fill" key={index}>
-            <Textbox id={index} size="area" type="text" label={label} />
+            <Textbox
+              id={index}
+              size="area"
+              type="text"
+              label={label}
+              onChange={onChange}
+            />
           </Grid>
         );
       })}
