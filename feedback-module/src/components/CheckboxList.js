@@ -4,12 +4,12 @@ import { Grid } from "@trussworks/react-uswds";
 import ModuleCheckbox from "./common/Checkbox";
 import Textbox from "./common/Textbox";
 
-function CheckboxList({ feedbackType, onCheck, setOtherField }) {
+function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
   const [otherChecked, setOtherChecked] = useState(false);
 
-  const onCheckOther = (label) => {
+  const onCheckOther = (index, label) => {
     label === "Other" && setOtherChecked(!otherChecked);
-    onCheck(label);
+    onCheck(index);
   };
 
   const onChangeOther = ({ target }) => {
@@ -18,13 +18,13 @@ function CheckboxList({ feedbackType, onCheck, setOtherField }) {
 
   return (
     <Grid>
-      {feedbackType.checkboxes.map((label, index) => {
+      {feedbackCheckboxes.map((label, index) => {
         return (
           <Grid row key={index} className="flex-align-baseline">
             <ModuleCheckbox
               id={index}
               label={label}
-              onCheck={() => onCheckOther(label)}
+              onCheck={() => onCheckOther(index, label)}
             />
             {otherChecked && label === "Other" && (
               <Grid col="6">

@@ -6,43 +6,52 @@ import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
 function Screen2({ feedbackType, changeScreen }) {
-  const [checkedFields, setCheckedFields] = useState({});
+  const [checkedFields, setCheckedFields] = useState([]);
   const [otherField, setOtherField] = useState("");
-  const [inputQuestions, setInputQuestions] = useState({});
+  const [inputQuestions, setInputQuestions] = useState([]);
 
   useEffect(() => {
-    let fields = {};
+    let checkedField = {};
+    let checkboxesArray = [];
 
-    feedbackType.checkboxes.map((label) => {
-      fields = {
-        ...fields,
-        [label]: false,
+    feedbackType.checkboxes.map((checkboxLabel) => {
+      checkedField = {
+        label: checkboxLabel,
+        checked: false,
       };
+      checkboxesArray.push(checkedField);
     });
-    setCheckedFields(fields);
-    let questions = {};
+    setCheckedFields(checkboxesArray);
+
+    let questionObject = {};
+    let questionsArray = [];
     feedbackType.textInputs.map((question) => {
-      questions = {
-        ...questions,
-        [question]: "",
+      questionObject = {
+        question: question,
+        answer: "",
       };
+      questionsArray.push(questionObject);
     });
-    setInputQuestions(questions);
+    setInputQuestions(questionsArray);
   }, []);
 
-  const onCheck = (label) => {
+  const onCheck = (index) => {
     let checked = checkedFields;
-    checked[label] = !checked[label];
+    checked[index].checked = !checked[index].checked;
     setCheckedFields(checked);
   };
 
   const onSubmit = (e) => {
     let checked = checkedFields;
-    checkedFields["Other"] &&
-      (checked = {
-        ...checked,
-        OtherText: otherField,
-      });
+    checked.map(
+      (checkedField) =>
+        checkedField.label === "Other" &&
+        checkedField.checked &&
+        checked.push({
+          label: "Other text",
+          info: otherField,
+        })
+    );
     console.log(checked);
     setCheckedFields(checked);
     console.log(inputQuestions);
@@ -55,12 +64,12 @@ function Screen2({ feedbackType, changeScreen }) {
       <h1>{feedbackType.title}</h1>
       <Form className="maxw-none overflow-hidden">
         <CheckboxList
-          feedbackType={feedbackType}
+          feedbackCheckboxes={feedbackType.checkboxes}
           onCheck={(label) => onCheck(label)}
           setOtherField={setOtherField}
         />
         <TextboxList
-          feedbackType={feedbackType}
+          feedbackInputs={feedbackType.textInputs}
           setInputQuestions={setInputQuestions}
           inputQuestions={inputQuestions}
         />
