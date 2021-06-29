@@ -4,11 +4,19 @@ import { GridContainer, Grid } from "@trussworks/react-uswds";
 import Header from "./Header";
 import Screen1 from "../pages/Screen1";
 import Screen2 from "../pages/Screen2";
+import Screen4 from "../pages/Screen4";
 
 function Module() {
   const [screen, setScreen] = useState(
     <Screen1
-      setData={(data) => setScreen(<Screen2 feedbackType={data} />)}
+      setData={(data) =>
+        setScreen(
+          <Screen2
+            feedbackType={data}
+            setScreen={() => setScreen(<Screen4 />)}
+          />
+        )
+      }
       page="[this page]"
     />
   );
