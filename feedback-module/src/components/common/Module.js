@@ -8,7 +8,7 @@ import Screen2 from "../pages/Screen2";
 function Module() {
   const [screen, setScreen] = useState(
     <Screen1
-      setData={(data) => setScreen(<Screen2 data={data} />)}
+      setData={(data) => setScreen(<Screen2 feedbackType={data} />)}
       page="[this page]"
     />
   );
