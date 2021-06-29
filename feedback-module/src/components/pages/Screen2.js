@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Form } from "@trussworks/react-uswds";
 
 import CheckboxList from "../CheckboxList";
@@ -6,34 +6,19 @@ import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
 function Screen2({ feedbackType, changeScreen }) {
-  const [checkedFields, setCheckedFields] = useState([]);
-  const [otherField, setOtherField] = useState("");
-  const [inputQuestions, setInputQuestions] = useState([]);
-
-  useEffect(() => {
-    let checkedField = {};
-    let checkboxesArray = [];
-
+  const [checkedFields, setCheckedFields] = useState(
     feedbackType.checkboxes.map((checkboxLabel) => {
-      checkedField = {
-        label: checkboxLabel,
-        checked: false,
-      };
-      checkboxesArray.push(checkedField);
-    });
-    setCheckedFields(checkboxesArray);
+      return { label: checkboxLabel, checked: false };
+    })
+  );
 
-    let questionObject = {};
-    let questionsArray = [];
+  const [otherField, setOtherField] = useState("");
+
+  const [inputQuestions, setInputQuestions] = useState(
     feedbackType.textInputs.map((question) => {
-      questionObject = {
-        question: question,
-        answer: "",
-      };
-      questionsArray.push(questionObject);
-    });
-    setInputQuestions(questionsArray);
-  }, []);
+      return { question: question, answer: "" };
+    })
+  );
 
   const onCheck = (index) => {
     let checked = checkedFields;
@@ -47,10 +32,7 @@ function Screen2({ feedbackType, changeScreen }) {
       (checkedField) =>
         checkedField.label === "Other" &&
         checkedField.checked &&
-        checked.push({
-          label: "Other text",
-          info: otherField,
-        })
+        (checkedField.info = otherField)
     );
     console.log(checked);
     setCheckedFields(checked);
