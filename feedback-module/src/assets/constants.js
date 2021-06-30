@@ -51,6 +51,6 @@ export const SUBMISSION_TEXT = {
   confidential:
     "Your feedback is anonymous and confidential, so you will not receive a reply. ",
   user_research:
-    "The City of New York is always trying to improve its services. Are you interesed in being a user research participant? This is is entirely voluntary and you can opt out at any time. Signing up to be a user research participant will have no impact on your feedback today, or your eligibility to access or receive services in the future..",
+    "The City of New York is always trying to improve its services. Are you interesed in being a user research participant? This is is entirely voluntary and you can opt out at any time. Signing up to be a user research participant will have no impact on your feedback today, or your eligibility to access or receive services in the future.",
   button_text: "Yes, sign me up!",
 };

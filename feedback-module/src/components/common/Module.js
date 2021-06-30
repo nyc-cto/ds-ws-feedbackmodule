@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { GridContainer, Grid } from "@trussworks/react-uswds";
+import { GridContainer } from "@trussworks/react-uswds";
 
-import {
-  MODULE_CONTAINER_STYLE,
-  SCREEN_CONTAINER_STYLE,
-} from "../../assets/styling_classnames";
+import { MODULE_CONTAINER_STYLE } from "../../assets/styling_classnames";
 import Header from "./Header";
 import Screen1 from "../pages/Screen1";
 import Screen2 from "../pages/Screen2";
@@ -32,7 +29,7 @@ function Module() {
       className={MODULE_CONTAINER_STYLE}
     >
       <Header />
-      <Grid className={SCREEN_CONTAINER_STYLE}>{screen}</Grid>
+      {screen}
     </GridContainer>
   );
 }

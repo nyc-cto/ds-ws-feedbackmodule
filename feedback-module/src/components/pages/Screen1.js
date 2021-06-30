@@ -1,7 +1,9 @@
 import React from "react";
+import { Grid } from "@trussworks/react-uswds";
 
 import ModuleButton from "../common/Button";
 import { SCREEN1_BUTTONS } from "../../assets/constants";
+import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 
 function Screen1({ changePage, page }) {
   const buttons = SCREEN1_BUTTONS.map(({ text, data }, index) => {
@@ -14,10 +16,10 @@ function Screen1({ changePage, page }) {
   });
 
   return (
-    <>
+    <Grid className={SCREEN_CONTAINER_STYLE}>
       <h1>Do you have any feedback on {page}?</h1>
       {buttons}
-    </>
+    </Grid>
   );
 }
 

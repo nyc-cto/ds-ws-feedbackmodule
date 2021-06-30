@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form } from "@trussworks/react-uswds";
+import { Grid } from "@trussworks/react-uswds";
 
+import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
@@ -42,7 +44,7 @@ function Screen2({ feedbackType, changePage }) {
   };
 
   return (
-    <>
+    <Grid className={SCREEN_CONTAINER_STYLE}>
       <h1>{feedbackType.title}</h1>
       <Form className="maxw-none overflow-hidden">
         <CheckboxList
@@ -61,7 +63,7 @@ function Screen2({ feedbackType, changePage }) {
           onClick={onSubmit}
         />
       </Form>
-    </>
+    </Grid>
   );
 }
 
