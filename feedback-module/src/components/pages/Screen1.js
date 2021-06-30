@@ -3,10 +3,10 @@ import React from "react";
 import ModuleButton from "../common/Button";
 import { SCREEN1_BUTTONS } from "../../assets/constants";
 
-function Screen1({ setData, page }) {
+function Screen1({ changePage, page }) {
   const buttons = SCREEN1_BUTTONS.map(({ text, data }, index) => {
     const handleClick = (e) => {
-      setData(data);
+      changePage(data);
       e.preventDefault();
     };
 
