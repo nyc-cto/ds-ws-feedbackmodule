@@ -20,11 +20,11 @@ function Screen4() {
   return (
     <>
       <h1>{USER_RESEARCH_FORM.title}</h1>
-      <p>{USER_RESEARCH_FORM.summaryText}</p>
-      <p>{USER_RESEARCH_FORM.furtherInfoText}</p>
+      <p className="margin-bottom-0">{USER_RESEARCH_FORM.summaryText}</p>
+      <p className="margin-top-0">{USER_RESEARCH_FORM.furtherInfoText}</p>
       <Form className="maxw-none overflow-hidden">
         <TextboxList
-          labels={USER_RESEARCH_FORM.form}
+          inputs={USER_RESEARCH_FORM.form}
           setInputQuestions={setInputQuestions}
           inputQuestions={inputQuestions}
           size="input"

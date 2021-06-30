@@ -51,7 +51,7 @@ function Screen2({ feedbackType, setScreen }) {
           setOtherField={setOtherField}
         />
         <TextboxList
-          labels={feedbackType.textInputs}
+          inputs={feedbackType.textInputs}
           setInputQuestions={setInputQuestions}
           inputQuestions={inputQuestions}
           size="area"

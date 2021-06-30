@@ -3,7 +3,7 @@ import { Grid } from "@trussworks/react-uswds";
 
 import Textbox from "./common/Textbox";
 
-function TextboxList({ labels, inputQuestions, setInputQuestions, size }) {
+function TextboxList({ inputs, inputQuestions, setInputQuestions, size }) {
   const onChange = ({ target }) => {
     let answers = inputQuestions;
     answers[target.id].answer = target.value;
@@ -12,14 +12,14 @@ function TextboxList({ labels, inputQuestions, setInputQuestions, size }) {
 
   return (
     <Grid>
-      {labels.map((label, index) => {
+      {inputs.map((input, index) => {
         return (
           <Grid col="fill" key={index}>
             <Textbox
               id={index}
               size={size}
-              type="text"
-              label={label}
+              type={input.type}
+              label={input.text}
               onChange={onChange}
             />
           </Grid>
