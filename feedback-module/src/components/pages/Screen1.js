@@ -5,10 +5,14 @@ import ModuleButton from "../common/Button";
 import { SCREEN1_BUTTONS } from "../../assets/constants";
 import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 
-function Screen1({ changePage, page }) {
+function Screen1({ changePage, page, setFeedback }) {
   const buttons = SCREEN1_BUTTONS.map(({ text, data }, index) => {
     const handleClick = (e) => {
       changePage(data);
+      setFeedback((feedback) => {
+        feedback.feedbackType = text;
+        return feedback;
+      });
       e.preventDefault();
     };
 
