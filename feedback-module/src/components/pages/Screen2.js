@@ -5,7 +5,7 @@ import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
-function Screen2({ feedbackType }) {
+function Screen2({ feedbackType, changePage }) {
   const [checkedFields, setCheckedFields] = useState(
     feedbackType.checkboxes.map((checkboxLabel) => {
       return { label: checkboxLabel, checked: false };
@@ -37,6 +37,7 @@ function Screen2({ feedbackType }) {
     console.log(checked);
     setCheckedFields(checked);
     console.log(inputQuestions);
+    changePage();
     e.preventDefault();
   };
 
@@ -56,7 +57,7 @@ function Screen2({ feedbackType }) {
         />
         <ModuleButton
           buttonText={feedbackType.button}
-          className="float-right margin-x-0"
+          isRight
           onClick={onSubmit}
         />
       </Form>
