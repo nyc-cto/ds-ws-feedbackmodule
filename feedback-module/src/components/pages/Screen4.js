@@ -29,10 +29,11 @@ function Screen4() {
           setInputQuestions={setInputQuestions}
           inputQuestions={inputQuestions}
           size="input"
+          className="margin-bottom-5"
         />
         <ModuleButton
           buttonText={USER_RESEARCH_FORM.buttonText}
-          className="float-right margin-x-0"
+          isRight
           onClick={onSubmit}
         />
       </Form>
