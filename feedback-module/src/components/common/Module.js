@@ -7,6 +7,7 @@ import Header from "./Header";
 import Screen1 from "../pages/Screen1";
 import Screen2 from "../pages/Screen2";
 import Screen3 from "../pages/Screen3";
+import Screen4 from "../pages/Screen4";
 
 function Module() {
   const [feedback, setFeedback] = useState({});
@@ -30,7 +31,9 @@ function Module() {
             feedbackType={data}
             setFeedback={setFeedback}
             sendFeedback={sendFeedback}
-            changePage={() => setScreen(<Screen3 />)}
+            changePage={() =>
+              setScreen(<Screen3 changePage={() => setScreen(<Screen4 />)} />)
+            }
           />
         )
       }

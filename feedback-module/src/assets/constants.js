@@ -1,4 +1,4 @@
-export const MISSING_INFO = {
+const MISSING_INFO = {
   title:
     "Sorry you couldn't find what you were looking for! Can you tell us a little more?",
   checkboxes: [
@@ -11,8 +11,8 @@ export const MISSING_INFO = {
     "Other",
   ],
   textInputs: [
-    "What were you looking for or trying to do?",
-    "Would you like to add anything else?",
+    { type: "text", text: "What were you looking for or trying to do?" },
+    { type: "text", text: "Would you like to add anything else?" },
   ],
   button: "Submit",
 };
@@ -47,10 +47,24 @@ export const SCREEN1_BUTTONS = [
 ];
 
 export const SUBMISSION_TEXT = {
-  submitted: "Thank you for your feedback! It has been submitted.",
-  confidential:
+  msg_line1: "Thank you for your feedback! It has been submitted.",
+  msg_line2:
     "Your feedback is anonymous and confidential, so you will not receive a reply. ",
   user_research:
     "The City of New York is always trying to improve its services. Are you interesed in being a user research participant? This is is entirely voluntary and you can opt out at any time. Signing up to be a user research participant will have no impact on your feedback today, or your eligibility to access or receive services in the future.",
   button_text: "Yes, sign me up!",
+};
+
+export const USER_RESEARCH_FORM = {
+  title:
+    "As a user research participant you can help us continue to improve services for New Yorkers",
+  summaryText:
+    "Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.",
+  furtherInfoText: "You can opt out at any time.",
+  form: [
+    { type: "text", text: "Your name" },
+    { type: "email", text: "Your email" },
+    { type: "tel", text: "Your phone number" },
+  ],
+  buttonText: "Submit",
 };

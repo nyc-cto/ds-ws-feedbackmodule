@@ -59,9 +59,10 @@ function Screen2({ feedbackType, changePage, setFeedback, sendFeedback }) {
           setOtherField={setOtherField}
         />
         <TextboxList
-          feedbackInputs={feedbackType.textInputs}
+          inputs={feedbackType.textInputs}
           setInputQuestions={setInputQuestions}
           inputQuestions={inputQuestions}
+          size="area"
         />
         <ModuleButton
           buttonText={feedbackType.button}
