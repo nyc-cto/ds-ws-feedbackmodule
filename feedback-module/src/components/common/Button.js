@@ -6,12 +6,14 @@ import {
   BUTTON_RIGHT_STYLE,
 } from "../../assets/styling_classnames";
 
-function ModuleButton({ buttonText, onClick, isRight }) {
+function ModuleButton({ buttonText, onClick, isRight, className }) {
   return (
     <Button
       aria-label={buttonText}
       onClick={onClick}
-      className={`${isRight && BUTTON_RIGHT_STYLE} ${BUTTON_STYLE}`}
+      className={`${className} ${
+        isRight && BUTTON_RIGHT_STYLE
+      } ${BUTTON_STYLE}`}
     >
       {buttonText}
     </Button>
