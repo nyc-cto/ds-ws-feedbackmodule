@@ -21,13 +21,18 @@ function Textbox({ id, size, type, label, className, onChange }) {
       />
     </>
   ) : (
-    <TextInput
-      id={id}
-      name={label}
-      type={type}
-      className={`${className} ${TEXTINPUT_STYLE}`}
-      onChange={onChange}
-    />
+    <>
+      <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
+        {label}
+      </Label>
+      <TextInput
+        id={id}
+        name={label}
+        type={type}
+        className={`${className} ${TEXTINPUT_STYLE}`}
+        onChange={onChange}
+      />
+    </>
   );
 }
 
