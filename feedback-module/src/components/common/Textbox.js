@@ -1,19 +1,22 @@
 import React from "react";
 import { Textarea, TextInput, Label } from "@trussworks/react-uswds";
 
+import {
+  LABEL_STYLE,
+  TEXTAREA_STYLE,
+  TEXTINPUT_STYLE,
+} from "../../assets/styling_classnames";
+
 function Textbox({ id, size, type, label, className, onChange }) {
   return size === "area" ? (
     <>
-      <Label
-        className={`${className} text-primary mobile-lg:font-sans-2xl font-sans-lg maxw-none margin-y-3`}
-        htmlFor={id}
-      >
+      <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
         {label}
       </Label>
       <Textarea
         id={id}
         name={label}
-        className="border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter"
+        className={TEXTAREA_STYLE}
         onChange={onChange}
       />
     </>
@@ -22,7 +25,7 @@ function Textbox({ id, size, type, label, className, onChange }) {
       id={id}
       name={label}
       type={type}
-      className={`${className} border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter`}
+      className={`${className} ${TEXTINPUT_STYLE}`}
       onChange={onChange}
     />
   );

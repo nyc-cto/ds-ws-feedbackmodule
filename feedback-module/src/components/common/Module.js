@@ -1,14 +1,39 @@
-import React, { useState } from "react";
-import { GridContainer, Grid } from "@trussworks/react-uswds";
+import React, { useEffect, useState } from "react";
+import { GridContainer } from "@trussworks/react-uswds";
+import axios from "axios";
 
+import { MODULE_CONTAINER_STYLE } from "../../assets/styling_classnames";
 import Header from "./Header";
 import Screen1 from "../pages/Screen1";
 import Screen2 from "../pages/Screen2";
+import Screen3 from "../pages/Screen3";
 
 function Module() {
+  const [feedback, setFeedback] = useState({});
+  const sendFeedback = () => {
+    axios
+      .post("/api/feedback", { feedback: JSON.stringify(feedback) })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    console.log(feedback);
+  }, [feedback]);
+
   const [screen, setScreen] = useState(
     <Screen1
-      setData={(data) => setScreen(<Screen2 feedbackType={data} />)}
+      setFeedback={setFeedback}
+      changePage={(data) =>
+        setScreen(
+          <Screen2
+            feedbackType={data}
+            setFeedback={setFeedback}
+            sendFeedback={sendFeedback}
+            changePage={() => setScreen(<Screen3 />)}
+          />
+        )
+      }
       page="[this page]"
     />
   );
@@ -17,10 +42,10 @@ function Module() {
     <GridContainer
       desktop={{ col: 2 }}
       mobile={{ col: "fill" }}
-      className="bg-primary-light radius-top-lg padding-x-0"
+      className={MODULE_CONTAINER_STYLE}
     >
       <Header />
-      <Grid className="padding-x-6 padding-y-5">{screen}</Grid>
+      {screen}
     </GridContainer>
   );
 }

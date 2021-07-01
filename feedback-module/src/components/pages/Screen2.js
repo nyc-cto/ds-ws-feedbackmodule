@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Form } from "@trussworks/react-uswds";
+import { Grid } from "@trussworks/react-uswds";
 
+import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
-function Screen2({ feedbackType }) {
+function Screen2({ feedbackType, changePage, setFeedback, sendFeedback }) {
   const [checkedFields, setCheckedFields] = useState(
     feedbackType.checkboxes.map((checkboxLabel) => {
       return { label: checkboxLabel, checked: false };
@@ -27,21 +29,28 @@ function Screen2({ feedbackType }) {
   };
 
   const onSubmit = (e) => {
-    let checked = checkedFields;
-    checked.map(
-      (checkedField) =>
-        checkedField.label === "Other" &&
-        checkedField.checked &&
-        (checkedField.info = otherField)
-    );
-    console.log(checked);
-    setCheckedFields(checked);
-    console.log(inputQuestions);
+    const checkedOptions = checkedFields.map(({ label, checked }) => {
+      return {
+        checked: checked,
+        label: label === "Other" && checked ? `Other: ${otherField}` : label,
+      };
+    });
+    setCheckedFields(checkedOptions);
+    setFeedback((feedback) => {
+      feedback.checkedOptions = checkedOptions
+        .filter(({ checked }) => checked)
+        .map(({ label }) => label);
+      feedback.inputResponses = inputQuestions;
+      console.log(feedback);
+      return feedback;
+    });
+    sendFeedback();
+    changePage();
     e.preventDefault();
   };
 
   return (
-    <>
+    <Grid className={SCREEN_CONTAINER_STYLE}>
       <h1>{feedbackType.title}</h1>
       <Form className="maxw-none overflow-hidden">
         <CheckboxList
@@ -56,11 +65,11 @@ function Screen2({ feedbackType }) {
         />
         <ModuleButton
           buttonText={feedbackType.button}
-          className="float-right margin-x-0"
+          isRight
           onClick={onSubmit}
         />
       </Form>
-    </>
+    </Grid>
   );
 }
 
