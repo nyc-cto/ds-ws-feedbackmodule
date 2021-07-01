@@ -1,4 +1,4 @@
-export const MISSING_INFO = {
+const MISSING_INFO = {
   title:
     "Sorry you couldn't find what you were looking for! Can you tell us a little more?",
   checkboxes: [
@@ -11,8 +11,8 @@ export const MISSING_INFO = {
     "Other",
   ],
   textInputs: [
-    "What were you looking for or trying to do?",
-    "Would you like to add anything else?",
+    { type: "text", text: "What were you looking for or trying to do?" },
+    { type: "text", text: "Would you like to add anything else?" },
   ],
   button: "Submit",
 };
@@ -45,3 +45,17 @@ export const SCREEN1_BUTTONS = [
   { text: "Something appears to be broken or inaccurate", data: BROKEN },
   { text: "I have other feedback on this page or website", data: OTHER },
 ];
+
+export const USER_RESEARCH_FORM = {
+  title:
+    "As a user research participant you can help us continue to improve services for New Yorkers",
+  summaryText:
+    "Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.",
+  furtherInfoText: "You can opt out at any time.",
+  form: [
+    { type: "text", text: "Your name" },
+    { type: "email", text: "Your email" },
+    { type: "tel", text: "Your phone number" },
+  ],
+  buttonText: "Submit",
+};
