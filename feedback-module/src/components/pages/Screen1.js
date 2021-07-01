@@ -6,11 +6,11 @@ import { SCREEN1_BUTTONS } from "../../assets/constants";
 import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 
 function Screen1({ changePage, page, setFeedback }) {
-  const buttons = SCREEN1_BUTTONS.map(({ text, data }, index) => {
+  const buttons = SCREEN1_BUTTONS.map(({ text, data, feedbackID }, index) => {
     const handleClick = (e) => {
       changePage(data);
       setFeedback((feedback) => {
-        feedback.feedbackType = text;
+        feedback.feedbackType = { label: text, feedbackID: feedbackID };
         return feedback;
       });
       e.preventDefault();

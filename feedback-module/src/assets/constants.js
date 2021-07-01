@@ -51,17 +51,17 @@ const OTHER = {
 export const SCREEN1_BUTTONS = [
   {
     text: "I couldn’t find what I was looking for",
-    feedbackID: "1",
+    feedbackID: "data1",
     data: MISSING_INFO,
   },
   {
     text: "Something appears to be broken or inaccurate",
-    feedbackID: "2",
+    feedbackID: "data2",
     data: BROKEN,
   },
   {
     text: "I have other feedback on this page or website",
-    feedbackID: "3",
+    feedbackID: "data3",
     data: OTHER,
   },
 ];
