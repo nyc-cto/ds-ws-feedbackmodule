@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Form } from "@trussworks/react-uswds";
+import { Form, Grid } from "@trussworks/react-uswds";
 
 import ModuleButton from "../common/Button";
 import TextboxList from "../TextboxList";
 import { USER_RESEARCH_FORM } from "../../assets/constants";
+import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 
 function Screen4() {
   const [inputQuestions, setInputQuestions] = useState(
@@ -18,7 +19,7 @@ function Screen4() {
   };
 
   return (
-    <>
+    <Grid className={SCREEN_CONTAINER_STYLE}>
       <h1>{USER_RESEARCH_FORM.title}</h1>
       <p className="margin-bottom-0">{USER_RESEARCH_FORM.summaryText}</p>
       <p className="margin-top-0">{USER_RESEARCH_FORM.furtherInfoText}</p>
@@ -35,7 +36,7 @@ function Screen4() {
           onClick={onSubmit}
         />
       </Form>
-    </>
+    </Grid>
   );
 }
 

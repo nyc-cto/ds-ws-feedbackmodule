@@ -1,12 +1,18 @@
 import React from "react";
+import { Grid } from "@trussworks/react-uswds";
 
 import ModuleButton from "../common/Button";
 import { SCREEN1_BUTTONS } from "../../assets/constants";
+import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 
-function Screen1({ setData, page }) {
+function Screen1({ changePage, page, setFeedback }) {
   const buttons = SCREEN1_BUTTONS.map(({ text, data }, index) => {
     const handleClick = (e) => {
-      setData(data);
+      changePage(data);
+      setFeedback((feedback) => {
+        feedback.feedbackType = text;
+        return feedback;
+      });
       e.preventDefault();
     };
 
@@ -14,10 +20,10 @@ function Screen1({ setData, page }) {
   });
 
   return (
-    <>
+    <Grid className={SCREEN_CONTAINER_STYLE}>
       <h1>Do you have any feedback on {page}?</h1>
       {buttons}
-    </>
+    </Grid>
   );
 }
 
