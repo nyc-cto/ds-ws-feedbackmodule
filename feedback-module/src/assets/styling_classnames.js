@@ -16,4 +16,4 @@ export const LABEL_STYLE =
   "text-primary mobile-lg:font-sans-2xl font-sans-lg maxw-none margin-y-3";
 export const TEXTAREA_STYLE =
   "border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter";
-export const TEXTINPUT_STYLE = TEXTAREA_STYLE;
+export const TEXTINPUT_STYLE = `height-auto ${TEXTAREA_STYLE}`;

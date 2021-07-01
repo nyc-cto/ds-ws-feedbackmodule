@@ -8,7 +8,9 @@ h1 {
   }
 }
 
-p {
+p,
+.usa-input,
+.usa-textarea {
   font-size: 3rem;
   color: $feedback__dark;
 }
