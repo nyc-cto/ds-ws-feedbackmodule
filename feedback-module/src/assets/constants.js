@@ -29,14 +29,22 @@ const BROKEN = {
     "Other",
   ],
   textInputs: [
-    "Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)",
+    {
+      type: "text",
+      text: "Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)",
+    },
   ],
   button: "Submit",
 };
 const OTHER = {
   title: "We appreciate your feedback.",
   checkboxes: [],
-  textInputs: ["Can you tell us a little more?"],
+  textInputs: [
+    {
+      type: "text",
+      text: "Can you tell us a little more?",
+    },
+  ],
   button: "Submit",
 };
 
