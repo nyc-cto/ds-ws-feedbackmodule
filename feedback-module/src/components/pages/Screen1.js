@@ -3,7 +3,10 @@ import { Grid } from "@trussworks/react-uswds";
 
 import ModuleButton from "../common/Button";
 import { SCREEN1_BUTTONS } from "../../assets/constants";
-import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
+import {
+  H1_STYLE,
+  SCREEN_CONTAINER_STYLE,
+} from "../../assets/styling_classnames";
 
 function Screen1({ changePage, page, setFeedback }) {
   const buttons = SCREEN1_BUTTONS.map(({ text, data }, index) => {
@@ -21,7 +24,7 @@ function Screen1({ changePage, page, setFeedback }) {
 
   return (
     <Grid className={SCREEN_CONTAINER_STYLE}>
-      <h1>Do you have any feedback on {page}?</h1>
+      <p className={H1_STYLE}>Do you have any feedback on {page}?</p>
       {buttons}
     </Grid>
   );
