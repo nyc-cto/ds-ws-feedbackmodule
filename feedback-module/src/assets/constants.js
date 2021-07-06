@@ -1,5 +1,6 @@
 export const SCREENS = {
   feedback_type: {
+    title: "Do you have any feedback on {{page}}?",
     buttons: [
       {
         type: "form",
@@ -48,13 +49,16 @@ export const SCREENS = {
       "There is a spelling mistake or typo",
       "A link or button does not work",
       "The information is out of date",
-      "I got different informatino from another source (311, printed mailer, elected official, etc.)",
+      "I got different information from another source (311, printed mailer, elected official, etc.)",
       "The layout looks broken",
       "I got an error",
       "Other",
     ],
     textInputs: [
-      "Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)",
+      {
+        type: "text",
+        text: "Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)",
+      },
     ],
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
@@ -62,7 +66,7 @@ export const SCREENS = {
   },
   other: {
     title: "We appreciate your feedback.",
-    textInputs: ["Can you tell us a little more?"],
+    textInputs: [{ type: "text", text: "Can you tell us a little more?" }],
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
     ],
@@ -70,16 +74,16 @@ export const SCREENS = {
   feedback_results: {
     titleInverse:
       "Thank you for your feedback! It has been submitted.<br /><br />Your feedback is anonymous and confidential, so you will not receive a reply.",
-    plain_text:
+    plainText:
       "The City of New York is always trying to improve its services. Are you interesed in being a user research participant? This is is entirely voluntary and you can opt out at any time. Signing up to be a user research participant will have no impact on your feedback today, or your eligibility to access or receive services in the future.",
     buttons: [
-      { type: "submit", text: "Yes, sign me up!", nextScreen: "user_research" },
+      { type: "next", text: "Yes, sign me up!", nextScreen: "user_research" },
     ],
   },
   user_research: {
     title:
       "As a user research participant you can help us continue to improve services for New Yorkers",
-    plain_text:
+    plainText:
       "Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.<br />You can opt out at any time.",
     textInputs: [
       { type: "text", text: "Your name" },

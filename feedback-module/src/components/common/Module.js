@@ -1,37 +1,86 @@
 import React, { useEffect, useState } from "react";
-import { GridContainer } from "@trussworks/react-uswds";
+import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 
-import { MODULE_CONTAINER_STYLE } from "../../assets/styling_classnames";
+import {
+  MODULE_CONTAINER_STYLE,
+  SCREEN_CONTAINER_STYLE,
+  H1_STYLE,
+  H1_WHITE_STYLE,
+} from "../../assets/styling_classnames";
+import { SCREENS } from "../../assets/constants";
 import Header from "./Header";
-import Screen1 from "../pages/Screen1";
-import Screen2 from "../pages/Screen2";
-import Screen3 from "../pages/Screen3";
-import Screen4 from "../pages/Screen4";
+import ModuleButton from "./Button";
+import CheckboxList from "../CheckboxList";
+import TextboxList from "../TextboxList";
 
 function Module() {
   const [feedback, setFeedback] = useState({});
+  const [screen, setScreen] = useState(SCREENS.feedback_type);
+  const [checkedFields, setCheckedFields] = useState(null);
+  const [otherField, setOtherField] = useState("");
+  const [inputQuestions, setInputQuestions] = useState();
 
   useEffect(() => {
+    console.log(screen);
+    if (screen.checkboxes) {
+      setCheckedFields(
+        screen.checkboxes.map((checkboxLabel) => {
+          return { label: checkboxLabel, checked: false };
+        })
+      );
+    }
+    if (screen.textInputs) {
+      setInputQuestions(
+        screen.textInputs.map((question) => {
+          return { question: question, answer: "" };
+        })
+      );
+    }
     console.log(feedback);
-  }, [feedback]);
+  }, [screen]);
 
-  const [screen, setScreen] = useState(
-    <Screen1
-      setFeedback={setFeedback}
-      changePage={(data) =>
-        setScreen(
-          <Screen2
-            feedbackType={data}
-            setFeedback={setFeedback}
-            changePage={() =>
-              setScreen(<Screen3 changePage={() => setScreen(<Screen4 />)} />)
-            }
-          />
-        )
-      }
-      page="[this page]"
-    />
-  );
+  const handleSubmit = () => {
+    const checkedOptions =
+      checkedFields &&
+      checkedFields.map(({ label, checked }) => {
+        return {
+          checked: checked,
+          label: label === "Other" && checked ? `Other: ${otherField}` : label,
+        };
+      });
+    setCheckedFields(checkedOptions);
+    setFeedback((feedback) => {
+      feedback.checkedOptions = checkedOptions
+        .filter(({ checked }) => checked)
+        .map(({ label }) => label);
+      feedback.inputResponses = inputQuestions;
+      console.log("setting feedback:", feedback);
+      return feedback;
+    });
+  };
+
+  const changeScreen = (text, nextScreen, feedbackID, type) => {
+    if (feedbackID) {
+      setFeedback((feedback) => {
+        feedback.feedbackType = {
+          label: text,
+          feedbackID: feedbackID,
+        };
+        return feedback;
+      });
+      console.log("feedbackID", feedbackID);
+    }
+    if (type === "submit") {
+      handleSubmit();
+    }
+    setScreen(SCREENS[nextScreen]);
+  };
+
+  const onCheck = (index) => {
+    let checked = checkedFields;
+    checked[index].checked = !checked[index].checked;
+    setCheckedFields(checked);
+  };
 
   return (
     <GridContainer
@@ -40,7 +89,56 @@ function Module() {
       className={MODULE_CONTAINER_STYLE}
     >
       <Header />
-      {screen}
+      {screen.titleInverse && (
+        <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>
+          <p
+            className={`${H1_WHITE_STYLE}`}
+            dangerouslySetInnerHTML={{ __html: screen.titleInverse }}
+          ></p>
+        </Grid>
+      )}
+      {screen.buttons && (
+        <Grid className={SCREEN_CONTAINER_STYLE}>
+          {screen.title && <p className={H1_STYLE}>{screen.title}</p>}
+          {screen.plainText && (
+            <p dangerouslySetInnerHTML={{ __html: screen.plainText }}></p>
+          )}
+          <Form
+            className="maxw-none overflow-hidden"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            {screen.checkboxes && (
+              <CheckboxList
+                feedbackCheckboxes={screen.checkboxes}
+                onCheck={(index) => onCheck(index)}
+                setOtherField={setOtherField}
+              />
+            )}
+            {screen.textInputs && (
+              <TextboxList
+                inputs={screen.textInputs}
+                setInputQuestions={setInputQuestions}
+                inputQuestions={inputQuestions}
+                size="area"
+              />
+            )}
+            {screen.buttons.map(
+              ({ type, text, nextScreen, feedbackID }, index) => {
+                return (
+                  <ModuleButton
+                    buttonText={text}
+                    isRight={type !== "form"}
+                    onClick={() =>
+                      changeScreen(text, nextScreen, feedbackID, type)
+                    }
+                    key={index}
+                  />
+                );
+              }
+            )}
+          </Form>
+        </Grid>
+      )}
     </GridContainer>
   );
 }
