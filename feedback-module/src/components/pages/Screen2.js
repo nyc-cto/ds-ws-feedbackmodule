@@ -46,7 +46,7 @@ function Screen2({ feedbackType, changePage, setFeedback, sendFeedback }) {
   };
 
   const handleSend = (e) => {
-    sendFeedback();
+    // sendFeedback();
     changePage();
     e.preventDefault();
   };
