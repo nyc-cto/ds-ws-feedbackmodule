@@ -30,7 +30,6 @@ function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
               <Grid col="6">
                 <Textbox
                   id="label"
-                  size="input"
                   type="text"
                   className="margin-left-1"
                   onChange={onChangeOther}

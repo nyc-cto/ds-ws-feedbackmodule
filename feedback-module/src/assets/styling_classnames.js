@@ -17,6 +17,8 @@ export const LABEL_STYLE =
 export const TEXTAREA_STYLE =
   "border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter";
 export const TEXTINPUT_STYLE = TEXTAREA_STYLE;
+export const FORM_STYLE =
+  "maxw-none overflow-hidden display-flex flex-column flex-align-start";
 
 export const H1_STYLE =
   "text-bold mobile-lg:font-sans-xl font-sans-lg margin-y-3";

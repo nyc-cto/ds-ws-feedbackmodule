@@ -6,6 +6,7 @@ import {
   SCREEN_CONTAINER_STYLE,
   H1_STYLE,
   H1_WHITE_STYLE,
+  FORM_STYLE,
 } from "../../assets/styling_classnames";
 import { SCREENS } from "../../assets/constants";
 import Header from "./Header";
@@ -21,7 +22,6 @@ function Module() {
   const [inputQuestions, setInputQuestions] = useState();
 
   useEffect(() => {
-    // console.log(screen);
     if (screen.checkboxes) {
       setCheckedFields(
         screen.checkboxes.map((checkboxLabel) => {
@@ -103,10 +103,7 @@ function Module() {
           {screen.plainText && (
             <p dangerouslySetInnerHTML={{ __html: screen.plainText }}></p>
           )}
-          <Form
-            className="maxw-none overflow-hidden display-flex flex-column flex-align-start"
-            onSubmit={(e) => e.preventDefault()}
-          >
+          <Form className={FORM_STYLE} onSubmit={(e) => e.preventDefault()}>
             {screen.checkboxes && (
               <CheckboxList
                 feedbackCheckboxes={screen.checkboxes}
@@ -119,7 +116,6 @@ function Module() {
                 inputs={screen.textInputs}
                 setInputQuestions={setInputQuestions}
                 inputQuestions={inputQuestions}
-                size="area"
               />
             )}
             {screen.buttons.map(

@@ -31,7 +31,6 @@ function Screen4() {
           inputs={USER_RESEARCH_FORM.form}
           setInputQuestions={setInputQuestions}
           inputQuestions={inputQuestions}
-          size="input"
           className="margin-bottom-5"
         />
         <ModuleButton

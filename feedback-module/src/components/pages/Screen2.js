@@ -64,7 +64,6 @@ function Screen2({ feedbackType, changePage, setFeedback }) {
           inputs={feedbackType.textInputs}
           setInputQuestions={setInputQuestions}
           inputQuestions={inputQuestions}
-          size="area"
         />
         <ModuleButton
           buttonText={feedbackType.button}

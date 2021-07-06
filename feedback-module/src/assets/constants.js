@@ -36,8 +36,8 @@ export const SCREENS = {
       "Other",
     ],
     textInputs: [
-      { type: "text", text: "What were you looking for or trying to do?" },
-      { type: "text", text: "Would you like to add anything else?" },
+      { type: "textarea", text: "What were you looking for or trying to do?" },
+      { type: "textarea", text: "Would you like to add anything else?" },
     ],
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
@@ -58,7 +58,7 @@ export const SCREENS = {
     ],
     textInputs: [
       {
-        type: "text",
+        type: "textarea",
         text: "Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)",
       },
     ],
@@ -69,7 +69,7 @@ export const SCREENS = {
   other: {
     formID: "feedback",
     title: "We appreciate your feedback.",
-    textInputs: [{ type: "text", text: "Can you tell us a little more?" }],
+    textInputs: [{ type: "textarea", text: "Can you tell us a little more?" }],
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
     ],
