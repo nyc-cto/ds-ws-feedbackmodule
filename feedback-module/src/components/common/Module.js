@@ -16,6 +16,7 @@ import TextboxList from "../TextboxList";
 
 function Module() {
   const [feedback, setFeedback] = useState({});
+  const [userInfo, setUserInfo] = useState({});
   const [screen, setScreen] = useState(SCREENS.feedback_type);
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
@@ -32,11 +33,12 @@ function Module() {
     if (screen.textInputs) {
       setInputQuestions(
         screen.textInputs.map((question) => {
-          return { question: question, answer: "" };
+          return { question: question.text, answer: "" };
         })
       );
     }
     console.log(feedback);
+    console.log(userInfo);
   }, [screen]);
 
   const handleSubmit = (formID) => {
@@ -48,6 +50,7 @@ function Module() {
           label: label === "Other" && checked ? `Other: ${otherField}` : label,
         };
       });
+
     setCheckedFields(checkedOptions);
     if (formID === "feedback") {
       setFeedback((feedback) => {
@@ -57,6 +60,8 @@ function Module() {
         feedback.inputResponses = inputQuestions;
         return feedback;
       });
+    } else if (formID === "research") {
+      setUserInfo(inputQuestions);
     }
   };
 
