@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "@trussworks/react-uswds/lib/index.css";
+import "./i18n";
 import "./styles/index.scss";
 import App from "./App";
 
@@ -8,7 +9,9 @@ const WidgetDivs = document.querySelectorAll("#feedback-widget");
 WidgetDivs.forEach((Div) => {
   ReactDOM.render(
     <React.StrictMode>
-      <App domElement={Div} />
+      <Suspense fallback="... is loading">
+        <App domElement={Div} />
+      </Suspense>
     </React.StrictMode>,
     Div
   );

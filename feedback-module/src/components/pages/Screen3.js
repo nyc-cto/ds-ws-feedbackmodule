@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "@trussworks/react-uswds";
 
 import ModuleButton from "../common/Button";
-import { SUBMISSION_TEXT } from "../../assets/constants";
+import { SUBMISSION_TEXT } from "../../assets/constants2";
 import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 
 function Screen3({ changePage }) {

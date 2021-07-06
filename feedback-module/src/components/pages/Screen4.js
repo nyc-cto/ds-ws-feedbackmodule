@@ -3,7 +3,7 @@ import { Form, Grid } from "@trussworks/react-uswds";
 
 import ModuleButton from "../common/Button";
 import TextboxList from "../TextboxList";
-import { USER_RESEARCH_FORM } from "../../assets/constants";
+import { USER_RESEARCH_FORM } from "../../assets/constants2";
 import { SCREEN_CONTAINER_STYLE } from "../../assets/styling_classnames";
 
 function Screen4() {
