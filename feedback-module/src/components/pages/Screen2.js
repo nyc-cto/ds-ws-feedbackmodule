@@ -7,7 +7,7 @@ import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
-function Screen2({ feedbackType, changePage, setFeedback, sendFeedback }) {
+function Screen2({ feedbackType, changePage, setFeedback }) {
   const [checkedFields, setCheckedFields] = useState(
     feedbackType.checkboxes.map((checkboxLabel) => {
       return { label: checkboxLabel, checked: false };
