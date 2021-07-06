@@ -1,13 +1,5 @@
 @import "variables.scss";
 
-h1 {
-  font-size: 2rem;
-  color: $feedback__dark;
-  @media (min-width: 480px) {
-    font-size: 3.5rem;
-  }
-}
-
 p {
   font-size: 3rem;
   color: $feedback__dark;
