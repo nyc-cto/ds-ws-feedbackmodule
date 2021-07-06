@@ -104,7 +104,7 @@ function Module() {
             <p dangerouslySetInnerHTML={{ __html: screen.plainText }}></p>
           )}
           <Form
-            className="maxw-none overflow-hidden"
+            className="maxw-none overflow-hidden display-flex flex-column flex-align-start"
             onSubmit={(e) => e.preventDefault()}
           >
             {screen.checkboxes && (
