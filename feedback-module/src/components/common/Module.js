@@ -21,7 +21,7 @@ function Module() {
   const [inputQuestions, setInputQuestions] = useState();
 
   useEffect(() => {
-    console.log(screen);
+    // console.log(screen);
     if (screen.checkboxes) {
       setCheckedFields(
         screen.checkboxes.map((checkboxLabel) => {
@@ -39,7 +39,7 @@ function Module() {
     console.log(feedback);
   }, [screen]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (formID) => {
     const checkedOptions =
       checkedFields &&
       checkedFields.map(({ label, checked }) => {
@@ -49,14 +49,15 @@ function Module() {
         };
       });
     setCheckedFields(checkedOptions);
-    setFeedback((feedback) => {
-      feedback.checkedOptions = checkedOptions
-        .filter(({ checked }) => checked)
-        .map(({ label }) => label);
-      feedback.inputResponses = inputQuestions;
-      console.log("setting feedback:", feedback);
-      return feedback;
-    });
+    if (formID === "feedback") {
+      setFeedback((feedback) => {
+        feedback.checkedOptions = checkedOptions
+          .filter(({ checked }) => checked)
+          .map(({ label }) => label);
+        feedback.inputResponses = inputQuestions;
+        return feedback;
+      });
+    }
   };
 
   const changeScreen = (text, nextScreen, feedbackID, type) => {
@@ -68,10 +69,9 @@ function Module() {
         };
         return feedback;
       });
-      console.log("feedbackID", feedbackID);
     }
-    if (type === "submit") {
-      handleSubmit();
+    if (type === "submit" && screen.formID) {
+      handleSubmit(screen.formID);
     }
     setScreen(SCREENS[nextScreen]);
   };
