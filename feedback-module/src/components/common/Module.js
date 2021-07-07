@@ -20,11 +20,11 @@ function LightContainer({ children, formID }) {
        and the form is empty */
     return !(React.Children.toArray(children).length > 1 || formID);
   };
-  const isNull = isChildNull(children);
-  if (isNull) {
-    return children;
-  }
-  return <Grid className={SCREEN_CONTAINER_STYLE}>{children}</Grid>;
+  return isChildNull(children) ? (
+    children
+  ) : (
+    <Grid className={SCREEN_CONTAINER_STYLE}>{children}</Grid>
+  );
 }
 
 function Module() {
