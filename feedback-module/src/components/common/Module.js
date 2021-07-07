@@ -14,6 +14,17 @@ import ModuleButton from "./Button";
 import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 
+const LightContainer = ({ children }) => {
+  const isChildNull = (children) => {
+    return React.Children.toArray(children).length <= 1;
+  };
+  const isNull = isChildNull(children);
+  if (isNull) {
+    return children;
+  }
+  return <Grid className={SCREEN_CONTAINER_STYLE}>{children}</Grid>;
+};
+
 function Module() {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
   const [userInfo, setUserInfo] = useState({});
@@ -21,18 +32,9 @@ function Module() {
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
-  const [hasChildren, setHasChildren] = useState(true);
+  // const [hasChildren, setHasChildren] = useState(true);
 
   useEffect(() => {
-    /* Sets hasChildren whether or not the light-container has any childNodes
-    in order to determine whether or not to display the lighter container */
-    if (document.getElementById("light-container")) {
-      console.log(document.getElementById("light-container").childNodes.length);
-      setHasChildren(
-        document.getElementById("light-container").childNodes.length > 1
-      );
-    }
-
     // Updates the checkboxes based on the new screen
     screen.checkboxes &&
       setCheckedFields(
@@ -62,9 +64,10 @@ function Module() {
       setFeedbackForAPI((feedback) => {
         /* filters checkedOptions for the fields that are checked,
            then returns only the label property */
-        feedback.checkedOptions = checkedFields
-          .filter(({ checked }) => checked)
-          .map(({ label }) => label);
+        checkedFields &&
+          (feedback.checkedOptions = checkedFields
+            .filter(({ checked }) => checked)
+            .map(({ label }) => label));
         feedback.inputResponses = inputQuestions;
         return feedback;
       });
@@ -127,47 +130,43 @@ function Module() {
           ></p>
         </Grid>
       )}
-      {hasChildren && (
-        <Grid className={SCREEN_CONTAINER_STYLE} id="light-container">
+      {
+        <LightContainer>
           {screen.title && <p className={H1_STYLE}>{screen.title}</p>}
           {screen.plainText && (
             <p dangerouslySetInnerHTML={{ __html: screen.plainText }}></p>
           )}
-          {hasChildren && (
-            <Form className={FORM_STYLE} onSubmit={(e) => e.preventDefault()}>
-              {screen.checkboxes && (
-                <CheckboxList
-                  feedbackCheckboxes={screen.checkboxes}
-                  onCheck={(index) => onCheck(index)}
-                  setOtherField={setOtherField}
-                />
+          <Form className={FORM_STYLE} onSubmit={(e) => e.preventDefault()}>
+            {screen.checkboxes && (
+              <CheckboxList
+                feedbackCheckboxes={screen.checkboxes}
+                onCheck={(index) => onCheck(index)}
+                setOtherField={setOtherField}
+              />
+            )}
+            {screen.textInputs && (
+              <TextboxList
+                inputs={screen.textInputs}
+                setInputQuestions={setInputQuestions}
+                inputQuestions={inputQuestions}
+              />
+            )}
+            {screen.buttons &&
+              screen.buttons.map(
+                ({ type, text, nextScreen, feedbackID }, index) => {
+                  return (
+                    <ModuleButton
+                      buttonText={text}
+                      isRight={type === "submit"}
+                      onClick={() => changeScreen(text, nextScreen, feedbackID)}
+                      key={index}
+                    />
+                  );
+                }
               )}
-              {screen.textInputs && (
-                <TextboxList
-                  inputs={screen.textInputs}
-                  setInputQuestions={setInputQuestions}
-                  inputQuestions={inputQuestions}
-                />
-              )}
-              {screen.buttons &&
-                screen.buttons.map(
-                  ({ type, text, nextScreen, feedbackID }, index) => {
-                    return (
-                      <ModuleButton
-                        buttonText={text}
-                        isRight={type === "submit"}
-                        onClick={() =>
-                          changeScreen(text, nextScreen, feedbackID)
-                        }
-                        key={index}
-                      />
-                    );
-                  }
-                )}
-            </Form>
-          )}
-        </Grid>
-      )}
+          </Form>
+        </LightContainer>
+      }
     </GridContainer>
   );
 }
