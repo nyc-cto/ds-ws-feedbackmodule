@@ -3,20 +3,21 @@ export const BUTTON_STYLE =
 export const BUTTON_RIGHT_STYLE = "float-right margin-x-0 clear-both";
 
 export const CHECKBOX_STYLE =
-  "text-primary bg-transparent mobile-lg:font-sans-lg font-sans-md  margin-y-2";
+  "text-primary bg-transparent mobile-lg:font-sans-lg font-sans-md  mobile-lg:margin-y-2 margin-y-1";
 
 export const HEADER_STYLE =
   "radius-top-lg bg-primary height-4 mobile-lg:height-6 display-flex padding-105 mobile-lg:padding-x-2 mobile-lg:padding-y-105 font-sans-check";
 
 export const MODULE_CONTAINER_STYLE =
   "bg-primary-light radius-top-lg padding-x-0";
-export const SCREEN_CONTAINER_STYLE = "padding-x-6 padding-y-5 overflow-hidden";
+export const SCREEN_CONTAINER_STYLE =
+  "padding-x-5 padding-y-4 overflow-hidden mobile-lg:padding-5";
 
 export const LABEL_STYLE =
   "text-primary text-bold mobile-lg:font-sans-xl font-sans-lg maxw-none margin-y-3";
 export const TEXTAREA_STYLE =
   "border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter";
-export const TEXTINPUT_STYLE = TEXTAREA_STYLE;
+export const TEXTINPUT_STYLE = `height-auto ${TEXTAREA_STYLE}`;
 
 export const H1_STYLE =
   "text-bold mobile-lg:font-sans-xl font-sans-lg margin-y-3";

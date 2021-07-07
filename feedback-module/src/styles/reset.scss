@@ -1,6 +1,16 @@
 @import "variables.scss";
 
-p {
-  font-size: 2rem;
+p,
+.usa-input,
+.usa-textarea,
+.usa-checkbox__label {
   color: $feedback__dark;
+  font-size: 1.2rem;
+  @media screen and (min-width: 480px) {
+    font-size: 1.75rem;
+  }
+}
+
+.usa-checkbox__label {
+  font-weight: 700;
 }
