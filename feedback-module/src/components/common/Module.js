@@ -14,16 +14,18 @@ import ModuleButton from "./Button";
 import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 
-const LightContainer = ({ children }) => {
+function LightContainer({ children, formID }) {
   const isChildNull = (children) => {
-    return React.Children.toArray(children).length <= 1;
+    /* returns true if there are no elements outside of the form element
+       and the form is empty */
+    return !(React.Children.toArray(children).length > 1 || formID);
   };
   const isNull = isChildNull(children);
   if (isNull) {
     return children;
   }
   return <Grid className={SCREEN_CONTAINER_STYLE}>{children}</Grid>;
-};
+}
 
 function Module() {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
@@ -131,7 +133,7 @@ function Module() {
         </Grid>
       )}
       {
-        <LightContainer>
+        <LightContainer formID={screen.formID}>
           {screen.title && <p className={H1_STYLE}>{screen.title}</p>}
           {screen.plainText && (
             <p dangerouslySetInnerHTML={{ __html: screen.plainText }}></p>

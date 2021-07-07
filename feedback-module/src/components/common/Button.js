@@ -14,6 +14,7 @@ function ModuleButton({ buttonText, onClick, isRight, className }) {
       className={`${className} ${
         isRight && BUTTON_RIGHT_STYLE
       } ${BUTTON_STYLE}`}
+      type="button"
     >
       {buttonText}
     </Button>
