@@ -65,7 +65,7 @@ function Module() {
     }
   };
 
-  const changeScreen = (text, nextScreen, feedbackID, type) => {
+  const changeScreen = (text, nextScreen, feedbackID) => {
     if (feedbackID) {
       setFeedback((feedback) => {
         feedback.feedbackType = {
@@ -75,9 +75,7 @@ function Module() {
         return feedback;
       });
     }
-    if (type === "submit" && screen.formID) {
-      handleSubmit(screen.formID);
-    }
+    screen.formID && handleSubmit(screen.formID);
     setScreen(SCREENS[nextScreen]);
   };
 
@@ -129,9 +127,7 @@ function Module() {
                   <ModuleButton
                     buttonText={text}
                     isRight={type !== "form"}
-                    onClick={() =>
-                      changeScreen(text, nextScreen, feedbackID, type)
-                    }
+                    onClick={() => changeScreen(text, nextScreen, feedbackID)}
                     key={index}
                   />
                 );

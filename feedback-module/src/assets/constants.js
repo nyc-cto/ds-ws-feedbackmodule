@@ -80,7 +80,7 @@ export const SCREENS = {
     plainText:
       "The City of New York is always trying to improve its services. Are you interesed in being a user research participant? This is is entirely voluntary and you can opt out at any time. Signing up to be a user research participant will have no impact on your feedback today, or your eligibility to access or receive services in the future.",
     buttons: [
-      { type: "next", text: "Yes, sign me up!", nextScreen: "user_research" },
+      { type: "submit", text: "Yes, sign me up!", nextScreen: "user_research" },
     ],
   },
   user_research: {
