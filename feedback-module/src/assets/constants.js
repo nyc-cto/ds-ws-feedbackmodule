@@ -3,7 +3,7 @@ export const SCREENS = {
     buttons: [
       {
         type: "form",
-        text: "missingBtn",
+        text: "missing.initialBtn",
         nextScreen: "missing_info",
         feedbackID: "data1",
       },

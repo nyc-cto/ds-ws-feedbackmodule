@@ -1,0 +1,61 @@
+{
+  "submitBtn": "[es] Submit",
+
+  "missingBtn": "[es] I couldn't find what I was looking for",
+  "brokenBtn": "[es] Something appears to be broken or inaccurate",
+  "otherBtn": "[es] I havce other feedback on this page or website",
+
+  "missingTitle": "[es] Sorry you couldn't find what you were looking for! Can you tell us a little more?",
+  "missingCheckboxes": [
+    "[es] I wasn't sure where to look",
+    "[es] I was confused by the information I found",
+    "[es] I don't understand how to use this website",
+    "[es] I hit a dead end",
+    "[es] The content was not available in my preferred language",
+    "[es] There were errors with the translation available",
+    "[es] Other"
+  ],
+  "missingTextInputs": [
+    {
+      "type": "text",
+      "text": "[es] What were you looking for or trying to do?"
+    },
+    { "type": "text", "text": "[es] Would you like to add anything else?" }
+  ],
+
+  "brokenTitle": "[es] Sorry to hear that something is broken or inaccurate! Can you tell us a little more?",
+  "brokenCheckboxes": [
+    "[es] There is a spelling mistake or typo",
+    "[es] A link or button does not work",
+    "[es] The information is out of date",
+    "[es] I got different informatino from another source (311, printed mailer, elected official, etc.)",
+    "[es] The layout looks broken",
+    "[es] I got an error",
+    "[es] Other"
+  ],
+  "brokenTextInputs": [
+    {
+      "type": "text",
+      "text": "[es] Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)"
+    }
+  ],
+
+  "otherTitle": "[esp] We appreciate your feedback.",
+  "otherTextInputs": [
+    { "type": "text", "text": "[esp] Can you tell us a little more?" }
+  ],
+
+  "feedbackResultsTitle": "[esp] Thank you for your feedback! It has been submitted.<br /><br />Your feedback is anonymous and confidential, so you will not receive a reply.",
+  "feedbackResultsPlain_text": "[esp] The City of New York is always trying to improve its services. Are you interesed in being a user research participant? This is is entirely voluntary and you can opt out at any time. Signing up to be a user research participant will have no impact on your feedback today, or your eligibility to access or receive services in the future.",
+  "feedbackResultsButton": "[esp] Yes, sign me up!",
+
+  "userResearchTitle": "[esp] As a user research participant you can help us continue to improve services for New Yorkers",
+  "userResearchPlain_text": "[esp] Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.<br />You can opt out at any time.",
+  "userResearchTextInputs": [
+    { "type": "text", "text": "[esp] Your name" },
+    { "type": "email", "text": "[esp] Your email" },
+    { "type": "tel", "text": "[esp] Your phone number" }
+  ],
+
+  "userFeedbackResultsTitle": "[esp] Thank you for signing up to be a user research participant!  We’ll be in touch if there are any opportunities to test products and services."
+}

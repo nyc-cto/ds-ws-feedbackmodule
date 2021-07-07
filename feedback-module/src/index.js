@@ -6,11 +6,15 @@ import "./styles/index.scss";
 import App from "./App";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
+
 WidgetDivs.forEach((Div) => {
+  let currentLang = "en";
+  Div.attributes.lang && (currentLang = Div.attributes.lang.value);
+
   ReactDOM.render(
     <React.StrictMode>
       <Suspense fallback="... is loading">
-        <App domElement={Div} />
+        <App domElement={Div} lang={currentLang} />
       </Suspense>
     </React.StrictMode>,
     Div
