@@ -10,10 +10,6 @@ $theme-hero-image: "~uswds/src/img/hero.png";
 $border-width-manual-values: (
   "6px": 6px,
 );
-$padding-manual-values: (
-  "10px": 10px,
-  "9px": 9px,
-);
 $box-shadow-manual-values: (
   "btn": 0px 4px 4px 0px #00000040,
 );
@@ -52,10 +48,9 @@ $theme-color-primary-lighter: $feedback__lightest;
 // Typography
 $theme-font-type-sans: "public-sans";
 $theme-process-list-heading-color: "primary";
-$theme-h1-font-size: "3xl";
 
 // Buttons
-$theme-button-border-radius: 5px;
+$theme-button-border-radius: "md";
 
 //Checkbox
 $theme-checkbox-border-radius: 0;
