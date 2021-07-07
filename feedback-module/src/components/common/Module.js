@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GridContainer } from "@trussworks/react-uswds";
+import axios from "axios";
 
 import { MODULE_CONTAINER_STYLE } from "../../assets/styling_classnames";
 import Header from "./Header";
@@ -10,6 +11,13 @@ import Screen4 from "../pages/Screen4";
 
 function Module() {
   const [feedback, setFeedback] = useState({});
+
+  const sendFeedback = () => {
+    axios
+      .post("/api/feedback", { feedback: JSON.stringify(feedback) })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     console.log(feedback);
@@ -23,6 +31,7 @@ function Module() {
           <Screen2
             feedbackType={data}
             setFeedback={setFeedback}
+            sendFeedback={sendFeedback}
             changePage={() =>
               setScreen(<Screen3 changePage={() => setScreen(<Screen4 />)} />)
             }

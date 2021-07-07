@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "feedback": {
+      "type": "object",
+      "properties": {
+        "feedbackType": {
+          "type": "string"
+        },
+        "checkedOptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inputResponses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "response": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

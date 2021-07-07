@@ -10,7 +10,7 @@ import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
 import ModuleButton from "../common/Button";
 
-function Screen2({ feedbackType, changePage, setFeedback }) {
+function Screen2({ feedbackType, changePage, setFeedback, sendFeedback }) {
   const [checkedFields, setCheckedFields] = useState(
     feedbackType.checkboxes.map((checkboxLabel) => {
       return { label: checkboxLabel, checked: false };
@@ -31,7 +31,7 @@ function Screen2({ feedbackType, changePage, setFeedback }) {
     setCheckedFields(checked);
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = () => {
     const checkedOptions = checkedFields.map(({ label, checked }) => {
       return {
         checked: checked,
@@ -44,9 +44,12 @@ function Screen2({ feedbackType, changePage, setFeedback }) {
         .filter(({ checked }) => checked)
         .map(({ label }) => label);
       feedback.inputResponses = inputQuestions;
-      console.log(feedback);
       return feedback;
     });
+  };
+
+  const handleSend = (e) => {
+    sendFeedback();
     changePage();
     e.preventDefault();
   };
@@ -54,7 +57,7 @@ function Screen2({ feedbackType, changePage, setFeedback }) {
   return (
     <Grid className={SCREEN_CONTAINER_STYLE}>
       <p className={H1_STYLE}>{feedbackType.title}</p>
-      <Form className="maxw-none overflow-hidden">
+      <Form className="maxw-none overflow-hidden" onSubmit={handleSend}>
         <CheckboxList
           feedbackCheckboxes={feedbackType.checkboxes}
           onCheck={(label) => onCheck(label)}
@@ -69,7 +72,7 @@ function Screen2({ feedbackType, changePage, setFeedback }) {
         <ModuleButton
           buttonText={feedbackType.button}
           isRight
-          onClick={onSubmit}
+          onClick={handleSubmit}
         />
       </Form>
     </Grid>

@@ -49,9 +49,21 @@ const OTHER = {
 };
 
 export const SCREEN1_BUTTONS = [
-  { text: "I couldn’t find what I was looking for", data: MISSING_INFO },
-  { text: "Something appears to be broken or inaccurate", data: BROKEN },
-  { text: "I have other feedback on this page or website", data: OTHER },
+  {
+    text: "I couldn’t find what I was looking for",
+    feedbackID: "data1",
+    data: MISSING_INFO,
+  },
+  {
+    text: "Something appears to be broken or inaccurate",
+    feedbackID: "data2",
+    data: BROKEN,
+  },
+  {
+    text: "I have other feedback on this page or website",
+    feedbackID: "data3",
+    data: OTHER,
+  },
 ];
 
 export const SUBMISSION_TEXT = {
