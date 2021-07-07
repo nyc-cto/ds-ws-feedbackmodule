@@ -9,61 +9,61 @@ export const SCREENS = {
       },
       {
         type: "form",
-        text: "brokenBtn",
+        text: "broken.initialBtn",
         nextScreen: "broken",
         feedbackID: "data2",
       },
       {
         type: "form",
-        text: "otherBtn",
+        text: "other.initialBtn",
         nextScreen: "other",
         feedbackID: "data3",
       },
     ],
   },
   missing_info: {
-    title: "missingTitle",
-    checkboxes: "missingCheckboxes",
-    textInputs: "missingTextInputs",
+    title: "missing.title",
+    checkboxes: "missing.checkboxes",
+    textInputs: "missing.textInputs",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
     ],
   },
   broken: {
-    title: "brokenTitle",
-    checkboxes: "brokenCheckboxes",
-    textInputs: "brokenTextInputs",
+    title: "broken.title",
+    checkboxes: "broken.checkboxes",
+    textInputs: "broken.textInputs",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
     ],
   },
   other: {
-    title: "otherTitle",
-    textInputs: "otherTextInputs",
+    title: "other.title",
+    textInputs: "other.textInputs",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
     ],
   },
   feedback_results: {
-    titleInverse: "feedbackResultsTitle",
-    plain_text: "feedbackResultsPlain_text",
+    titleInverse: "feedbackResults.itle",
+    plain_text: "feedbackResults.plain_text",
     buttons: [
       {
         type: "submit",
-        text: "feedbackResultsButton",
+        text: "feedbackResults.button",
         nextScreen: "user_research",
       },
     ],
   },
   user_research: {
-    title: "userResearchTitle",
-    plain_text: "userResearchPlain_text",
-    textInputs: "userResearchTextInputs",
+    title: "userResearch.title",
+    plain_text: "userResearch.plain_text",
+    textInputs: "userResearch.textInputs",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "user_feedback_result" },
     ],
   },
   user_feedback_result: {
-    titleInverse: "userFeedbackResultsTitle",
+    titleInverse: "userFeedbackResults.title",
   },
 };
