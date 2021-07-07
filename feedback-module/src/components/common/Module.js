@@ -35,7 +35,6 @@ function Module() {
 
   return (
     <GridContainer
-      containerSize="tablet-lg"
       desktop={{ col: 2 }}
       mobile={{ col: "fill" }}
       className={MODULE_CONTAINER_STYLE}

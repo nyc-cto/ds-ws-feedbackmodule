@@ -6,6 +6,7 @@ import { SUBMISSION_TEXT } from "../../assets/constants";
 import {
   SCREEN_CONTAINER_STYLE,
   H1_WHITE_STYLE,
+  PLAINTEXT_STYLE,
 } from "../../assets/styling_classnames";
 
 function Screen3({ changePage }) {
@@ -20,7 +21,7 @@ function Screen3({ changePage }) {
         </p>
       </Grid>
       <Grid className={SCREEN_CONTAINER_STYLE}>
-        <p>{SUBMISSION_TEXT.user_research}</p>
+        <p className={PLAINTEXT_STYLE}>{SUBMISSION_TEXT.user_research}</p>
         <ModuleButton
           buttonText={SUBMISSION_TEXT.button_text}
           isRight

@@ -4,7 +4,7 @@ import { Grid } from "@trussworks/react-uswds";
 
 import {
   SCREEN_CONTAINER_STYLE,
-  H1_STYLE,
+  H1_DARK_STYLE,
 } from "../../assets/styling_classnames";
 import CheckboxList from "../CheckboxList";
 import TextboxList from "../TextboxList";
@@ -53,7 +53,7 @@ function Screen2({ feedbackType, changePage, setFeedback }) {
 
   return (
     <Grid className={SCREEN_CONTAINER_STYLE}>
-      <p className={H1_STYLE}>{feedbackType.title}</p>
+      <p className={H1_DARK_STYLE}>{feedbackType.title}</p>
       <Form className="maxw-none overflow-hidden">
         <CheckboxList
           feedbackCheckboxes={feedbackType.checkboxes}
