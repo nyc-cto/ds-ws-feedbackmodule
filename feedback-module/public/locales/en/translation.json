@@ -48,7 +48,7 @@
   },
 
   "other": {
-    "initialBtn": "I havce other feedback on this page or website",
+    "initialBtn": "I have other feedback on this page or website",
     "title": "We appreciate your feedback.",
     "textInputs": [
       { "type": "textarea", "text": "Can you tell us a little more?" }

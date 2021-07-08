@@ -86,7 +86,7 @@ function Module({ pageTitle }) {
         feedback.inputResponses = inputQuestions;
         return feedback;
       });
-      // sendFeedback();
+      sendFeedback();
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
     }
