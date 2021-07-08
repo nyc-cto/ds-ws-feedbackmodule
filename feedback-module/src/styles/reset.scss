@@ -12,9 +12,18 @@
 
 .usa-checkbox__label {
   font-weight: 700;
+  @media screen and (max-width: 479px) {
+    padding-left: 0rem;
+    text-indent: 0rem;
+    display: grid;
+    grid-auto-flow: column;
+  }
 }
 
-// .usa-input,
-// .usa-textarea {
-//   padding: 1.25rem 1.375rem;
-// }
+.usa-checkbox__label::before {
+  @media screen and (max-width: 479px) {
+    height: 2rem;
+    width: 2rem;
+    margin-right: 1.375rem;
+  }
+}

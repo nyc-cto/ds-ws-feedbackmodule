@@ -24,7 +24,9 @@ function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
             <ModuleCheckbox
               id={`checkbox-${index}`}
               label={label}
+              // label={<div className="margin-left-2">{label}</div>}
               onCheck={() => onCheckOther(index, label)}
+              className="width-full"
             />
             {otherChecked && label === "Other" && (
               <Textbox

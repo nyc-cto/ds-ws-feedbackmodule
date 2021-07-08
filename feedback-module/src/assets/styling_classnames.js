@@ -3,7 +3,7 @@ export const BUTTON_STYLE =
 export const BUTTON_RIGHT_STYLE = "flex-align-self-end width-auto";
 
 export const CHECKBOX_STYLE =
-  "text-bold text-primary bg-transparent mobile-lg:font-sans-lg font-sans-md  mobile-lg:margin-y-2 margin-y-1";
+  "text-bold text-primary bg-transparent mobile-lg:font-sans-lg font-sans-md mobile-lg:margin-y-2 margin-y-1";
 
 export const HEADER_STYLE =
   "radius-top-lg bg-primary height-4 mobile-lg:height-6 display-flex padding-1 mobile-lg:padding-x-2 mobile-lg:padding-y-105 font-sans-check";
@@ -11,7 +11,7 @@ export const HEADER_STYLE =
 export const MODULE_CONTAINER_STYLE =
   "mobile-lg:width-desktop-sm bg-primary-light radius-top-lg padding-x-0";
 export const SCREEN_CONTAINER_STYLE =
-  "padding-x-5 padding-y-4 overflow-hidden mobile-lg:padding-x-7 mobile-lg:padding-y-6";
+  "padding-x-5 padding-y-205 overflow-hidden mobile-lg:padding-x-7 mobile-lg:padding-y-6";
 
 export const LABEL_STYLE =
   "text-primary text-bold mobile-lg:font-sans-lg2 font-sans-md2 maxw-none margin-y-205";
