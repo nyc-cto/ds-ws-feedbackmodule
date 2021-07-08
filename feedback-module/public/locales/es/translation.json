@@ -16,10 +16,13 @@
     ],
     "textInputs": [
       {
-        "type": "text",
+        "type": "textarea",
         "text": "[es] What were you looking for or trying to do?"
       },
-      { "type": "text", "text": "[es] Would you like to add anything else?" }
+      {
+        "type": "textarea",
+        "text": "[es] Would you like to add anything else?"
+      }
     ]
   },
 
@@ -37,7 +40,7 @@
     ],
     "textInputs": [
       {
-        "type": "text",
+        "type": "textarea",
         "text": "[es] Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)"
       }
     ]
@@ -47,7 +50,7 @@
     "initialBtn": "[es] I havce other feedback on this page or website",
     "title": "[es] We appreciate your feedback.",
     "textInputs": [
-      { "type": "text", "text": "[es] Can you tell us a little more?" }
+      { "type": "textarea", "text": "[es] Can you tell us a little more?" }
     ]
   },
 
