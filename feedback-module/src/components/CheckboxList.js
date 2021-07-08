@@ -20,22 +20,20 @@ function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
     <Grid>
       {feedbackCheckboxes.map((label, index) => {
         return (
-          <Grid row key={index} className="flex-align-baseline">
+          <Grid row key={index} className="flex-align-start flex-no-wrap">
             <ModuleCheckbox
               id={index}
               label={label}
               onCheck={() => onCheckOther(index, label)}
             />
             {otherChecked && label === "Other" && (
-              <Grid col="6">
-                <Textbox
-                  id="label"
-                  size="input"
-                  type="text"
-                  className="margin-left-1"
-                  onChange={onChangeOther}
-                />
-              </Grid>
+              <Textbox
+                id="label"
+                size="input"
+                type="text"
+                className="margin-left-1"
+                onChange={onChangeOther}
+              />
             )}
           </Grid>
         );

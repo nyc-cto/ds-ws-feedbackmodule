@@ -1,5 +1,5 @@
 export const BUTTON_STYLE =
-  "text-left border-transparent hover:bg-primary-light hover:text-primary hover:border-primary padding-105 mobile-lg:padding-x-205 mobile-lg:padding-y-105 mobile-lg:font-sans-md2 border-05 hover:border-bottom-05 shadow-btn margin-y-1 mobile-lg:margin-y-2";
+  "text-left border-transparent hover:bg-primary-light hover:text-primary hover:border-primary padding-105 mobile-lg:padding-x-205 mobile-lg:padding-y-105 mobile-lg:font-sans-md2 border-2px hover:border-bottom-2px shadow-btn margin-y-1 mobile-lg:margin-y-2";
 export const BUTTON_RIGHT_STYLE =
   "float-right margin-x-0 clear-both width-auto";
 
