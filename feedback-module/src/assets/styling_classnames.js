@@ -12,7 +12,7 @@ export const HEADER_STYLE =
 export const MODULE_CONTAINER_STYLE =
   "mobile-lg:width-desktop-sm bg-primary-light radius-top-lg padding-x-0";
 export const SCREEN_CONTAINER_STYLE =
-  "padding-x-5 padding-y-4 overflow-hidden mobile-lg:padding-5";
+  "padding-x-5 padding-y-4 overflow-hidden mobile-lg:padding-x-7";
 
 export const LABEL_STYLE =
   "text-primary text-bold mobile-lg:font-sans-lg2 font-sans-md2 maxw-none margin-y-3";
