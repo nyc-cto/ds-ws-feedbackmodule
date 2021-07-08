@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 import {
   MODULE_CONTAINER_STYLE,
@@ -39,6 +40,13 @@ function Module({ pageTitle }) {
 
   const { t } = useTranslation();
   // const en = i18next.getFixedT('en');
+
+  const sendFeedback = () => {
+    axios
+      .post("/api/feedback", { feedback: JSON.stringify(feedbackForAPI) })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
@@ -84,13 +92,13 @@ function Module({ pageTitle }) {
         feedback.inputResponses = inputQuestions;
         return feedback;
       });
+      sendFeedback();
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
     }
   };
 
   // Updates the label to "Other: <user-input other content>" if other field is checked
-  // TODO: possible delete this method
   const updateOtherField = (checkedFields) => {
     checkedFields.forEach((field) => {
       field.label === "Other" &&
