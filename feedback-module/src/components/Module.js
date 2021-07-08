@@ -45,18 +45,22 @@ function Module({ pageTitle }) {
     t(screen.checkboxes) &&
       setCheckedFields(
         t(screen.checkboxes).map((checkboxLabel) => {
-          // TODO: add property key: `${screen.checkboxes}[${index}]`
           return { label: checkboxLabel, checked: false };
         })
+        // en(screen.checkboxes).map(label => {
+        //   return { label: label, checked: false };
+        // })
       );
 
     // Updates the text inputs based on the new screen
     t(screen.textInputs) &&
       setInputQuestions(
         t(screen.textInputs).map((question) => {
-          // TODO: add property key: `${screen.textInputs}[${index}]`
           return { question: question.text, answer: "" };
         })
+        // en(screen.textInputs).map(label => {
+        //   return { question: question.text, answer: "" };
+        // })
       );
 
     // TODO: after merging with dev, this will send data to backend instead of just console.log
@@ -76,10 +80,6 @@ function Module({ pageTitle }) {
           (feedback.checkedOptions = checkedFields
             .filter(({ checked }) => checked)
             .map(({ label }) => label));
-        // Possible solution:
-        // .map(({ key }) => {
-        //   return en(key) === "Other" ? `Other: ${otherField}` : en(key);
-        // }));
 
         feedback.inputResponses = inputQuestions;
         return feedback;
@@ -93,8 +93,6 @@ function Module({ pageTitle }) {
   // TODO: possible delete this method
   const updateOtherField = (checkedFields) => {
     checkedFields.forEach((field) => {
-      //TODO: this should not check if the label is other because this could get confusing with translations
-      // possible solution: en(field.key) === "Other"
       field.label === "Other" &&
         field.checked &&
         (field.label = `Other: ${otherField}`);
