@@ -20,7 +20,7 @@ function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
     <Grid>
       {feedbackCheckboxes.map((label, index) => {
         return (
-          <Grid row key={index} className="flex-align-start flex-no-wrap">
+          <Grid row key={index} className="flex-no-wrap">
             <ModuleCheckbox
               id={index}
               label={label}
