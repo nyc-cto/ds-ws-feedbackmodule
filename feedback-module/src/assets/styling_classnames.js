@@ -11,7 +11,7 @@ export const HEADER_STYLE =
 export const MODULE_CONTAINER_STYLE =
   "mobile-lg:width-desktop-sm bg-primary-light radius-top-lg padding-x-0";
 export const SCREEN_CONTAINER_STYLE =
-  "padding-x-5 padding-y-4 overflow-hidden mobile-lg:padding-x-7 mobile-lg:padding-y-2";
+  "padding-x-5 padding-y-4 overflow-hidden mobile-lg:padding-x-7 mobile-lg:padding-y-6";
 
 export const LABEL_STYLE =
   "text-primary text-bold mobile-lg:font-sans-lg2 font-sans-md2 maxw-none margin-y-205";
@@ -21,9 +21,10 @@ export const TEXTINPUT_STYLE = `height-auto ${TEXTAREA_STYLE}`;
 export const FORM_STYLE =
   "maxw-none overflow-hidden display-flex flex-column flex-align-stretch";
 
-export const H1_STYLE = "text-bold mobile-lg:font-sans-lg2 font-sans-md2";
+export const H1_STYLE =
+  "text-bold mobile-lg:font-sans-lg2 font-sans-md2 margin-top-0";
 export const H1_DARK_STYLE = `${H1_STYLE} text-primary`;
 export const H1_WHITE_STYLE = `${H1_STYLE} text-white`;
 
 export const PLAINTEXT_STYLE =
-  "mobile-lg:font-sans-lg font-sans-md line-height-sans-5 text-primary margin-top-4";
+  "mobile-lg:font-sans-lg font-sans-md line-height-sans-5 text-primary margin-top-0";
