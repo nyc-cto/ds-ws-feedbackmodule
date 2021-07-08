@@ -7,8 +7,8 @@ import {
   TEXTINPUT_STYLE,
 } from "../../assets/styling_classnames";
 
-function Textbox({ id, size, type, label, className, onChange }) {
-  return size === "area" ? (
+function Textbox({ id, type, label, className, onChange }) {
+  return type === "textarea" ? (
     <>
       <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
         {label}
