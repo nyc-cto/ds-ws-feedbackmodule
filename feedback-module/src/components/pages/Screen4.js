@@ -7,6 +7,7 @@ import { USER_RESEARCH_FORM } from "../../assets/constants";
 import {
   H1_DARK_STYLE,
   SCREEN_CONTAINER_STYLE,
+  PLAINTEXT_STYLE,
 } from "../../assets/styling_classnames";
 
 function Screen4() {
@@ -24,8 +25,12 @@ function Screen4() {
   return (
     <Grid className={SCREEN_CONTAINER_STYLE}>
       <p className={H1_DARK_STYLE}>{USER_RESEARCH_FORM.title}</p>
-      <p className="margin-bottom-0">{USER_RESEARCH_FORM.summaryText}</p>
-      <p className="margin-top-0">{USER_RESEARCH_FORM.furtherInfoText}</p>
+      <p className={`margin-bottom-0 ${PLAINTEXT_STYLE}`}>
+        {USER_RESEARCH_FORM.summaryText}
+      </p>
+      <p className={`margin-top-0 ${PLAINTEXT_STYLE}`}>
+        {USER_RESEARCH_FORM.furtherInfoText}
+      </p>
       <Form className="maxw-none overflow-hidden">
         <TextboxList
           inputs={USER_RESEARCH_FORM.form}
