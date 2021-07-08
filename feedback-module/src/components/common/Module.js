@@ -112,9 +112,10 @@ function Module() {
   };
 
   const onCheck = (index) => {
-    let checked = checkedFields;
-    checked[index].checked = !checked[index].checked;
-    setCheckedFields(checked);
+    setCheckedFields((checked) => {
+      checked[index].checked = !checked[index].checked;
+      return checked;
+    });
   };
 
   return (
