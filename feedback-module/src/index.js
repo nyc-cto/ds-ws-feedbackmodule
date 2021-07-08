@@ -9,12 +9,14 @@ const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
 WidgetDivs.forEach((Div) => {
   let currentLang = "en";
+  let pageTitle = "";
   Div.attributes.lang && (currentLang = Div.attributes.lang.value);
+  Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
 
   ReactDOM.render(
     <React.StrictMode>
       <Suspense fallback="... is loading">
-        <App domElement={Div} lang={currentLang} />
+        <App domElement={Div} lang={currentLang} pageTitle={pageTitle} />
       </Suspense>
     </React.StrictMode>,
     Div

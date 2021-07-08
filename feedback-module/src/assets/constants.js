@@ -1,5 +1,6 @@
 export const SCREENS = {
   feedback_type: {
+    title: "feedbackType.title",
     buttons: [
       {
         type: "form",
@@ -25,6 +26,7 @@ export const SCREENS = {
     title: "missing.title",
     checkboxes: "missing.checkboxes",
     textInputs: "missing.textInputs",
+    formID: "feedback",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
     ],
@@ -33,6 +35,7 @@ export const SCREENS = {
     title: "broken.title",
     checkboxes: "broken.checkboxes",
     textInputs: "broken.textInputs",
+    formID: "feedback",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
     ],
@@ -40,13 +43,14 @@ export const SCREENS = {
   other: {
     title: "other.title",
     textInputs: "other.textInputs",
+    formID: "feedback",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "feedback_results" },
     ],
   },
   feedback_results: {
-    titleInverse: "feedbackResults.itle",
-    plain_text: "feedbackResults.plain_text",
+    titleInverse: "feedbackResults.title",
+    plainText: "feedbackResults.plainText",
     buttons: [
       {
         type: "submit",
@@ -57,8 +61,9 @@ export const SCREENS = {
   },
   user_research: {
     title: "userResearch.title",
-    plain_text: "userResearch.plain_text",
+    plainText: "userResearch.plainText",
     textInputs: "userResearch.textInputs",
+    formID: "research",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "user_feedback_result" },
     ],

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-import Module from "./components/common/Module";
+import Module from "./components/Module";
 
-function App({ lang }) {
+function App({ lang, pageTitle }) {
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ function App({ lang }) {
 
   return (
     <div className="App">
-      <Module />
+      <Module pageTitle={pageTitle} />
     </div>
   );
 }
