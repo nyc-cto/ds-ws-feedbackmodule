@@ -22,15 +22,14 @@ function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
         return (
           <Grid row key={index} className="flex-align-baseline">
             <ModuleCheckbox
-              id={index}
+              id={`checkbox-${index}`}
               label={label}
               onCheck={() => onCheckOther(index, label)}
             />
             {otherChecked && label === "Other" && (
               <Grid col="6">
                 <Textbox
-                  id="label"
-                  size="input"
+                  id="other-field"
                   type="text"
                   className="margin-left-1"
                   onChange={onChangeOther}

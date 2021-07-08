@@ -1,14 +1,23 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "@trussworks/react-uswds/lib/index.css";
+import "./i18n";
 import "./styles/index.scss";
 import App from "./App";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
+
 WidgetDivs.forEach((Div) => {
+  let currentLang = "en";
+  let pageTitle = "";
+  Div.attributes.lang && (currentLang = Div.attributes.lang.value);
+  Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
+
   ReactDOM.render(
     <React.StrictMode>
-      <App domElement={Div} />
+      <Suspense fallback="... is loading">
+        <App domElement={Div} lang={currentLang} pageTitle={pageTitle} />
+      </Suspense>
     </React.StrictMode>,
     Div
   );
