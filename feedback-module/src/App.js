@@ -7,7 +7,8 @@ function App({ lang, pageTitle }) {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    i18n.changeLanguage(lang);
+    // i18n.changeLanguage(lang);
+    i18n.changeLanguage("es");
   }, [lang]);
 
   return (

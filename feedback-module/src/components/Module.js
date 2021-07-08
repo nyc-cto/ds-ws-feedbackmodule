@@ -38,8 +38,8 @@ function Module({ pageTitle }) {
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
 
-  const { t } = useTranslation();
-  // const en = i18next.getFixedT('en');
+  const { t, i18n } = useTranslation();
+  const en = i18n.getFixedT("en");
 
   const sendFeedback = () => {
     axios
@@ -52,23 +52,17 @@ function Module({ pageTitle }) {
     // Updates the checkboxes based on the new screen
     t(screen.checkboxes) &&
       setCheckedFields(
-        t(screen.checkboxes).map((checkboxLabel) => {
-          return { label: checkboxLabel, checked: false };
+        en(screen.checkboxes).map((label) => {
+          return { label: label, checked: false };
         })
-        // en(screen.checkboxes).map(label => {
-        //   return { label: label, checked: false };
-        // })
       );
 
     // Updates the text inputs based on the new screen
     t(screen.textInputs) &&
       setInputQuestions(
-        t(screen.textInputs).map((question) => {
+        en(screen.textInputs).map((question) => {
           return { question: question.text, answer: "" };
         })
-        // en(screen.textInputs).map(label => {
-        //   return { question: question.text, answer: "" };
-        // })
       );
 
     // TODO: after merging with dev, this will send data to backend instead of just console.log
@@ -92,7 +86,7 @@ function Module({ pageTitle }) {
         feedback.inputResponses = inputQuestions;
         return feedback;
       });
-      sendFeedback();
+      // sendFeedback();
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
     }
@@ -119,7 +113,7 @@ function Module({ pageTitle }) {
     if (feedbackID) {
       setFeedbackForAPI((feedback) => {
         feedback.feedbackType = {
-          label: text,
+          label: en(text),
           feedbackID: feedbackID,
         };
         return feedback;
@@ -132,10 +126,9 @@ function Module({ pageTitle }) {
   };
 
   const onCheck = (index) => {
-    setCheckedFields((checked) => {
-      checked[index].checked = !checked[index].checked;
-      return checked;
-    });
+    let checked = checkedFields;
+    checked[index].checked = !checked[index].checked;
+    setCheckedFields(checked);
   };
 
   return (
@@ -167,6 +160,7 @@ function Module({ pageTitle }) {
                 feedbackCheckboxes={t(screen.checkboxes)}
                 onCheck={(index) => onCheck(index)}
                 setOtherField={setOtherField}
+                checkboxKey={screen.checkboxes}
               />
             )}
             {screen.textInputs && (
