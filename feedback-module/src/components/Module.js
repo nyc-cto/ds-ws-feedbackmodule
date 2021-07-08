@@ -36,15 +36,16 @@ function Module({ pageTitle }) {
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
-  // const [hasChildren, setHasChildren] = useState(true);
 
   const { t } = useTranslation();
+  // const en = i18next.getFixedT('en');
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
     t(screen.checkboxes) &&
       setCheckedFields(
         t(screen.checkboxes).map((checkboxLabel) => {
+          // TODO: add property key: `${screen.checkboxes}[${index}]`
           return { label: checkboxLabel, checked: false };
         })
       );
@@ -53,6 +54,7 @@ function Module({ pageTitle }) {
     t(screen.textInputs) &&
       setInputQuestions(
         t(screen.textInputs).map((question) => {
+          // TODO: add property key: `${screen.textInputs}[${index}]`
           return { question: question.text, answer: "" };
         })
       );
@@ -74,6 +76,11 @@ function Module({ pageTitle }) {
           (feedback.checkedOptions = checkedFields
             .filter(({ checked }) => checked)
             .map(({ label }) => label));
+        // Possible solution:
+        // .map(({ key }) => {
+        //   return en(key) === "Other" ? `Other: ${otherField}` : en(key);
+        // }));
+
         feedback.inputResponses = inputQuestions;
         return feedback;
       });
@@ -83,9 +90,11 @@ function Module({ pageTitle }) {
   };
 
   // Updates the label to "Other: <user-input other content>" if other field is checked
+  // TODO: possible delete this method
   const updateOtherField = (checkedFields) => {
     checkedFields.forEach((field) => {
       //TODO: this should not check if the label is other because this could get confusing with translations
+      // possible solution: en(field.key) === "Other"
       field.label === "Other" &&
         field.checked &&
         (field.label = `Other: ${otherField}`);
