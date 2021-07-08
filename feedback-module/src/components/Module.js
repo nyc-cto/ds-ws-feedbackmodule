@@ -6,9 +6,10 @@ import { useTranslation } from "react-i18next";
 import {
   MODULE_CONTAINER_STYLE,
   SCREEN_CONTAINER_STYLE,
-  H1_STYLE,
+  H1_DARK_STYLE,
   H1_WHITE_STYLE,
   FORM_STYLE,
+  PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
 import { SCREENS } from "../assets/constants";
 import Header from "./common/Header";
@@ -36,7 +37,6 @@ function Module({ pageTitle }) {
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
-  // const [hasChildren, setHasChildren] = useState(true);
 
   const { t } = useTranslation();
 
@@ -104,7 +104,7 @@ function Module({ pageTitle }) {
     if (feedbackID) {
       setFeedbackForAPI((feedback) => {
         feedback.feedbackType = {
-          label: text,
+          label: t(text),
           feedbackID: feedbackID,
         };
         return feedback;
@@ -117,10 +117,9 @@ function Module({ pageTitle }) {
   };
 
   const onCheck = (index) => {
-    setCheckedFields((checked) => {
-      checked[index].checked = !checked[index].checked;
-      return checked;
-    });
+    let checked = checkedFields;
+    checked[index].checked = !checked[index].checked;
+    setCheckedFields(checked);
   };
 
   return (
@@ -141,10 +140,15 @@ function Module({ pageTitle }) {
       {
         <LightContainer formID={screen.formID}>
           {screen.title && (
-            <p className={H1_STYLE}>{t(screen.title, { page: pageTitle })}</p>
+            <p className={H1_DARK_STYLE}>
+              {t(screen.title, { page: pageTitle })}
+            </p>
           )}
           {screen.plainText && (
-            <p dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}></p>
+            <p
+              className={PLAINTEXT_STYLE}
+              dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
+            ></p>
           )}
           <Form className={FORM_STYLE} onSubmit={(e) => e.preventDefault()}>
             {screen.checkboxes && (

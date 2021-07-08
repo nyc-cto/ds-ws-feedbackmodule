@@ -4,7 +4,6 @@ import { Grid } from "@trussworks/react-uswds";
 import Textbox from "./common/Textbox";
 
 function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
-  console.log(inputs);
   const onChange = ({ target }) => {
     let answers = inputQuestions;
     answers[target.id].answer = target.value;
@@ -15,7 +14,13 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
     <Grid>
       {inputs.map((input, index) => {
         return (
-          <Grid col="fill" key={index} className={className}>
+          <Grid
+            col="fill"
+            key={index}
+            className={`${className} padding-y-${
+              input.type === "textarea" ? 4 : 3
+            }`}
+          >
             <Textbox
               id={index}
               type={input.type}
