@@ -42,9 +42,10 @@ function Module({ pageTitle }) {
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
-    t(screen.checkboxes) &&
+    screen.checkboxes &&
+      t(screen.checkboxes.labels) &&
       setCheckedFields(
-        t(screen.checkboxes).map((checkboxLabel) => {
+        t(screen.checkboxes.labels).map((checkboxLabel) => {
           return { label: checkboxLabel, checked: false };
         })
       );
@@ -142,7 +143,7 @@ function Module({ pageTitle }) {
           {screen.title && (
             <p className={H1_DARK_STYLE}>
               {`${t(screen.title, { page: pageTitle })}${
-                screen.checkboxes ? "*" : ""
+                screen.checkboxes && screen.checkboxes.required ? "*" : ""
               }`}
             </p>
           )}
@@ -153,14 +154,14 @@ function Module({ pageTitle }) {
             ></p>
           )}
           <Form className={FORM_STYLE} onSubmit={(e) => e.preventDefault()}>
-            {screen.checkboxes && (
+            {screen.checkboxes && t(screen.checkboxes.labels) && (
               <CheckboxList
-                feedbackCheckboxes={t(screen.checkboxes)}
+                feedbackCheckboxes={t(screen.checkboxes.labels)}
                 onCheck={(index) => onCheck(index)}
                 setOtherField={setOtherField}
               />
             )}
-            {screen.textInputs && (
+            {screen.textInputs && t(screen.textInputs) && (
               <TextboxList
                 inputs={t(screen.textInputs)}
                 setInputQuestions={setInputQuestions}

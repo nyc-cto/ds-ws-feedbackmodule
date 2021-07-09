@@ -34,6 +34,7 @@ function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
                 type="text"
                 className="margin-left-1"
                 onChange={onChangeOther}
+                label=""
               />
             )}
           </Grid>
