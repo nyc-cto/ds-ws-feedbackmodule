@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 import {
   MODULE_CONTAINER_STYLE,
@@ -59,9 +60,15 @@ function Module({ pageTitle }) {
       );
 
     // TODO: after merging with dev, this will send data to backend instead of just console.log
-    console.log(feedbackForAPI);
     console.log(userInfo);
   }, [screen]);
+
+  const sendFeedback = () => {
+    axios
+      .post("/api/feedback", { feedback: JSON.stringify(feedbackForAPI) })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   // updateFormData determines which form data state to update, based on the formID
   const updateFormData = (formID) => {
@@ -78,6 +85,7 @@ function Module({ pageTitle }) {
         feedback.inputResponses = inputQuestions;
         return feedback;
       });
+      sendFeedback();
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
     }
