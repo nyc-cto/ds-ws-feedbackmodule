@@ -51,7 +51,7 @@
   },
 
   "other": {
-    "initialBtn": "[es] I havce other feedback on this page or website",
+    "initialBtn": "[es] I have other feedback on this page or website",
     "title": "[es] We appreciate your feedback.",
     "textInputs": [
       { "type": "textarea", "text": "[es] Can you tell us a little more?" }

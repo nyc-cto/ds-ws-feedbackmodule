@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 import {
   MODULE_CONTAINER_STYLE,
@@ -36,23 +37,30 @@ function Module({ pageTitle }) {
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
-  // const [hasChildren, setHasChildren] = useState(true);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const en = i18n.getFixedT("en");
+
+  const sendFeedback = () => {
+    axios
+      .post("/api/feedback", { feedback: JSON.stringify(feedbackForAPI) })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
     t(screen.checkboxes) &&
       setCheckedFields(
-        t(screen.checkboxes).map((checkboxLabel) => {
-          return { label: checkboxLabel, checked: false };
+        en(screen.checkboxes).map((label) => {
+          return { label: label, checked: false };
         })
       );
 
     // Updates the text inputs based on the new screen
     t(screen.textInputs) &&
       setInputQuestions(
-        t(screen.textInputs).map((question) => {
+        en(screen.textInputs).map((question) => {
           return { question: question.text, answer: "" };
         })
       );
@@ -74,9 +82,11 @@ function Module({ pageTitle }) {
           (feedback.checkedOptions = checkedFields
             .filter(({ checked }) => checked)
             .map(({ label }) => label));
+
         feedback.inputResponses = inputQuestions;
         return feedback;
       });
+      sendFeedback();
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
     }
@@ -85,7 +95,6 @@ function Module({ pageTitle }) {
   // Updates the label to "Other: <user-input other content>" if other field is checked
   const updateOtherField = (checkedFields) => {
     checkedFields.forEach((field) => {
-      //TODO: this should not check if the label is other because this could get confusing with translations
       field.label === "Other" &&
         field.checked &&
         (field.label = `Other: ${otherField}`);
@@ -104,7 +113,7 @@ function Module({ pageTitle }) {
     if (feedbackID) {
       setFeedbackForAPI((feedback) => {
         feedback.feedbackType = {
-          label: text,
+          label: en(text),
           feedbackID: feedbackID,
         };
         return feedback;
@@ -117,10 +126,9 @@ function Module({ pageTitle }) {
   };
 
   const onCheck = (index) => {
-    setCheckedFields((checked) => {
-      checked[index].checked = !checked[index].checked;
-      return checked;
-    });
+    let checked = checkedFields;
+    checked[index].checked = !checked[index].checked;
+    setCheckedFields(checked);
   };
 
   return (
@@ -152,6 +160,7 @@ function Module({ pageTitle }) {
                 feedbackCheckboxes={t(screen.checkboxes)}
                 onCheck={(index) => onCheck(index)}
                 setOtherField={setOtherField}
+                checkboxKey={screen.checkboxes}
               />
             )}
             {screen.textInputs && (

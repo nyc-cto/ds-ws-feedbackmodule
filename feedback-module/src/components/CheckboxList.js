@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import { Grid } from "@trussworks/react-uswds";
+import { useTranslation } from "react-i18next";
 
 import ModuleCheckbox from "./common/Checkbox";
 import Textbox from "./common/Textbox";
 
-function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
+function CheckboxList({
+  feedbackCheckboxes,
+  onCheck,
+  setOtherField,
+  checkboxKey,
+}) {
+  const { i18n } = useTranslation();
+  const en = i18n.getFixedT("en");
+
   const [otherChecked, setOtherChecked] = useState(false);
 
-  const onCheckOther = (index, label) => {
-    label === "Other" && setOtherChecked(!otherChecked);
+  const onCheckOther = (index) => {
+    en(checkboxKey)[index] === "Other" && setOtherChecked(!otherChecked);
     onCheck(index);
   };
 
@@ -24,9 +33,9 @@ function CheckboxList({ feedbackCheckboxes, onCheck, setOtherField }) {
             <ModuleCheckbox
               id={`checkbox-${index}`}
               label={label}
-              onCheck={() => onCheckOther(index, label)}
+              onCheck={() => onCheckOther(index)}
             />
-            {otherChecked && label === "Other" && (
+            {otherChecked && en(checkboxKey)[index] === "Other" && (
               <Grid col="6">
                 <Textbox
                   id="other-field"

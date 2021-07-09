@@ -8,6 +8,7 @@ function App({ lang, pageTitle }) {
 
   useEffect(() => {
     i18n.changeLanguage(lang);
+    // i18n.changeLanguage("es");
   }, [lang]);
 
   return (
