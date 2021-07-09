@@ -17,7 +17,7 @@ export const LABEL_STYLE =
   "text-primary text-bold mobile-lg:font-sans-lg2 font-sans-md2 maxw-none margin-y-205";
 export const TEXTAREA_STYLE =
   "text-primary border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter";
-export const TEXTINPUT_STYLE = `height-auto ${TEXTAREA_STYLE}`;
+export const TEXTINPUT_STYLE = `height-auto flex-1 ${TEXTAREA_STYLE}`;
 export const FORM_STYLE =
   "maxw-none overflow-hidden display-flex flex-column flex-align-stretch";
 
