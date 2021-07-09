@@ -60,7 +60,7 @@ function Module({ pageTitle }) {
       );
 
     // TODO: after merging with dev, this will send data to backend instead of just console.log
-    console.log(userInfo);
+    screen.formID && screen.formID === "research" && console.log(userInfo);
   }, [screen]);
 
   const sendFeedback = () => {
@@ -75,16 +75,15 @@ function Module({ pageTitle }) {
     if (formID === "feedback") {
       /* if formID is feedback, sets checkedOptions and inputResponses 
          in the feedbackForAPI object */
-      setFeedbackForAPI((feedback) => {
-        /* filters checkedOptions for the fields that are checked,
+      let feedback = feedbackForAPI;
+      /* filters checkedOptions for the fields that are checked,
            then returns only the label property */
-        checkedFields &&
-          (feedback.checkedOptions = checkedFields
-            .filter(({ checked }) => checked)
-            .map(({ label }) => label));
-        feedback.inputResponses = inputQuestions;
-        return feedback;
-      });
+      checkedFields &&
+        (feedback.checkedOptions = checkedFields
+          .filter(({ checked }) => checked)
+          .map(({ label }) => label));
+      feedback.inputResponses = inputQuestions;
+      setFeedbackForAPI(feedback);
       sendFeedback();
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
@@ -99,13 +98,16 @@ function Module({ pageTitle }) {
         field.checked &&
         (field.label = `Other: ${otherField}`);
     });
-
     return checkedFields;
   };
 
   const handleSubmit = () => {
     setCheckedFields(checkedFields && updateOtherField(checkedFields));
     updateFormData(screen.formID);
+  };
+
+  const handleSend = (e) => {
+    e.preventDefault();
   };
 
   const changeScreen = (text, nextScreen, feedbackID) => {
@@ -161,7 +163,7 @@ function Module({ pageTitle }) {
               dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
             ></p>
           )}
-          <Form className={FORM_STYLE} onSubmit={(e) => e.preventDefault()}>
+          <Form className={FORM_STYLE} onSubmit={handleSend}>
             {screen.checkboxes && t(screen.checkboxes.labels) && (
               <CheckboxList
                 feedbackCheckboxes={t(screen.checkboxes.labels)}
