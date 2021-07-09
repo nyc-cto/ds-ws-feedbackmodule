@@ -60,7 +60,7 @@ function Module({ pageTitle }) {
       );
 
     // TODO: after merging with dev, this will send data to backend instead of just console.log
-    screen.formID && screen.formID === "research" && console.log(userInfo);
+    screen.formID && console.log(userInfo);
   }, [screen]);
 
   const sendFeedback = () => {
