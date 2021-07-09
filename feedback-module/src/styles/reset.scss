@@ -4,9 +4,9 @@
 .usa-textarea,
 .usa-checkbox__label {
   color: $feedback__dark;
-  font-size: 1.125rem;
-  @media screen and (min-width: 480px) {
-    font-size: 1.375rem;
+  font-size: 1.375rem;
+  @media screen and (max-width: 479px) {
+    font-size: 1.125rem;
   }
 }
 

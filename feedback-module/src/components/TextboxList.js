@@ -26,6 +26,7 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
               type={input.type}
               label={input.text}
               onChange={onChange}
+              required={input.required}
             />
           </Grid>
         );

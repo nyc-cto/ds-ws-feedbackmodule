@@ -27,4 +27,4 @@ export const H1_DARK_STYLE = `${H1_STYLE} text-primary`;
 export const H1_WHITE_STYLE = `${H1_STYLE} text-white`;
 
 export const PLAINTEXT_STYLE =
-  "mobile-lg:font-sans-lg font-sans-md line-height-sans-5 text-primary margin-top-0";
+  "mobile-lg:font-sans-lg font-sans-md line-height-sans-3 mobile-lg:line-height-sans-5 text-primary margin-top-0";

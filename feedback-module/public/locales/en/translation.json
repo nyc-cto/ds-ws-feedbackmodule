@@ -34,7 +34,7 @@
       "There is a spelling mistake or typo",
       "A link or button does not work",
       "The information is out of date",
-      "I got different informatino from another source (311, printed mailer, elected official, etc.)",
+      "I got different information from another source (311, printed mailer, elected official, etc.)",
       "The layout looks broken",
       "I got an error",
       "Other"
@@ -42,7 +42,7 @@
     "textInputs": [
       {
         "type": "textarea",
-        "text": "Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)"
+        "text": "Can you give us more details on what you were trying to do, or the exact problem you encountered?"
       }
     ]
   },
@@ -51,7 +51,11 @@
     "initialBtn": "I have other feedback on this page or website",
     "title": "We appreciate your feedback.",
     "textInputs": [
-      { "type": "textarea", "text": "Can you tell us a little more?" }
+      {
+        "type": "textarea",
+        "text": "Can you tell us a little more?",
+        "required": true
+      }
     ]
   },
 
@@ -65,8 +69,8 @@
     "title": "As a user research participant you can help us continue to improve services for New Yorkers",
     "plainText": "Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.<br />You can opt out at any time.",
     "textInputs": [
-      { "type": "text", "text": "Your name" },
-      { "type": "email", "text": "Your email" },
+      { "type": "text", "text": "Your name", "required": true },
+      { "type": "email", "text": "Your email", "required": true },
       { "type": "tel", "text": "Your phone number" }
     ]
   },

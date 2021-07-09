@@ -141,7 +141,9 @@ function Module({ pageTitle }) {
         <LightContainer formID={screen.formID}>
           {screen.title && (
             <p className={H1_DARK_STYLE}>
-              {t(screen.title, { page: pageTitle })}
+              {`${t(screen.title, { page: pageTitle })}${
+                screen.checkboxes ? "*" : ""
+              }`}
             </p>
           )}
           {screen.plainText && (

@@ -7,31 +7,28 @@ import {
   TEXTINPUT_STYLE,
 } from "../../assets/styling_classnames";
 
-function Textbox({ id, type, label, className, onChange }) {
-  return type === "textarea" ? (
+function Textbox({ id, type, label, className, onChange, required }) {
+  return (
     <>
       <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
-        {label}
+        {`${label}${required ? "*" : ""}`}
       </Label>
-      <Textarea
-        id={id}
-        name={label}
-        className={TEXTAREA_STYLE}
-        onChange={onChange}
-      />
-    </>
-  ) : (
-    <>
-      <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
-        {label}
-      </Label>
-      <TextInput
-        id={id}
-        name={label}
-        type={type}
-        className={`${className} ${TEXTINPUT_STYLE}`}
-        onChange={onChange}
-      />
+      {type === "textarea" ? (
+        <Textarea
+          id={id}
+          name={label}
+          className={TEXTAREA_STYLE}
+          onChange={onChange}
+        />
+      ) : (
+        <TextInput
+          id={id}
+          name={label}
+          type={type}
+          className={`${className} ${TEXTINPUT_STYLE}`}
+          onChange={onChange}
+        />
+      )}
     </>
   );
 }
