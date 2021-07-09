@@ -39,29 +39,8 @@ function Module({ pageTitle }) {
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
 
-  const { t } = useTranslation();
-
-  useEffect(() => {
-    // Updates the checkboxes based on the new screen
-    screen.checkboxes &&
-      t(screen.checkboxes.labels) &&
-      setCheckedFields(
-        t(screen.checkboxes.labels).map((checkboxLabel) => {
-          return { label: checkboxLabel, checked: false };
-        })
-      );
-
-    // Updates the text inputs based on the new screen
-    t(screen.textInputs) &&
-      setInputQuestions(
-        t(screen.textInputs).map((question) => {
-          return { question: question.text, answer: "" };
-        })
-      );
-
-    // TODO: after merging with dev, this will send data to backend instead of just console.log
-    screen.formID && console.log(userInfo);
-  }, [screen]);
+  const { t, i18n } = useTranslation();
+  const en = i18n.getFixedT("en");
 
   const sendFeedback = () => {
     axios
@@ -69,6 +48,28 @@ function Module({ pageTitle }) {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    // Updates the checkboxes based on the new screen
+    screen.checkboxes &&
+      t(screen.checkboxes.labels) &&
+      setCheckedFields(
+        en(screen.checkboxes.labels).map((label) => {
+          return { label: label, checked: false };
+        })
+      );
+
+    // Updates the text inputs based on the new screen
+    t(screen.textInputs) &&
+      setInputQuestions(
+        en(screen.textInputs).map((question) => {
+          return { question: question.text, answer: "" };
+        })
+      );
+
+    // TODO: after merging with dev, this will send data to backend instead of just console.log
+    screen.formID && console.log(userInfo);
+  }, [screen]);
 
   // updateFormData determines which form data state to update, based on the formID
   const updateFormData = (formID) => {
@@ -93,7 +94,6 @@ function Module({ pageTitle }) {
   // Updates the label to "Other: <user-input other content>" if other field is checked
   const updateOtherField = (checkedFields) => {
     checkedFields.forEach((field) => {
-      //TODO: this should not check if the label is other because this could get confusing with translations
       field.label === "Other" &&
         field.checked &&
         (field.label = `Other: ${otherField}`);
@@ -115,7 +115,7 @@ function Module({ pageTitle }) {
     if (feedbackID) {
       setFeedbackForAPI((feedback) => {
         feedback.feedbackType = {
-          label: t(text),
+          label: en(text),
           feedbackID: feedbackID,
         };
         return feedback;
@@ -169,6 +169,7 @@ function Module({ pageTitle }) {
                 feedbackCheckboxes={t(screen.checkboxes.labels)}
                 onCheck={(index) => onCheck(index)}
                 setOtherField={setOtherField}
+                checkboxKey={screen.checkboxes.labels}
               />
             )}
             {screen.textInputs && t(screen.textInputs) && (
