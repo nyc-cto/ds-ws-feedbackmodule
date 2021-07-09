@@ -29,21 +29,21 @@ function CheckboxList({
     <Grid>
       {feedbackCheckboxes.map((label, index) => {
         return (
-          <Grid row key={index} className="flex-align-baseline">
+          <Grid row key={index} className="flex-no-wrap">
             <ModuleCheckbox
               id={`checkbox-${index}`}
               label={label}
               onCheck={() => onCheckOther(index)}
+              className="width-full"
             />
             {otherChecked && en(checkboxKey)[index] === "Other" && (
-              <Grid col="6">
-                <Textbox
-                  id="other-field"
-                  type="text"
-                  className="margin-left-1"
-                  onChange={onChangeOther}
-                />
-              </Grid>
+              <Textbox
+                id="other-field"
+                type="text"
+                className="margin-left-1"
+                onChange={onChangeOther}
+                label=""
+              />
             )}
           </Grid>
         );

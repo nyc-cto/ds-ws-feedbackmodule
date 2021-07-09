@@ -7,9 +7,10 @@ import axios from "axios";
 import {
   MODULE_CONTAINER_STYLE,
   SCREEN_CONTAINER_STYLE,
-  H1_STYLE,
+  H1_DARK_STYLE,
   H1_WHITE_STYLE,
   FORM_STYLE,
+  PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
 import { SCREENS } from "../assets/constants";
 import Header from "./common/Header";
@@ -50,9 +51,10 @@ function Module({ pageTitle }) {
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
-    t(screen.checkboxes) &&
+    screen.checkboxes &&
+      t(screen.checkboxes.labels) &&
       setCheckedFields(
-        en(screen.checkboxes).map((label) => {
+        en(screen.checkboxes.labels).map((label) => {
           return { label: label, checked: false };
         })
       );
@@ -66,8 +68,7 @@ function Module({ pageTitle }) {
       );
 
     // TODO: after merging with dev, this will send data to backend instead of just console.log
-    console.log(feedbackForAPI);
-    console.log(userInfo);
+    screen.formID && console.log(userInfo);
   }, [screen]);
 
   // updateFormData determines which form data state to update, based on the formID
@@ -75,17 +76,15 @@ function Module({ pageTitle }) {
     if (formID === "feedback") {
       /* if formID is feedback, sets checkedOptions and inputResponses 
          in the feedbackForAPI object */
-      setFeedbackForAPI((feedback) => {
-        /* filters checkedOptions for the fields that are checked,
+      let feedback = feedbackForAPI;
+      /* filters checkedOptions for the fields that are checked,
            then returns only the label property */
-        checkedFields &&
-          (feedback.checkedOptions = checkedFields
-            .filter(({ checked }) => checked)
-            .map(({ label }) => label));
-
-        feedback.inputResponses = inputQuestions;
-        return feedback;
-      });
+      checkedFields &&
+        (feedback.checkedOptions = checkedFields
+          .filter(({ checked }) => checked)
+          .map(({ label }) => label));
+      feedback.inputResponses = inputQuestions;
+      setFeedbackForAPI(feedback);
       sendFeedback();
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
@@ -99,13 +98,16 @@ function Module({ pageTitle }) {
         field.checked &&
         (field.label = `Other: ${otherField}`);
     });
-
     return checkedFields;
   };
 
   const handleSubmit = () => {
     setCheckedFields(checkedFields && updateOtherField(checkedFields));
     updateFormData(screen.formID);
+  };
+
+  const handleSend = (e) => {
+    e.preventDefault();
   };
 
   const changeScreen = (text, nextScreen, feedbackID) => {
@@ -149,21 +151,28 @@ function Module({ pageTitle }) {
       {
         <LightContainer formID={screen.formID}>
           {screen.title && (
-            <p className={H1_STYLE}>{t(screen.title, { page: pageTitle })}</p>
+            <p className={H1_DARK_STYLE}>
+              {`${t(screen.title, { page: pageTitle })}${
+                screen.checkboxes && screen.checkboxes.required ? "*" : ""
+              }`}
+            </p>
           )}
           {screen.plainText && (
-            <p dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}></p>
+            <p
+              className={PLAINTEXT_STYLE}
+              dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
+            ></p>
           )}
-          <Form className={FORM_STYLE} onSubmit={(e) => e.preventDefault()}>
-            {screen.checkboxes && (
+          <Form className={FORM_STYLE} onSubmit={handleSend}>
+            {screen.checkboxes && t(screen.checkboxes.labels) && (
               <CheckboxList
-                feedbackCheckboxes={t(screen.checkboxes)}
+                feedbackCheckboxes={t(screen.checkboxes.labels)}
                 onCheck={(index) => onCheck(index)}
                 setOtherField={setOtherField}
-                checkboxKey={screen.checkboxes}
+                checkboxKey={screen.checkboxes.labels}
               />
             )}
-            {screen.textInputs && (
+            {screen.textInputs && t(screen.textInputs) && (
               <TextboxList
                 inputs={t(screen.textInputs)}
                 setInputQuestions={setInputQuestions}

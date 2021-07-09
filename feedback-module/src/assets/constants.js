@@ -24,7 +24,7 @@ export const SCREENS = {
   },
   missing_info: {
     title: "missing.title",
-    checkboxes: "missing.checkboxes",
+    checkboxes: { labels: "missing.checkboxes", required: true },
     textInputs: "missing.textInputs",
     formID: "feedback",
     buttons: [
@@ -33,7 +33,7 @@ export const SCREENS = {
   },
   broken: {
     title: "broken.title",
-    checkboxes: "broken.checkboxes",
+    checkboxes: { labels: "broken.checkboxes", required: true },
     textInputs: "broken.textInputs",
     formID: "feedback",
     buttons: [

@@ -34,7 +34,7 @@
       "There is a spelling mistake or typo",
       "A link or button does not work",
       "The information is out of date",
-      "I got different informatino from another source (311, printed mailer, elected official, etc.)",
+      "I got different information from another source (311, printed mailer, elected official, etc.)",
       "The layout looks broken",
       "I got an error",
       "Other"
@@ -42,13 +42,13 @@
     "textInputs": [
       {
         "type": "textarea",
-        "text": "Can you give us more details on what you were trying to do, or the exact problem you encountered? (optional)"
+        "text": "Can you give us more details on what you were trying to do, or the exact problem you encountered?"
       }
     ]
   },
 
   "other": {
-    "initialBtn": "I havce other feedback on this page or website",
+    "initialBtn": "I have other feedback on this page or website",
     "title": "We appreciate your feedback.",
     "textInputs": [
       { "type": "textarea", "text": "Can you tell us a little more?" }
