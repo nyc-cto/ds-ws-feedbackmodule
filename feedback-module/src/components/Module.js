@@ -17,6 +17,7 @@ import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
+import ErrorAlert from "./common/ErrorAlert";
 
 function LightContainer({ children, formID }) {
   const isChildNull = (children) => {
@@ -38,6 +39,8 @@ function Module({ pageTitle }) {
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
+  const [checkboxError, setCheckboxError] = useState(false);
+  const [inputErrors, setInputErrors] = useState([]);
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -101,6 +104,30 @@ function Module({ pageTitle }) {
     return checkedFields;
   };
 
+  //Checks if at least one checkbox was checked - returns true if yes false if no
+  const checkboxValidated = () => {
+    return checkedFields.some((field) => field.checked);
+  };
+
+  //Checks if all the required fields have been completed - returns true if yes false if no
+  const inputsValidated = () => {
+    let validated = true;
+    let errorInputs = [];
+    inputQuestions.forEach((question, index) => {
+      en(screen.textInputs).map((input) => {
+        if (
+          input.text === question.question &&
+          input.required &&
+          question.answer === ""
+        ) {
+          errorInputs.push(input.text), (validated = false);
+        }
+      });
+    });
+    setInputErrors(errorInputs);
+    return validated;
+  };
+
   const handleSubmit = () => {
     setCheckedFields(checkedFields && updateOtherField(checkedFields));
     updateFormData(screen.formID);
@@ -123,8 +150,19 @@ function Module({ pageTitle }) {
     }
 
     // Submit form data if this screen contains a form
-    screen.formID && handleSubmit();
-    setScreen(SCREENS[nextScreen]);
+    // Make sure all checkboxes are checked if they exist on this page
+    if (
+      screen.checkboxes &&
+      screen.checkboxes.required &&
+      !checkboxValidated()
+    ) {
+      setCheckboxError(true);
+      // Make sure all required fields are completed
+    } else if (!(screen.textInputs && !inputsValidated())) {
+      screen.formID && handleSubmit(),
+        setScreen(SCREENS[nextScreen]),
+        setCheckboxError(false);
+    }
   };
 
   const onCheck = (index) => {
@@ -165,18 +203,24 @@ function Module({ pageTitle }) {
           )}
           <Form className={FORM_STYLE} onSubmit={handleSend}>
             {screen.checkboxes && t(screen.checkboxes.labels) && (
-              <CheckboxList
-                feedbackCheckboxes={t(screen.checkboxes.labels)}
-                onCheck={(index) => onCheck(index)}
-                setOtherField={setOtherField}
-                checkboxKey={screen.checkboxes.labels}
-              />
+              <>
+                {checkboxError && (
+                  <ErrorAlert errorText="Please select at least one option." />
+                )}
+                <CheckboxList
+                  feedbackCheckboxes={t(screen.checkboxes.labels)}
+                  onCheck={(index) => onCheck(index)}
+                  setOtherField={setOtherField}
+                  checkboxKey={screen.checkboxes.labels}
+                />
+              </>
             )}
             {screen.textInputs && t(screen.textInputs) && (
               <TextboxList
                 inputs={t(screen.textInputs)}
                 setInputQuestions={setInputQuestions}
                 inputQuestions={inputQuestions}
+                inputErrors={inputErrors}
               />
             )}
             {screen.buttons &&
