@@ -17,6 +17,7 @@ import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
+import ErrorAlert from "./common/ErrorAlert";
 
 function LightContainer({ children, formID }) {
   const isChildNull = (children) => {
@@ -38,6 +39,7 @@ function Module({ pageTitle }) {
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
+  const [checkboxError, setCheckboxError] = useState(false);
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -63,7 +65,12 @@ function Module({ pageTitle }) {
     t(screen.textInputs) &&
       setInputQuestions(
         en(screen.textInputs).map((question) => {
-          return { question: question.text, answer: "" };
+          return {
+            question: question.text,
+            answer: "",
+            required: question.required,
+            error: false,
+          };
         })
       );
 
@@ -83,9 +90,12 @@ function Module({ pageTitle }) {
         (feedback.checkedOptions = checkedFields
           .filter(({ checked }) => checked)
           .map(({ label }) => label));
-      feedback.inputResponses = inputQuestions;
+      feedback.inputResponses = inputQuestions.map(({ question, answer }) => {
+        return { question: question, answer: answer };
+      });
       setFeedbackForAPI(feedback);
       sendFeedback();
+      console.log(feedbackForAPI);
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
     }
@@ -99,6 +109,26 @@ function Module({ pageTitle }) {
         (field.label = `Other: ${otherField}`);
     });
     return checkedFields;
+  };
+
+  //Checks if at least one checkbox was checked - returns true if yes false if no
+  const checkboxValidated = () => {
+    return checkedFields.some((field) => field.checked);
+  };
+
+  //Checks if all the required fields have been completed - returns true if yes false if no
+  const inputsValidated = () => {
+    let validated = true;
+    let questions = inputQuestions.map((question) => {
+      if (question.required && question.answer === "") {
+        (question.error = true), (validated = false);
+      } else {
+        question.error = false;
+      }
+      return question;
+    });
+    setInputQuestions(questions);
+    return validated;
   };
 
   const handleSubmit = () => {
@@ -123,8 +153,19 @@ function Module({ pageTitle }) {
     }
 
     // Submit form data if this screen contains a form
-    screen.formID && handleSubmit();
-    setScreen(SCREENS[nextScreen]);
+    // Make sure all checkboxes are checked if they exist on this page
+    if (
+      screen.checkboxes &&
+      screen.checkboxes.required &&
+      !checkboxValidated()
+    ) {
+      setCheckboxError(true);
+      // Make sure all required fields are completed
+    } else if (!(screen.textInputs && !inputsValidated())) {
+      screen.formID && handleSubmit(),
+        setScreen(SCREENS[nextScreen]),
+        setCheckboxError(false);
+    }
   };
 
   const onCheck = (index) => {
@@ -165,12 +206,17 @@ function Module({ pageTitle }) {
           )}
           <Form className={FORM_STYLE} onSubmit={handleSend}>
             {screen.checkboxes && t(screen.checkboxes.labels) && (
-              <CheckboxList
-                feedbackCheckboxes={t(screen.checkboxes.labels)}
-                onCheck={(index) => onCheck(index)}
-                setOtherField={setOtherField}
-                checkboxKey={screen.checkboxes.labels}
-              />
+              <>
+                {checkboxError && (
+                  <ErrorAlert errorText={t("errorMessages.checkboxError")} />
+                )}
+                <CheckboxList
+                  feedbackCheckboxes={t(screen.checkboxes.labels)}
+                  onCheck={(index) => onCheck(index)}
+                  setOtherField={setOtherField}
+                  checkboxKey={screen.checkboxes.labels}
+                />
+              </>
             )}
             {screen.textInputs && t(screen.textInputs) && (
               <TextboxList

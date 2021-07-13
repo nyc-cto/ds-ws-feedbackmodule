@@ -3,6 +3,9 @@ $feedback__dark: #162e51;
 $feedback__light: #e1f3f8;
 $feedback__white: #ffffff;
 $feedback__lightest: #f3fcff;
+$base__dark: #042d36;
+$error__lighter: #ffe8e6;
+$error: #d24425;
 
 // Components
 $button-bg-color: $feedback__dark;
@@ -24,3 +27,7 @@ $selected-border: 6px solid $feedback__dark;
 
 $checkbox-unchecked: $feedback__lightest;
 $checkbox-checked: $feedback__dark;
+
+$error-alert-bg-color: $error__lighter;
+$error-alert-bar-color: $error;
+$alert-text-color: $base__dark;
