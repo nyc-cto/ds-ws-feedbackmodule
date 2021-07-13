@@ -5,15 +5,8 @@ import { useTranslation } from "react-i18next";
 import Textbox from "./common/Textbox";
 import ErrorAlert from "./common/ErrorAlert";
 
-function TextboxList({
-  inputs,
-  inputQuestions,
-  setInputQuestions,
-  className,
-  inputErrors,
-}) {
-  const { t, i18n } = useTranslation();
-  const en = i18n.getFixedT("en");
+function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
+  const { t } = useTranslation();
 
   const onChange = ({ target }) => {
     let answers = inputQuestions;
@@ -45,9 +38,25 @@ function TextboxList({
     );
   };
 
+  const showErrors = (input, index) => {
+    if (
+      inputQuestions &&
+      inputQuestions[index] &&
+      inputQuestions[index].error
+    ) {
+      if (input.type === "tel" || input.type === "email") {
+        return phoneEmailError();
+      } else if (input.text === "Your name") {
+        return nameError();
+      } else if (input.type === "textarea" || input.type === "text") {
+        return textError();
+      }
+    }
+  };
+
   return (
     <Grid>
-      {t(inputs).map((input, index) => {
+      {inputs.map((input, index) => {
         return (
           <Grid
             col="fill"
@@ -56,17 +65,7 @@ function TextboxList({
               input.type === "textarea" ? 4 : 3
             }`}
           >
-            {inputErrors.map((error) => {
-              if (error === en(inputs)[index].text) {
-                if (input.type === "tel" || input.type === "email") {
-                  return phoneEmailError();
-                } else if (input.text === "Your name") {
-                  return nameError();
-                } else if (input.type === "textarea" || input.type === "text") {
-                  return textError();
-                }
-              }
-            })}
+            {showErrors(input, index)}
             <Textbox
               id={index}
               type={input.type}

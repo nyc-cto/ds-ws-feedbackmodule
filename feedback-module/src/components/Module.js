@@ -40,7 +40,7 @@ function Module({ pageTitle }) {
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
   const [checkboxError, setCheckboxError] = useState(false);
-  const [inputErrors, setInputErrors] = useState([]);
+  // const [inputErrors, setInputErrors] = useState([]);
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -70,6 +70,7 @@ function Module({ pageTitle }) {
             question: question.text,
             answer: "",
             required: question.required,
+            error: false,
           };
         })
       );
@@ -116,13 +117,15 @@ function Module({ pageTitle }) {
   //Checks if all the required fields have been completed - returns true if yes false if no
   const inputsValidated = () => {
     let validated = true;
-    let errorInputs = [];
+    // let errorInputs = [];
     inputQuestions.forEach((question) => {
       if (question.required && question.answer === "") {
-        errorInputs.push(question.question), (validated = false);
+        (question.error = true), (validated = false);
+      } else {
+        question.error = false;
       }
     });
-    setInputErrors(errorInputs);
+    // setInputErrors("");
     return validated;
   };
 
@@ -215,10 +218,9 @@ function Module({ pageTitle }) {
             )}
             {screen.textInputs && t(screen.textInputs) && (
               <TextboxList
-                inputs={screen.textInputs}
+                inputs={t(screen.textInputs)}
                 setInputQuestions={setInputQuestions}
                 inputQuestions={inputQuestions}
-                inputErrors={inputErrors}
               />
             )}
             {screen.buttons &&
