@@ -90,9 +90,12 @@ function Module({ pageTitle }) {
         (feedback.checkedOptions = checkedFields
           .filter(({ checked }) => checked)
           .map(({ label }) => label));
-      feedback.inputResponses = inputQuestions;
+      feedback.inputResponses = inputQuestions.map(({ question, answer }) => {
+        return { question: question, answer: answer };
+      });
       setFeedbackForAPI(feedback);
       sendFeedback();
+      console.log(feedbackForAPI);
     } else if (formID === "research") {
       setUserInfo(inputQuestions);
     }
