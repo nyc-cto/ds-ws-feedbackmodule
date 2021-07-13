@@ -119,7 +119,6 @@ function Module({ pageTitle }) {
   //Checks if all the required fields have been completed - returns true if yes false if no
   const inputsValidated = () => {
     let validated = true;
-    // let errorInputs = [];
     let questions = inputQuestions.map((question) => {
       if (question.required && question.answer === "") {
         (question.error = true), (validated = false);
