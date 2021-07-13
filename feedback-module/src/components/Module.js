@@ -40,7 +40,6 @@ function Module({ pageTitle }) {
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
   const [checkboxError, setCheckboxError] = useState(false);
-  // const [inputErrors, setInputErrors] = useState([]);
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -118,14 +117,15 @@ function Module({ pageTitle }) {
   const inputsValidated = () => {
     let validated = true;
     // let errorInputs = [];
-    inputQuestions.forEach((question) => {
+    let questions = inputQuestions.map((question) => {
       if (question.required && question.answer === "") {
         (question.error = true), (validated = false);
       } else {
         question.error = false;
       }
+      return question;
     });
-    // setInputErrors("");
+    setInputQuestions(questions);
     return validated;
   };
 
