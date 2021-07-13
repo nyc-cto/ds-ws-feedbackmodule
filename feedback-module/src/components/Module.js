@@ -66,7 +66,11 @@ function Module({ pageTitle }) {
     t(screen.textInputs) &&
       setInputQuestions(
         en(screen.textInputs).map((question) => {
-          return { question: question.text, answer: "" };
+          return {
+            question: question.text,
+            answer: "",
+            required: question.required,
+          };
         })
       );
 
@@ -113,16 +117,10 @@ function Module({ pageTitle }) {
   const inputsValidated = () => {
     let validated = true;
     let errorInputs = [];
-    inputQuestions.forEach((question, index) => {
-      en(screen.textInputs).map((input) => {
-        if (
-          input.text === question.question &&
-          input.required &&
-          question.answer === ""
-        ) {
-          errorInputs.push(input.text), (validated = false);
-        }
-      });
+    inputQuestions.forEach((question) => {
+      if (question.required && question.answer === "") {
+        errorInputs.push(question.question), (validated = false);
+      }
     });
     setInputErrors(errorInputs);
     return validated;
