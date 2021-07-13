@@ -217,7 +217,7 @@ function Module({ pageTitle }) {
             )}
             {screen.textInputs && t(screen.textInputs) && (
               <TextboxList
-                inputs={t(screen.textInputs)}
+                inputs={screen.textInputs}
                 setInputQuestions={setInputQuestions}
                 inputQuestions={inputQuestions}
                 inputErrors={inputErrors}

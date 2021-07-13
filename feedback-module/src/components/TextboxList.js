@@ -12,7 +12,8 @@ function TextboxList({
   className,
   inputErrors,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const en = i18n.getFixedT("en");
 
   const onChange = ({ target }) => {
     let answers = inputQuestions;
@@ -21,20 +22,32 @@ function TextboxList({
   };
 
   const phoneEmailError = () => {
-    return <ErrorAlert errorText={t("errorMessages.emailPhoneError")} />;
+    return (
+      <ErrorAlert
+        key="phoneEmailError"
+        errorText={t("errorMessages.emailPhoneError")}
+      />
+    );
   };
 
   const nameError = () => {
-    return <ErrorAlert errorText={t("errorMessages.nameError")} />;
+    return (
+      <ErrorAlert key="nameError" errorText={t("errorMessages.nameError")} />
+    );
   };
 
   const textError = () => {
-    return <ErrorAlert errorText={t("errorMessages.inputEmptyError")} />;
+    return (
+      <ErrorAlert
+        key="textError"
+        errorText={t("errorMessages.inputEmptyError")}
+      />
+    );
   };
 
   return (
     <Grid>
-      {inputs.map((input, index) => {
+      {t(inputs).map((input, index) => {
         return (
           <Grid
             col="fill"
@@ -44,7 +57,7 @@ function TextboxList({
             }`}
           >
             {inputErrors.map((error) => {
-              if (error === input.text) {
+              if (error === en(inputs)[index].text) {
                 if (input.type === "tel" || input.type === "email") {
                   return phoneEmailError();
                 } else if (input.text === "Your name") {
