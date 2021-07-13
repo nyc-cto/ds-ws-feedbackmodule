@@ -205,7 +205,7 @@ function Module({ pageTitle }) {
             {screen.checkboxes && t(screen.checkboxes.labels) && (
               <>
                 {checkboxError && (
-                  <ErrorAlert errorText="Please select at least one option." />
+                  <ErrorAlert errorText={t("errorMessages.checkboxError")} />
                 )}
                 <CheckboxList
                   feedbackCheckboxes={t(screen.checkboxes.labels)}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "@trussworks/react-uswds";
+import { useTranslation } from "react-i18next";
 
 import Textbox from "./common/Textbox";
 import ErrorAlert from "./common/ErrorAlert";
@@ -11,6 +12,8 @@ function TextboxList({
   className,
   inputErrors,
 }) {
+  const { t } = useTranslation();
+
   const onChange = ({ target }) => {
     let answers = inputQuestions;
     answers[target.id].answer = target.value;
@@ -18,17 +21,15 @@ function TextboxList({
   };
 
   const phoneEmailError = () => {
-    return (
-      <ErrorAlert errorText="Please provide your email or phone number." />
-    );
+    return <ErrorAlert errorText={t("errorMessages.emailPhoneError")} />;
   };
 
   const nameError = () => {
-    return <ErrorAlert errorText="Please provide your name." />;
+    return <ErrorAlert errorText={t("errorMessages.nameError")} />;
   };
 
   const textError = () => {
-    return <ErrorAlert errorText="Please provide a response" />;
+    return <ErrorAlert errorText={t("errorMessages.inputEmptyError")} />;
   };
 
   return (
