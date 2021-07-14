@@ -12,7 +12,6 @@ WidgetDivs.forEach((Div) => {
   let pageTitle = "";
   Div.attributes.lang && (currentLang = Div.attributes.lang.value);
   Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
-
   ReactDOM.render(
     <React.StrictMode>
       <Suspense fallback="... is loading">
@@ -21,6 +20,28 @@ WidgetDivs.forEach((Div) => {
     </React.StrictMode>,
     Div
   );
+  let observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type == "attributes") {
+        Div.attributes.lang && (currentLang = Div.attributes.lang.value);
+        Div.attributes.pageTitle &&
+          (pageTitle = Div.attributes.pageTitle.value);
+        console.log("currentLang", currentLang);
+        ReactDOM.render(
+          <React.StrictMode>
+            <Suspense fallback="... is loading">
+              <App domElement={Div} lang={currentLang} pageTitle={pageTitle} />
+            </Suspense>
+          </React.StrictMode>,
+          Div
+        );
+      }
+    });
+  });
+
+  observer.observe(Div, {
+    attributes: true,
+  });
 });
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

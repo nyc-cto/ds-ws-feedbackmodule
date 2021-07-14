@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 
-services: 
+services:
   redis-server:
-    image: 'redis'
+    image: "redis"
   fm-backend-stub:
     build: ./backend-stub
     ports:
@@ -11,8 +11,18 @@ services:
     build: ./feedback-module
     container_name: feedback-module
     volumes:
-      - './feedback-module:/app'
-      - '/app/node_modules'
+      - "./feedback-module:/app"
+      - "/app/node_modules"
+    ports:
+      - "8001:80"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  fm-webpage-react:
+    build: ./uswds-practice
+    container_name: uswds-practice
+    volumes:
+      - "./uswds-practice:/app"
+      - "/app/node_modules"
     ports:
       - "3001:3000"
     environment:
@@ -20,6 +30,6 @@ services:
   fm-webpage:
     image: nginx
     ports:
-      - "8001:80"
+      - "5000:5001"
     volumes:
       - ./homepage:/usr/share/nginx/html
