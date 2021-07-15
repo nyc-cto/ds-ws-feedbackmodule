@@ -40,6 +40,8 @@ Configure your Makefile by running this command:
 cp Makefile.template Makefile
 ```
 
+Replace the pathnames with your project's pathname.
+
 Create a `.env` file with a variable `ENDPOINT` set to your Microsoft Flow endpoint.
 
 If you are embedding the module in a React project, run `cp feedback-module/Dockerfile <your-path>/Dockerfile`, replacing <your-path> with the path to your React project.
