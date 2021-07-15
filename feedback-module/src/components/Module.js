@@ -92,10 +92,11 @@ function Module({ pageTitle, endpoint }) {
       let feedback = feedbackForAPI;
       /* filters checkedOptions for the fields that are checked,
            then returns only the label property */
-      checkedFields &&
-        (feedback.checkedOptions = checkedFields
-          .filter(({ checked }) => checked)
-          .map(({ label }) => label));
+      feedback.checkedOptions = checkedFields
+        ? checkedFields
+            .filter(({ checked }) => checked)
+            .map(({ label }) => label)
+        : [];
       feedback.inputResponses = inputQuestions.map(({ question, answer }) => {
         return { question: question, answer: answer };
       });
