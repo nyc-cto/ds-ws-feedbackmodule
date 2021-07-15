@@ -1,12 +1,10 @@
 version: "3"
 
 services:
-  redis-server:
-    image: "redis"
   fm-backend-stub:
     build: ./backend-stub
     ports:
-      - "8000:8080"
+      - "8080:8000"
   feedback-module:
     build: ./feedback-module
     container_name: feedback-module
@@ -20,7 +18,7 @@ services:
   # if embedding in react, replace your-path with the path to your react project directory
   fm-webpage-react:
     build: ./your-path
-    container_name: uswds-practice
+    container_name: your-app
     volumes:
       - "./uswds-practice:/app"
       - "/app/node_modules"

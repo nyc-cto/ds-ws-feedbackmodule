@@ -19,7 +19,7 @@ import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 
-const env = "http://localhost:8000";
+const env = "http://localhost:8080";
 // const env = "fm-backend-stub";
 
 function LightContainer({ children, formID }) {
@@ -51,7 +51,7 @@ function Module({ pageTitle, endpoint }) {
     axios
       .post(`${env}/api/feedback`, {
         id: endpoint,
-        feedback: JSON.stringify(feedbackForAPI),
+        feedback: feedbackForAPI,
       })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));

@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const redis = require("redis");
 const fetch = require("node-fetch");
 const cors = require("cors");
 
@@ -45,6 +44,6 @@ app.post("/api/userinfo", (req, res) => {
   console.log(req.body);
 });
 
-app.listen(8000, () => {
-  console.log("Listening on port 8000");
+app.listen(8080, () => {
+  console.log("Listening on port 8080");
 });
