@@ -7,34 +7,35 @@ import App from "./App";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
-WidgetDivs.forEach((Div) => {
-  let currentLang = "en";
-  let pageTitle = "";
-  Div.attributes.lang && (currentLang = Div.attributes.lang.value);
+const renderApp = (Div, lang, pageTitle, endpoint) => {
+  Div.attributes.lang && (lang = Div.attributes.lang.value);
   Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
+  Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
   ReactDOM.render(
     <React.StrictMode>
       <Suspense fallback="... is loading">
-        <App domElement={Div} lang={currentLang} pageTitle={pageTitle} />
+        <App
+          domElement={Div}
+          lang={lang}
+          pageTitle={pageTitle}
+          endpoint={endpoint}
+        />
       </Suspense>
     </React.StrictMode>,
     Div
   );
+};
+
+WidgetDivs.forEach((Div) => {
+  let currentLang = "en";
+  let pageTitle = "";
+  let endpoint = "";
+  renderApp(Div, currentLang, pageTitle, endpoint);
+
   let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type == "attributes") {
-        Div.attributes.lang && (currentLang = Div.attributes.lang.value);
-        Div.attributes.pageTitle &&
-          (pageTitle = Div.attributes.pageTitle.value);
-        console.log("currentLang", currentLang);
-        ReactDOM.render(
-          <React.StrictMode>
-            <Suspense fallback="... is loading">
-              <App domElement={Div} lang={currentLang} pageTitle={pageTitle} />
-            </Suspense>
-          </React.StrictMode>,
-          Div
-        );
+        renderApp(Div, currentLang, pageTitle, endpoint);
       }
     });
   });

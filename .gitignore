@@ -1,2 +1,4 @@
 .env
-# /uswds-practice
+/uswds-practice
+docker-compose.yml
+Makefile
