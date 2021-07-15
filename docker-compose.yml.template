@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  fm-backend-stub:
+    build: ./backend-stub
+    ports:
+      - "8080:8000"
+  feedback-module:
+    build: ./feedback-module
+    container_name: feedback-module
+    volumes:
+      - "./feedback-module:/app"
+      - "/app/node_modules"
+    ports:
+      - "8001:80"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  # if embedding in react, replace your-path with the path to your react project directory
+  fm-webpage-react:
+    build: ./your-path
+    container_name: your-app
+    volumes:
+      - "./uswds-practice:/app"
+      - "/app/node_modules"
+    ports:
+      - "3001:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  # if embedding in html, replace homepage with the path to your project directory
+  fm-webpage:
+    image: nginx
+    ports:
+      - "5000:5001"
+    volumes:
+      - ./homepage:/usr/share/nginx/html

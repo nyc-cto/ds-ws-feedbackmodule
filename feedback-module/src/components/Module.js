@@ -19,6 +19,9 @@ import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 
+const env = "http://localhost:8080";
+// const env = "fm-backend-stub";
+
 function LightContainer({ children, formID }) {
   const isChildNull = (children) => {
     /* returns true if there are no elements outside of the form element
@@ -32,7 +35,7 @@ function LightContainer({ children, formID }) {
   );
 }
 
-function Module({ pageTitle }) {
+function Module({ pageTitle, endpoint }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
   const [userInfo, setUserInfo] = useState({});
   const [screen, setScreen] = useState(SCREENS.feedback_type);
@@ -46,7 +49,10 @@ function Module({ pageTitle }) {
 
   const sendFeedback = () => {
     axios
-      .post("/api/feedback", { feedback: JSON.stringify(feedbackForAPI) })
+      .post(`${env}/api/feedback`, {
+        id: endpoint,
+        feedback: feedbackForAPI,
+      })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -86,10 +92,11 @@ function Module({ pageTitle }) {
       let feedback = feedbackForAPI;
       /* filters checkedOptions for the fields that are checked,
            then returns only the label property */
-      checkedFields &&
-        (feedback.checkedOptions = checkedFields
-          .filter(({ checked }) => checked)
-          .map(({ label }) => label));
+      feedback.checkedOptions = checkedFields
+        ? checkedFields
+            .filter(({ checked }) => checked)
+            .map(({ label }) => label)
+        : [];
       feedback.inputResponses = inputQuestions.map(({ question, answer }) => {
         return { question: question, answer: answer };
       });

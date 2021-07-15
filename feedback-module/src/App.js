@@ -3,17 +3,16 @@ import { useTranslation } from "react-i18next";
 
 import Module from "./components/Module";
 
-function App({ lang, pageTitle }) {
+function App({ pageTitle, lang, endpoint }) {
   const { i18n } = useTranslation();
 
   useEffect(() => {
     i18n.changeLanguage(lang);
-    // i18n.changeLanguage("es");
   }, [lang]);
 
   return (
     <div className="App">
-      <Module pageTitle={pageTitle} />
+      <Module pageTitle={pageTitle} endpoint={endpoint} />
     </div>
   );
 }

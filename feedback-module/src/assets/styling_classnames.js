@@ -19,7 +19,7 @@ export const TEXTAREA_STYLE =
   "text-primary border-05 border-primary bg-primary-light focus:border-width-6px focus:bg-primary-lighter";
 export const TEXTINPUT_STYLE = `height-auto flex-1 ${TEXTAREA_STYLE}`;
 export const FORM_STYLE =
-  "maxw-none overflow-hidden display-flex flex-column flex-align-stretch";
+  "maxw-none width-full overflow-hidden display-flex flex-column flex-align-stretch";
 
 export const H1_STYLE =
   "text-bold mobile-lg:font-sans-lg2 font-sans-md2 margin-top-0";
