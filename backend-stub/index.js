@@ -42,6 +42,12 @@ app.post("/api/feedback", (req, res) => {
 // For personally identifiable information from the user
 app.post("/api/userinfo", (req, res) => {
   console.log(req.body);
+  apiCall(process.env.USER_RESEARCH_ENDPOINT, req.body)
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
+    .catch((err) => console.log(err));
 });
 
 app.listen(8000, () => {

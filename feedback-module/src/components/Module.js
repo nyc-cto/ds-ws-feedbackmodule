@@ -47,12 +47,9 @@ function Module({ pageTitle, endpoint }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
-  const sendFeedback = () => {
+  const sendRequest = (apiEndpoint, obj) => {
     axios
-      .post(`${env}/api/feedback`, {
-        id: endpoint,
-        feedback: feedbackForAPI,
-      })
+      .post(`${env}/api/${apiEndpoint}`, obj)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -79,9 +76,7 @@ function Module({ pageTitle, endpoint }) {
           };
         })
       );
-
-    // TODO: after merging with dev, this will send data to backend instead of just console.log
-    screen.formID && console.log(userInfo);
+    console.log(userInfo);
   }, [screen]);
 
   // updateFormData determines which form data state to update, based on the formID
@@ -101,10 +96,20 @@ function Module({ pageTitle, endpoint }) {
         return { question: question, answer: answer };
       });
       setFeedbackForAPI(feedback);
-      sendFeedback();
+      sendRequest("feedback", {
+        id: endpoint,
+        feedback: feedbackForAPI,
+      });
       console.log(feedbackForAPI);
     } else if (formID === "research") {
-      setUserInfo(inputQuestions);
+      let userObj = userInfo;
+      inputQuestions.forEach(({ question, answer }) => {
+        userObj[question] = answer;
+      });
+      userObj.source = window.location.href;
+      userObj.id = endpoint;
+      setUserInfo(userObj);
+      sendRequest("userinfo", userObj);
     }
   };
 
