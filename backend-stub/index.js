@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const app = express();
 app
-  // .use(cors())
+  .use(cors())
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .use((req, res, next) => {
@@ -21,6 +21,7 @@ const apiCall = async (url, data) => {
   try {
     const config = {
       method: "POST",
+      mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
