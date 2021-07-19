@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "." # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "./backend-stub" # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: "14.x" # set this to the node version to use (supports 8.x, 10.x, 12.x)
 
 jobs:
@@ -32,11 +32,11 @@ jobs:
       - name: "Resolve Project Dependencies Using Npm"
         shell: bash
         run: |
-          cd './backend-stub'
+          pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           npm install
           npm run build --if-present
           npm run test --if-present
-          cd '../'
+          popd
 
       - name: "Run Azure Functions Action"
         uses: Azure/functions-action@v1
@@ -44,5 +44,5 @@ jobs:
         with:
           app-name: "ctofeedback"
           slot-name: "production"
-          package: "./backend-stub"
+          package: "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}"
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_48284cfff2e243d6b8c7e6782a164e33 }}
