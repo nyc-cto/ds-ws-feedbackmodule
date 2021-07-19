@@ -1,5 +1,6 @@
 .env
 /your-path
+/uswds-practice
 docker-compose.yml
 Makefile
 .gitmodules
