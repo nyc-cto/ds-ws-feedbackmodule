@@ -10,11 +10,7 @@ function App({ pageTitle, lang, endpoint }) {
     i18n.changeLanguage(lang);
   }, [lang]);
 
-  return (
-    <div className="App">
-      <Module pageTitle={pageTitle} endpoint={endpoint} />
-    </div>
-  );
+  return <Module pageTitle={pageTitle} endpoint={endpoint} />;
 }
 
 export default App;
