@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const app = express();
 app
-  .use(cors({ origin: true, credentials: true, methods: ["POST"] }))
+  // .use(cors({ origin: true, credentials: true, methods: ["POST"] }))
   .use(express.json())
   .use(express.urlencoded({ extended: true }));
 // .use((req, res, next) => {
@@ -21,14 +21,14 @@ const apiCall = async (url, data) => {
   try {
     const config = {
       method: "POST",
-      mode: "cors",
+      mode: "no-cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-        "Access-Control-Allow-Headers": "Content-Type",
+        // "Access-Control-Allow-Credentials": true,
+        // "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+        // "Access-Control-Allow-Headers": "Content-Type",
       },
       body: JSON.stringify(data),
     };
