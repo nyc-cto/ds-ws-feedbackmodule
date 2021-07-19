@@ -41,6 +41,8 @@ const apiCall = async (url, data) => {
 
 // When a user clicks submit, the application creates a post request to the endpoint
 app.post("/api/feedback", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "true");
+  res.header("Access-Control-Allow-Origin", "*");
   console.log(req.body);
   apiCall(process.env.ENDPOINT, req.body)
     .then((data) => {
