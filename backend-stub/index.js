@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const app = express();
 app
-  .use(cors())
+  .use(cors({ origin: true, credentials: true, methods: ["POST"] }))
   .use(express.json())
   .use(express.urlencoded({ extended: true }));
 // .use((req, res, next) => {
