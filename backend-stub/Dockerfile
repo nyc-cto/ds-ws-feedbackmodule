@@ -15,3 +15,5 @@ COPY . .
 # Tell the image what to do when it starts as a container
 
 CMD ["npm", "start"]
+
+EXPOSE 8000

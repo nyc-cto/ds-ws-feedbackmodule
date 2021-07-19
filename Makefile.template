@@ -3,7 +3,8 @@ test :
 
 build:
 	docker exec -it feedback-module  npm run build
-  # replace your-path with the path to your react project directory
+  # replace your-path with the path to your project directory
+	# for a react project, your path should include the public directory (your-path/public/)
 	cp feedback-module/build/main.js your-path/feedback-module.min.js
 	cp -R feedback-module/build/static  your-path/
 	cp feedback-module/build/main.css your-path/main.css
