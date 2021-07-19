@@ -44,5 +44,5 @@ jobs:
         with:
           app-name: "ctofeedback"
           slot-name: "production"
-          package: "/backend-stub"
+          package: "./backend-stub"
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_48284cfff2e243d6b8c7e6782a164e33 }}
