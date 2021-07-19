@@ -22,7 +22,7 @@ export const FORM_STYLE =
   "maxw-none width-full overflow-hidden display-flex flex-column flex-align-stretch";
 
 export const H1_STYLE =
-  "text-bold mobile-lg-font-sans-lg2 mobile-lg:font-sans-lg2 font-sans-md2 margin-top-0 text-no-uppercase";
+  "text-bold text-left mobile-lg-font-sans-lg2 mobile-lg:font-sans-lg2 font-sans-md2 margin-top-0 text-no-uppercase";
 export const H1_DARK_STYLE = `${H1_STYLE} text-primary`;
 export const H1_WHITE_STYLE = `${H1_STYLE} text-white`;
 
