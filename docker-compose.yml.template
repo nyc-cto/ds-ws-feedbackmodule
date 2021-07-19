@@ -20,7 +20,7 @@ services:
     build: ./your-path
     container_name: your-app
     volumes:
-      - "./uswds-practice:/app"
+      - "./your-path:/app"
       - "/app/node_modules"
     ports:
       - "3001:3000"
