@@ -7,7 +7,11 @@ import { HEADER_STYLE } from "../../assets/styling_classnames";
 function Header() {
   return (
     <GridContainer className={HEADER_STYLE}>
-      <img src={Logo} alt="New York City feedback module logo" />
+      <img
+        className="width-auto height-2 mobile-lg:height-205 mobile-lg-height-205"
+        src={Logo}
+        alt="New York City feedback module logo"
+      />
     </GridContainer>
   );
 }
