@@ -1,5 +1,5 @@
 .env
-/react-uswds-sample
+/your-path
 docker-compose.yml
 Makefile
 .gitmodules
