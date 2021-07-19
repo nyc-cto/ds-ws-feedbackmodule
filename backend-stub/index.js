@@ -29,6 +29,7 @@ const apiCall = async (url, data) => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
         "Access-Control-Allow-Headers": "Content-Type",
+        "Referrer-Policy": "origin-when-cross-origin",
       },
       body: JSON.stringify(data),
     };
