@@ -55,6 +55,10 @@ app.post("/api/userinfo", (req, res) => {
   console.log(req.body);
 });
 
+app.get("/test", (req, res) => {
+  return "hello world";
+});
+
 app.listen(8000, () => {
   console.log("Listening on port 8000");
 });
