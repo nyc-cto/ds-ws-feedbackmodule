@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "azure-function-express": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "*",
