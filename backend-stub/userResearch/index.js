@@ -15,7 +15,7 @@ module.exports = async function (context, req) {
   };
 
   await fetch(
-    "https://prod-139.westus.logic.azure.com:443/workflows/22b04a18b2d740d9ab30bdaf56912836/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4S70ZyQpmbMCJxFXpEWo3aEeVj4-i7oUlBe-ARQ7snc",
+    "https://prod-175.westus.logic.azure.com:443/workflows/f42583989bde435294b19b7b6503fc3e/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VJ_vHz6TsvICCtPsL2PGhVL8rOKKpraniK9V35J7FtA",
     config
   )
     .then(() => (context.res = { body: "success!" }))
