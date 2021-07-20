@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const fetch = require("node-fetch");
 const cors = require("cors");
-const createHandler = require("azure-function-express").createHandler;
 
 const app = express();
 app
@@ -30,7 +29,6 @@ const apiCall = async (url, data) => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
         "Access-Control-Allow-Headers": "Content-Type",
-        "Referrer-Policy": "origin-when-cross-origin",
       },
       body: JSON.stringify(data),
     };
@@ -62,8 +60,6 @@ app.post("/api/userinfo", (req, res) => {
 app.get("/test", (req, res) => {
   return "hello world";
 });
-
-module.exports = createHandler(app);
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("Listening on port 8000");
