@@ -12,16 +12,12 @@ import {
   FORM_STYLE,
   PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
-import { SCREENS } from "../assets/constants";
+import { SCREENS, AZURE_ENDPOINT } from "../assets/constants";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
-
-// const env = "http://localhost:8080";
-const env = "https://ctofeedback.azurewebsites.net";
-// const env = "fm-backend-stub";
 
 function LightContainer({ children, formID }) {
   const isChildNull = (children) => {
@@ -50,7 +46,7 @@ function Module({ pageTitle, endpoint }) {
 
   const sendRequest = (apiEndpoint, obj) => {
     axios
-      .post(`${env}/api/${apiEndpoint}`, obj)
+      .post(`${AZURE_ENDPOINT}/api/${apiEndpoint}`, obj)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
