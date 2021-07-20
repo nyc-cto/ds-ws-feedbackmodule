@@ -30,11 +30,20 @@ module.exports = async function (context, req) {
     ? "Hello, " + name + ". This HTTP triggered function executed successfully."
     : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
 
-  apiCall(process.env.ENDPOINT, req.body)
+  apiCall(
+    "https://prod-139.westus.logic.azure.com:443/workflows/22b04a18b2d740d9ab30bdaf56912836/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4S70ZyQpmbMCJxFXpEWo3aEeVj4-i7oUlBe-ARQ7snc",
+    req.body
+  )
     .then((data) => {
       context.res = {
         body: data,
       };
     })
-    .catch((err) => console.log(err));
+    .catch(
+      (err) =>
+        (context.res = {
+          status: 500,
+          body: `Request error. ${err}`,
+        })
+    );
 };
