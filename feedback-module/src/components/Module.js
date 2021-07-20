@@ -110,7 +110,7 @@ function Module({ pageTitle, endpoint }) {
       userObj.source = window.location.href;
       userObj.id = endpoint;
       setUserInfo(userObj);
-      sendRequest("userinfo", userObj);
+      sendRequest("userResearch", userObj);
     }
   };
 
