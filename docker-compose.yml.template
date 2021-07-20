@@ -4,7 +4,7 @@ services:
   fm-backend-stub:
     build: ./backend-stub
     ports:
-      - "8000:8080"
+      - "8080:8000"
   feedback-module:
     build: ./feedback-module
     container_name: feedback-module
