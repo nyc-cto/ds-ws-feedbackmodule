@@ -19,7 +19,7 @@ import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 
-const env = "http://localhost:8080";
+const env = "http://localhost:8000";
 // const env = "fm-backend-stub";
 
 function LightContainer({ children, formID }) {
@@ -95,6 +95,7 @@ function Module({ pageTitle, endpoint }) {
       feedback.inputResponses = inputQuestions.map(({ question, answer }) => {
         return { question: question, answer: answer };
       });
+      feedback.source = window.location.href;
       setFeedbackForAPI(feedback);
       sendRequest("feedback", {
         id: endpoint,
