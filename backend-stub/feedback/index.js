@@ -32,7 +32,7 @@ module.exports = async function (context, req) {
 
   apiCall(
     "https://prod-139.westus.logic.azure.com:443/workflows/22b04a18b2d740d9ab30bdaf56912836/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4S70ZyQpmbMCJxFXpEWo3aEeVj4-i7oUlBe-ARQ7snc",
-    req.body
+    context.req.body
   )
     .then((data) => {
       context.res = {
