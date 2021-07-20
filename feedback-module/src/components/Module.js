@@ -96,6 +96,7 @@ function Module({ pageTitle, endpoint }) {
       feedback.inputResponses = inputQuestions.map(({ question, answer }) => {
         return { question: question, answer: answer };
       });
+      feedback.source = window.location.href;
       setFeedbackForAPI(feedback);
       sendRequest("feedback", {
         id: endpoint,
