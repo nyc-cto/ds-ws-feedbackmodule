@@ -36,7 +36,7 @@ module.exports = async function (context, req) {
   )
     .then((data) => {
       context.res = {
-        body: data,
+        body: responseMessage,
       };
     })
     .catch(
@@ -46,4 +46,5 @@ module.exports = async function (context, req) {
           body: `Request error. ${err}`,
         })
     );
+  context.done();
 };
