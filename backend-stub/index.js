@@ -14,14 +14,10 @@ const apiCall = async (url, data) => {
   try {
     const config = {
       method: "POST",
-      mode: "no-cors",
+      mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-        "Access-Control-Allow-Headers": "Content-Type",
       },
       body: JSON.stringify(data),
     };
