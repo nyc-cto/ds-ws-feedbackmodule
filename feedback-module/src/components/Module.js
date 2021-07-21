@@ -212,7 +212,10 @@ function Module({ pageTitle, endpoint, dir }) {
             {screen.checkboxes && t(screen.checkboxes.labels) && (
               <>
                 {checkboxError && (
-                  <ErrorAlert errorText={t("errorMessages.checkboxError")} />
+                  <ErrorAlert
+                    errorText={t("errorMessages.checkboxError")}
+                    dir={dir}
+                  />
                 )}
                 <CheckboxList
                   feedbackCheckboxes={t(screen.checkboxes.labels)}
