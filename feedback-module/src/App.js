@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import Helmet from "react-helmet";
 
 import Module from "./components/Module";
 
@@ -10,7 +11,14 @@ function App({ pageTitle, lang, endpoint }) {
     i18n.changeLanguage(lang);
   }, [lang]);
 
-  return <Module pageTitle={pageTitle} endpoint={endpoint} />;
+  return (
+    <>
+      <Helmet>
+        <link rel="stylesheet" href="/main.css" />
+      </Helmet>
+      <Module pageTitle={pageTitle} endpoint={endpoint} />
+    </>
+  );
 }
 
 export default App;
