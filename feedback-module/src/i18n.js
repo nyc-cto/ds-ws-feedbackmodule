@@ -4,6 +4,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import { TRANSLATIONS_EN } from "./translations/en/translation";
 import { TRANSLATIONS_ES } from "./translations/es/translation";
+import { TRANSLATIONS_AR } from "./translations/ar/translation";
 
 i18n
   // detect user language
@@ -20,6 +21,9 @@ i18n
       },
       es: {
         translation: TRANSLATIONS_ES,
+      },
+      ar: {
+        translation: TRANSLATIONS_AR,
       },
     },
     debug: true,

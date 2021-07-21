@@ -73,3 +73,4 @@ export const SCREENS = {
     titleInverse: "userFeedbackResults.title",
   },
 };
+export const INITIAL_SCREEN = SCREENS.feedback_type;

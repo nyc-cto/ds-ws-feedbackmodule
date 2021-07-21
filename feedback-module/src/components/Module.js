@@ -11,7 +11,7 @@ import {
   FORM_STYLE,
   PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
-import { SCREENS } from "../assets/constants";
+import { SCREENS, INITIAL_SCREEN } from "../assets/constants";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
@@ -32,10 +32,10 @@ function LightContainer({ children, formID }) {
   );
 }
 
-function Module({ pageTitle, endpoint }) {
+function Module({ pageTitle, endpoint, dir }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
   const [userInfo, setUserInfo] = useState({});
-  const [screen, setScreen] = useState(SCREENS.feedback_type);
+  const [screen, setScreen] = useState(INITIAL_SCREEN);
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
@@ -182,12 +182,13 @@ function Module({ pageTitle, endpoint }) {
       desktop={{ col: 2 }}
       mobile={{ col: "fill" }}
       className={MODULE_CONTAINER_STYLE}
+      dir={dir}
     >
       <Header />
       {screen.titleInverse && (
         <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>
           <p
-            className={`${H1_WHITE_STYLE}`}
+            className={`${H1_WHITE_STYLE} ${dir === "rtl" && "text-right"}`}
             dangerouslySetInnerHTML={{ __html: t(screen.titleInverse) }}
           ></p>
         </Grid>
@@ -195,7 +196,7 @@ function Module({ pageTitle, endpoint }) {
       {
         <LightContainer formID={screen.formID}>
           {screen.title && (
-            <p className={H1_DARK_STYLE}>
+            <p className={`${H1_DARK_STYLE} ${dir === "rtl" && "text-right"}`}>
               {`${t(screen.title, { page: pageTitle })}${
                 screen.checkboxes && screen.checkboxes.required ? "*" : ""
               }`}
@@ -235,6 +236,7 @@ function Module({ pageTitle, endpoint }) {
                     <ModuleButton
                       buttonText={t(text)}
                       isRight={type === "submit"}
+                      className={dir === "rtl" ? "text-right" : ""}
                       onClick={() => changeScreen(text, nextScreen, feedbackID)}
                       key={index}
                     />
