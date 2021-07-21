@@ -1,3 +1,4 @@
+export const AZURE_ENDPOINT = "https://ctofeedback.azurewebsites.net";
 export const SCREENS = {
   feedback_type: {
     title: "feedbackType.title",
