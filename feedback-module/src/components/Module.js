@@ -12,7 +12,7 @@ import {
   FORM_STYLE,
   PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
-import { SCREENS, AZURE_ENDPOINT } from "../assets/constants";
+import { SCREENS, AZURE_ENDPOINT, INITIAL_SCREEN } from "../assets/constants";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
@@ -35,7 +35,7 @@ function LightContainer({ children, formID }) {
 function Module({ pageTitle, endpoint, dir }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
   const [userInfo, setUserInfo] = useState({});
-  const [screen, setScreen] = useState(SCREENS.feedback_type);
+  const [screen, setScreen] = useState(INITIAL_SCREEN);
   const [checkedFields, setCheckedFields] = useState(null);
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
