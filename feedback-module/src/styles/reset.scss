@@ -28,6 +28,26 @@
   }
 }
 
+.grid-container[dir="rtl"] {
+  text-align: right;
+
+  .usa-checkbox__label {
+    text-indent: 0rem;
+  }
+
+  .usa-checkbox__label::before {
+    margin-left: 0.75rem;
+    margin-right: 0rem;
+    right: 2px;
+    left: 0px;
+
+    @media screen and (max-width: 479px) {
+      margin-left: 1.375rem;
+      margin-right: 0rem;
+    }
+  }
+}
+
 .usa-alert__text {
   display: flex;
 }

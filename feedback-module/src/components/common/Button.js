@@ -11,9 +11,9 @@ function ModuleButton({ buttonText, onClick, isRight, className }) {
     <Button
       aria-label={buttonText}
       onClick={onClick}
-      className={`${className} ${
+      className={`${
         isRight && BUTTON_RIGHT_STYLE
-      } ${BUTTON_STYLE}`}
+      } ${BUTTON_STYLE} ${className}`}
       type="button"
     >
       {buttonText}

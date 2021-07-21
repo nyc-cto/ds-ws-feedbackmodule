@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Helmet from "react-helmet";
@@ -13,10 +15,14 @@ function App({ pageTitle, lang, endpoint }) {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <link rel="stylesheet" href="/main.css" />
-      </Helmet>
-      <Module pageTitle={pageTitle} endpoint={endpoint} />
+      </Helmet> */}
+      <Module
+        pageTitle={pageTitle}
+        endpoint={endpoint}
+        dir={i18n.dir(i18n.language)}
+      />
     </>
   );
 }
