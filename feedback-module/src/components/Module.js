@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 
 import {
   MODULE_CONTAINER_STYLE,
@@ -12,12 +11,13 @@ import {
   FORM_STYLE,
   PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
-import { SCREENS, AZURE_ENDPOINT, INITIAL_SCREEN } from "../assets/constants";
+import { SCREENS, INITIAL_SCREEN } from "../assets/constants";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
+import requestService from "../services/requestService";
 
 function LightContainer({ children, formID }) {
   const isChildNull = (children) => {
@@ -43,13 +43,6 @@ function Module({ pageTitle, endpoint, dir }) {
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
-
-  const sendRequest = (apiEndpoint, obj) => {
-    axios
-      .post(`${AZURE_ENDPOINT}/api/${apiEndpoint}`, obj)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
@@ -94,7 +87,7 @@ function Module({ pageTitle, endpoint, dir }) {
       });
       feedback.source = window.location.href;
       setFeedbackForAPI(feedback);
-      sendRequest("feedback", {
+      requestService("feedback", {
         id: endpoint,
         feedback: feedbackForAPI,
       });
@@ -107,7 +100,7 @@ function Module({ pageTitle, endpoint, dir }) {
       userObj.source = window.location.href;
       userObj.id = endpoint;
       setUserInfo(userObj);
-      sendRequest("userResearch", userObj);
+      requestService("userResearch", userObj);
     }
   };
 
