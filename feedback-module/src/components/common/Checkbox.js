@@ -4,6 +4,7 @@ import { Checkbox } from "@trussworks/react-uswds";
 import { CHECKBOX_STYLE } from "../../assets/styling_classnames";
 
 function ModuleCheckbox({ label, id, onCheck }) {
+  // Sets checkbox to checked when user presses enter
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       onCheck();

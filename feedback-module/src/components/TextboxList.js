@@ -17,27 +17,18 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
     };
   };
 
-  const phoneEmailError = () => {
+  const inputError = (input, id) => {
+    let key;
+    if (input.type === "tel" || input.type === "email") {
+      key = "emailPhoneError";
+    } else if (input.text === "Your name") {
+      key = "nameError";
+    } else if (input.type === "textarea" || input.type === "text") {
+      key = "inputEmptyError";
+    }
+    if (!key) return;
     return (
-      <ErrorAlert
-        key="phoneEmailError"
-        errorText={t("errorMessages.emailPhoneError")}
-      />
-    );
-  };
-
-  const nameError = () => {
-    return (
-      <ErrorAlert key="nameError" errorText={t("errorMessages.nameError")} />
-    );
-  };
-
-  const textError = () => {
-    return (
-      <ErrorAlert
-        key="textError"
-        errorText={t("errorMessages.inputEmptyError")}
-      />
+      <ErrorAlert key={key} errorText={t(`errorMessages.${key}`)} id={id} />
     );
   };
 
@@ -47,13 +38,7 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
       inputQuestions[index] &&
       inputQuestions[index].error
     ) {
-      if (input.type === "tel" || input.type === "email") {
-        return phoneEmailError();
-      } else if (input.text === "Your name") {
-        return nameError();
-      } else if (input.type === "textarea" || input.type === "text") {
-        return textError();
-      }
+      return inputError(input, `feedback-input-error-${index}`);
     }
   };
 
@@ -75,6 +60,12 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
               label={input.text}
               onChange={onChange(index)}
               required={input.required}
+              invalid={
+                inputQuestions &&
+                inputQuestions[index] &&
+                inputQuestions[index].error
+              }
+              describedBy={`feedback-input-error-${index}`}
             />
           </Grid>
         );
