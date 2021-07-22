@@ -31,7 +31,7 @@ function CheckboxList({
         return (
           <Grid row key={index} className="flex-no-wrap">
             <ModuleCheckbox
-              id={`checkbox-${index}`}
+              id={`feedback-checkbox-${index}`}
               label={label}
               onCheck={() => onCheckOther(index)}
               className="width-full"

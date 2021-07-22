@@ -8,10 +8,13 @@ import ErrorAlert from "./common/ErrorAlert";
 function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
   const { t } = useTranslation();
 
-  const onChange = ({ target }) => {
-    let answers = inputQuestions;
-    answers[target.id].answer = target.value;
-    setInputQuestions(answers);
+  // Curried onChange funtion: returns a new function binded with the index
+  const onChange = (index) => {
+    return ({ target }) => {
+      let answers = inputQuestions;
+      answers[index].answer = target.value;
+      setInputQuestions(answers);
+    };
   };
 
   const phoneEmailError = () => {
@@ -67,10 +70,10 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
           >
             {showErrors(input, index)}
             <Textbox
-              id={index}
+              id={`feedback-input-${index}`}
               type={input.type}
               label={input.text}
-              onChange={onChange}
+              onChange={onChange(index)}
               required={input.required}
             />
           </Grid>
