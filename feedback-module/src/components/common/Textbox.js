@@ -30,7 +30,7 @@ function Textbox({
           className={TEXTAREA_STYLE}
           onChange={onChange}
           aria-invalid={invalid}
-          aria-describedby={invalid && describedBy}
+          aria-describedby={invalid ? describedBy : undefined}
         />
       ) : (
         <TextInput
