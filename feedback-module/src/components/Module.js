@@ -63,6 +63,7 @@ function Module({ pageTitle, endpoint, dir }) {
             answer: "",
             required: question.required,
             error: false,
+            type: question.type,
           };
         })
       );
@@ -119,12 +120,24 @@ function Module({ pageTitle, endpoint, dir }) {
     return checkedFields.some((field) => field.checked);
   };
 
+  //Check if valid email address
+  const invalidEmail = (email) => {
+    const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    return !re.test(email);
+  };
+
   //Checks if all the required fields have been completed - returns true if yes false if no
   const inputsValidated = () => {
     let validated = true;
     let questions = inputQuestions.map((question) => {
       if (question.required && question.answer === "") {
         (question.error = true), (validated = false);
+      } else if (
+        question.required &&
+        question.type === "email" &&
+        invalidEmail(question.answer)
+      ) {
+        (validated = false), (question.error = true);
       } else {
         question.error = false;
       }
