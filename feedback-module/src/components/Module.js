@@ -121,9 +121,23 @@ function Module({ pageTitle, endpoint, dir }) {
   };
 
   //Check if valid email address
-  const invalidEmail = (email) => {
+  const invalidEmail = (email, required) => {
     const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-    return !re.test(email);
+    let valid = re.test(email);
+    if (!required && email === "") {
+      valid = true;
+    }
+    return !valid;
+  };
+
+  const invalidPhone = (phone, required) => {
+    const reUS = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    const reInternational = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+    let valid = reUS.test(phone) || reInternational.test(phone);
+    if (!required && phone === "") {
+      valid = true;
+    }
+    return !valid;
   };
 
   //Checks if all the required fields have been completed - returns true if yes false if no
@@ -131,12 +145,10 @@ function Module({ pageTitle, endpoint, dir }) {
     let validated = true;
     let questions = inputQuestions.map((question) => {
       if (question.required && question.answer === "") {
-        (question.error = true), (validated = false);
-      } else if (
-        question.required &&
-        question.type === "email" &&
-        invalidEmail(question.answer)
-      ) {
+        (validated = false), (question.error = true);
+      } else if (question.type === "email" && invalidEmail(question.answer)) {
+        (validated = false), (question.error = true);
+      } else if (question.type === "tel" && invalidPhone(question.answer)) {
         (validated = false), (question.error = true);
       } else {
         question.error = false;
