@@ -1,12 +1,20 @@
-import React from "react";
+import React, { createRef } from "react";
 import { Grid } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
 import Textbox from "./common/Textbox";
 import ErrorAlert from "./common/ErrorAlert";
 
-function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
+function TextboxList({
+  inputs,
+  inputQuestions,
+  setInputQuestions,
+  className,
+  inputRefs,
+}) {
   const { t } = useTranslation();
+
+  inputRefs.current = inputQuestions && inputQuestions.map(() => createRef());
 
   // Curried onChange funtion: returns a new function binded with the index
   const onChange = (index) => {
@@ -32,12 +40,13 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
     );
   };
 
+  const isInvalid = (index) => {
+    return (
+      inputQuestions && inputQuestions[index] && inputQuestions[index].error
+    );
+  };
   const showErrors = (input, index) => {
-    if (
-      inputQuestions &&
-      inputQuestions[index] &&
-      inputQuestions[index].error
-    ) {
+    if (isInvalid[index]) {
       return inputError(input, `feedback-input-error-${index}`);
     }
   };
@@ -60,12 +69,11 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
               label={input.text}
               onChange={onChange(index)}
               required={input.required}
-              invalid={
-                inputQuestions &&
-                inputQuestions[index] &&
-                inputQuestions[index].error
-              }
+              invalid={isInvalid(index)}
               describedBy={`feedback-input-error-${index}`}
+              inputRef={
+                inputRefs.current ? inputRefs.current[index] : undefined
+              }
             />
           </Grid>
         );

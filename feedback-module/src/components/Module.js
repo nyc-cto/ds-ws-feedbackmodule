@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
@@ -43,6 +43,7 @@ function Module({ pageTitle, endpoint, dir }) {
 
   const headerRef = useRef(null);
   const inputRefs = useRef([]);
+  const firstCheckRef = useRef(null);
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -71,9 +72,7 @@ function Module({ pageTitle, endpoint, dir }) {
       );
     console.log(userInfo);
 
-    useRef.current = (screen.checkboxes ? t(screen.checkboxes.labels) : [])
-      .concat(screen.textInputs ? t(screen.textInputs) : [])
-      .map((_, i) => inputRefs.current[i] ?? createRef());
+    firstCheckRef.current && firstCheckRef.current.focus();
   }, [screen]);
 
   // updateFormData determines which form data state to update, based on the formID
@@ -170,6 +169,7 @@ function Module({ pageTitle, endpoint, dir }) {
       !checkboxValidated()
     ) {
       setCheckboxError(true);
+      firstCheckRef.current && firstCheckRef.current.focus();
       // Make sure all required fields are completed
     } else if (!(screen.textInputs && !inputsValidated())) {
       screen.formID && handleSubmit(),
@@ -230,6 +230,7 @@ function Module({ pageTitle, endpoint, dir }) {
                   onCheck={(index) => onCheck(index)}
                   setOtherField={setOtherField}
                   checkboxKey={screen.checkboxes.labels}
+                  firstCheckRef={firstCheckRef}
                 />
               </>
             )}
@@ -238,6 +239,7 @@ function Module({ pageTitle, endpoint, dir }) {
                 inputs={t(screen.textInputs)}
                 setInputQuestions={setInputQuestions}
                 inputQuestions={inputQuestions}
+                inputRefs={inputRefs}
               />
             )}
             {screen.buttons &&

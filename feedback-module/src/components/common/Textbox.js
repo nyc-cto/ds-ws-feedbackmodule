@@ -16,13 +16,13 @@ function Textbox({
   required,
   describedBy,
   invalid,
+  inputRef,
 }) {
   return (
     <>
       <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
         {`${label}${required ? "*" : ""}`}
       </Label>
-      {(console.log(invalid), console.log(describedBy))}
       {type === "textarea" ? (
         <Textarea
           id={id}
@@ -31,6 +31,7 @@ function Textbox({
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
+          inputRef={inputRef}
         />
       ) : (
         <TextInput
@@ -41,6 +42,7 @@ function Textbox({
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
+          inputRef={inputRef}
         />
       )}
     </>

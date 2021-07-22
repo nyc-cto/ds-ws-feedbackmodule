@@ -10,6 +10,7 @@ function CheckboxList({
   onCheck,
   setOtherField,
   checkboxKey,
+  firstCheckRef,
 }) {
   const { i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -35,6 +36,7 @@ function CheckboxList({
               label={label}
               onCheck={() => onCheckOther(index)}
               className="width-full"
+              firstCheckRef={index === 0 ? firstCheckRef : undefined}
             />
             {otherChecked && en(checkboxKey)[index] === "Other" && (
               <Textbox
