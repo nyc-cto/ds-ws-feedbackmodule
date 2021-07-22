@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, createRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
@@ -41,6 +41,9 @@ function Module({ pageTitle, endpoint, dir }) {
   const [inputQuestions, setInputQuestions] = useState();
   const [checkboxError, setCheckboxError] = useState(false);
 
+  const headerRef = useRef(null);
+  const inputRefs = useRef([]);
+
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
@@ -67,6 +70,10 @@ function Module({ pageTitle, endpoint, dir }) {
         })
       );
     console.log(userInfo);
+
+    useRef.current = (screen.checkboxes ? t(screen.checkboxes.labels) : [])
+      .concat(screen.textInputs ? t(screen.textInputs) : [])
+      .map((_, i) => inputRefs.current[i] ?? createRef());
   }, [screen]);
 
   // updateFormData determines which form data state to update, based on the formID
@@ -169,6 +176,7 @@ function Module({ pageTitle, endpoint, dir }) {
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);
     }
+    headerRef.current.scrollIntoView(true);
   };
 
   const onCheck = (index) => {
@@ -184,7 +192,7 @@ function Module({ pageTitle, endpoint, dir }) {
       className={MODULE_CONTAINER_STYLE}
       dir={dir}
     >
-      <Header />
+      <Header innerRef={headerRef} />
       {screen.titleInverse && (
         <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>
           <p
