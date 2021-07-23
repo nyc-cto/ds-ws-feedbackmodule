@@ -147,9 +147,15 @@ function Module({ pageTitle, endpoint, dir }) {
     let questions = inputQuestions.map((question) => {
       if (question.required && question.answer === "") {
         (validated = false), (question.error = true);
-      } else if (question.type === "email" && invalidEmail(question.answer)) {
+      } else if (
+        question.type === "email" &&
+        invalidEmail(question.answer, question.required)
+      ) {
         (validated = false), (question.error = true);
-      } else if (question.type === "tel" && invalidPhone(question.answer)) {
+      } else if (
+        question.type === "tel" &&
+        invalidPhone(question.answer, question.required)
+      ) {
         (validated = false), (question.error = true);
       } else {
         question.error = false;
