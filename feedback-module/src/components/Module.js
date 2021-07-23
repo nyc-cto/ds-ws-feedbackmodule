@@ -132,8 +132,12 @@ function Module({ pageTitle, endpoint, dir }) {
 
   const invalidPhone = (phone, required) => {
     const reUS = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-    const reInternational = /^\+(?:[0-9] ?){6,14}[0-9]$/;
-    let valid = reUS.test(phone) || reInternational.test(phone);
+
+    //Commenting this out because probably won't accept interntional phone numbers
+    //But keeping just in case:
+    // const reInternational = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+    // let valid = reUS.test(phone) || reInternational.test(phone);
+    let valid = reUS.test(phone);
     if (!required && phone === "") {
       valid = true;
     }
