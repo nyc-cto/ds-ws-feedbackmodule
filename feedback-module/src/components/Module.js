@@ -69,6 +69,7 @@ function Module({ pageTitle, endpoint, dir }) {
             answer: "",
             required: question.required,
             error: false,
+            type: question.type,
           };
         })
       );
@@ -136,12 +137,43 @@ function Module({ pageTitle, endpoint, dir }) {
     return checkedFields.some((field) => field.checked);
   };
 
+  //Check if valid email address
+  const invalidEmail = (email, required) => {
+    const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    if (!required && email === "") {
+      return false;
+    }
+    return !re.test(email);
+  };
+
+  const invalidPhone = (phone, required) => {
+    const reUS = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+
+    //Commenting this out because probably won't accept interntional phone numbers
+    //But keeping just in case:
+    // const reInternational = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+    if (!required && phone === "") {
+      return false;
+    }
+    return !reUS.test(phone);
+  };
+
   //Checks if all the required fields have been completed - returns true if yes false if no
   const inputsValidated = () => {
     let validated = true;
     let questions = inputQuestions.map((question) => {
       if (question.required && question.answer === "") {
-        (question.error = true), (validated = false);
+        (validated = false), (question.error = true);
+      } else if (
+        question.type === "email" &&
+        invalidEmail(question.answer, question.required)
+      ) {
+        (validated = false), (question.error = true);
+      } else if (
+        question.type === "tel" &&
+        invalidPhone(question.answer, question.required)
+      ) {
+        (validated = false), (question.error = true);
       } else {
         question.error = false;
       }
