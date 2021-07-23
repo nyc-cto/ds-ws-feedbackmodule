@@ -44,7 +44,7 @@ function TextboxList({
     );
   };
   const showErrors = (input, index) => {
-    if (isInvalid[index]) {
+    if (isInvalid(index)) {
       return inputError(input, `feedback-input-error-${index}`);
     }
   };
