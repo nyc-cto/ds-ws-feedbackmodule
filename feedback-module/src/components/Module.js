@@ -74,8 +74,6 @@ function Module({ pageTitle, endpoint, dir }) {
       );
     setInputRefs(refList);
 
-    console.log(userInfo);
-
     if (firstCheckRef.current) {
       firstCheckRef.current.focus();
     }
@@ -118,6 +116,7 @@ function Module({ pageTitle, endpoint, dir }) {
       userObj.source = window.location.href;
       userObj.id = endpoint;
       setUserInfo(userObj);
+      console.log(userInfo);
       requestService("userResearch", userObj);
     }
   };

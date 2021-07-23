@@ -15,9 +15,9 @@ function App({ pageTitle, lang, endpoint }) {
 
   return (
     <>
-      {/* <Helmet>
+      <Helmet>
         <link rel="stylesheet" href="/main.css" />
-      </Helmet> */}
+      </Helmet>
       <Module
         pageTitle={pageTitle}
         endpoint={endpoint}
