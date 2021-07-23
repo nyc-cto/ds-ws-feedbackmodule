@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React from "react";
 import { Grid } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
@@ -13,8 +13,6 @@ function TextboxList({
   inputRefs,
 }) {
   const { t } = useTranslation();
-
-  inputRefs.current = inputQuestions && inputQuestions.map(() => createRef());
 
   // Curried onChange funtion: returns a new function binded with the index
   const onChange = (index) => {
@@ -71,9 +69,7 @@ function TextboxList({
               required={input.required}
               invalid={isInvalid(index)}
               describedBy={`feedback-input-error-${index}`}
-              inputRef={
-                inputRefs.current ? inputRefs.current[index] : undefined
-              }
+              inputRef={inputRefs[index]}
             />
           </Grid>
         );
