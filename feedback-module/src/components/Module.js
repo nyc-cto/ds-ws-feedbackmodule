@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, createRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
@@ -40,6 +40,10 @@ function Module({ pageTitle, endpoint, dir }) {
   const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
   const [checkboxError, setCheckboxError] = useState(false);
+  const [inputRefs, setInputRefs] = useState([]);
+
+  const headerRef = useRef(null);
+  const firstCheckRef = useRef(null);
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -54,10 +58,12 @@ function Module({ pageTitle, endpoint, dir }) {
         })
       );
 
+    let refList = [];
     // Updates the text inputs based on the new screen
     t(screen.textInputs) &&
       setInputQuestions(
         en(screen.textInputs).map((question) => {
+          refList.push(createRef(null));
           return {
             question: question.text,
             answer: "",
@@ -66,8 +72,18 @@ function Module({ pageTitle, endpoint, dir }) {
           };
         })
       );
-    console.log(userInfo);
+    setInputRefs(refList);
+
+    if (firstCheckRef.current) {
+      firstCheckRef.current.focus();
+    }
   }, [screen]);
+
+  useEffect(() => {
+    if (!firstCheckRef.current && inputRefs.length > 0) {
+      inputRefs[0].current.focus();
+    }
+  }, [inputRefs]);
 
   // updateFormData determines which form data state to update, based on the formID
   const updateFormData = (formID) => {
@@ -100,6 +116,7 @@ function Module({ pageTitle, endpoint, dir }) {
       userObj.source = window.location.href;
       userObj.id = endpoint;
       setUserInfo(userObj);
+      console.log(userInfo);
       requestService("userResearch", userObj);
     }
   };
@@ -163,12 +180,21 @@ function Module({ pageTitle, endpoint, dir }) {
       !checkboxValidated()
     ) {
       setCheckboxError(true);
+      firstCheckRef.current && firstCheckRef.current.focus();
       // Make sure all required fields are completed
-    } else if (!(screen.textInputs && !inputsValidated())) {
+    } else if (screen.textInputs && !inputsValidated()) {
+      const firstErrorIndex = inputQuestions.findIndex(
+        (question) => question.error
+      );
+      if (firstErrorIndex >= 0 && inputRefs[firstErrorIndex].current) {
+        inputRefs[firstErrorIndex].current.focus();
+      }
+    } else {
       screen.formID && handleSubmit(),
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);
     }
+    headerRef.current.scrollIntoView(true);
   };
 
   const onCheck = (index) => {
@@ -184,7 +210,7 @@ function Module({ pageTitle, endpoint, dir }) {
       className={MODULE_CONTAINER_STYLE}
       dir={dir}
     >
-      <Header />
+      <Header innerRef={headerRef} />
       {screen.titleInverse && (
         <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>
           <p
@@ -212,13 +238,17 @@ function Module({ pageTitle, endpoint, dir }) {
             {screen.checkboxes && t(screen.checkboxes.labels) && (
               <>
                 {checkboxError && (
-                  <ErrorAlert errorText={t("errorMessages.checkboxError")} />
+                  <ErrorAlert
+                    errorText={t("errorMessages.checkboxError")}
+                    dir={dir}
+                  />
                 )}
                 <CheckboxList
                   feedbackCheckboxes={t(screen.checkboxes.labels)}
                   onCheck={(index) => onCheck(index)}
                   setOtherField={setOtherField}
                   checkboxKey={screen.checkboxes.labels}
+                  firstCheckRef={firstCheckRef}
                 />
               </>
             )}
@@ -227,6 +257,7 @@ function Module({ pageTitle, endpoint, dir }) {
                 inputs={t(screen.textInputs)}
                 setInputQuestions={setInputQuestions}
                 inputQuestions={inputQuestions}
+                inputRefs={inputRefs}
               />
             )}
             {screen.buttons &&

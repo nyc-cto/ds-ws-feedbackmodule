@@ -5,52 +5,47 @@ import { useTranslation } from "react-i18next";
 import Textbox from "./common/Textbox";
 import ErrorAlert from "./common/ErrorAlert";
 
-function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
+function TextboxList({
+  inputs,
+  inputQuestions,
+  setInputQuestions,
+  className,
+  inputRefs,
+}) {
   const { t } = useTranslation();
 
-  const onChange = ({ target }) => {
-    let answers = inputQuestions;
-    answers[target.id].answer = target.value;
-    setInputQuestions(answers);
+  // Curried onChange funtion: returns a new function binded with the index
+  const onChange = (index) => {
+    return ({ target }) => {
+      let answers = inputQuestions;
+      answers[index].answer = target.value;
+      setInputQuestions(answers);
+    };
   };
 
-  const phoneEmailError = () => {
+  const inputError = (input, id) => {
+    let key;
+    if (input.type === "tel" || input.type === "email") {
+      key = "emailPhoneError";
+    } else if (input.text === "Your name") {
+      key = "nameError";
+    } else if (input.type === "textarea" || input.type === "text") {
+      key = "inputEmptyError";
+    }
+    if (!key) return;
     return (
-      <ErrorAlert
-        key="phoneEmailError"
-        errorText={t("errorMessages.emailPhoneError")}
-      />
+      <ErrorAlert key={key} errorText={t(`errorMessages.${key}`)} id={id} />
     );
   };
 
-  const nameError = () => {
+  const isInvalid = (index) => {
     return (
-      <ErrorAlert key="nameError" errorText={t("errorMessages.nameError")} />
+      inputQuestions && inputQuestions[index] && inputQuestions[index].error
     );
   };
-
-  const textError = () => {
-    return (
-      <ErrorAlert
-        key="textError"
-        errorText={t("errorMessages.inputEmptyError")}
-      />
-    );
-  };
-
   const showErrors = (input, index) => {
-    if (
-      inputQuestions &&
-      inputQuestions[index] &&
-      inputQuestions[index].error
-    ) {
-      if (input.type === "tel" || input.type === "email") {
-        return phoneEmailError();
-      } else if (input.text === "Your name") {
-        return nameError();
-      } else if (input.type === "textarea" || input.type === "text") {
-        return textError();
-      }
+    if (isInvalid(index)) {
+      return inputError(input, `feedback-input-error-${index}`);
     }
   };
 
@@ -67,11 +62,14 @@ function TextboxList({ inputs, inputQuestions, setInputQuestions, className }) {
           >
             {showErrors(input, index)}
             <Textbox
-              id={index}
+              id={`feedback-input-${index}`}
               type={input.type}
               label={input.text}
-              onChange={onChange}
+              onChange={onChange(index)}
               required={input.required}
+              invalid={isInvalid(index)}
+              describedBy={`feedback-input-error-${index}`}
+              inputRef={inputRefs[index]}
             />
           </Grid>
         );

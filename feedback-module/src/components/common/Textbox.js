@@ -7,7 +7,17 @@ import {
   TEXTINPUT_STYLE,
 } from "../../assets/styling_classnames";
 
-function Textbox({ id, type, label, className, onChange, required }) {
+function Textbox({
+  id,
+  type,
+  label,
+  className,
+  onChange,
+  required,
+  describedBy,
+  invalid,
+  inputRef,
+}) {
   return (
     <>
       <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
@@ -19,6 +29,9 @@ function Textbox({ id, type, label, className, onChange, required }) {
           name={label}
           className={TEXTAREA_STYLE}
           onChange={onChange}
+          aria-invalid={invalid}
+          aria-describedby={invalid ? describedBy : undefined}
+          inputRef={inputRef}
         />
       ) : (
         <TextInput
@@ -27,6 +40,9 @@ function Textbox({ id, type, label, className, onChange, required }) {
           type={type}
           className={`${className} ${TEXTINPUT_STYLE}`}
           onChange={onChange}
+          aria-invalid={invalid}
+          aria-describedby={invalid ? describedBy : undefined}
+          inputRef={inputRef}
         />
       )}
     </>
