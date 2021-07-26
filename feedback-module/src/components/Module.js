@@ -12,25 +12,13 @@ import {
   PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
 import { SCREENS, INITIAL_SCREEN } from "../assets/constants";
+import requestService from "../services/requestService";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
-import requestService from "../services/requestService";
-
-function LightContainer({ children, formID }) {
-  const isChildNull = (children) => {
-    /* returns true if there are no elements outside of the form element
-       and the form is empty */
-    return !(React.Children.toArray(children).length > 1 || formID);
-  };
-  return isChildNull(children) ? (
-    children
-  ) : (
-    <Grid className={SCREEN_CONTAINER_STYLE}>{children}</Grid>
-  );
-}
+import LightContainer from "./LightContainer";
 
 function Module({ pageTitle, endpoint, dir }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
