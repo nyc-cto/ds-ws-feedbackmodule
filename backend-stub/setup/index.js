@@ -23,7 +23,7 @@ const auth = new google.auth.JWT(
 );
 const drive = google.drive({ version: "v3", auth });
 
-module.exports = function (context, req) {
+module.exports = async function (context, req) {
   context.log("JavaScript HTTP trigger function processed a request.");
 
   const body = req.body;
@@ -104,5 +104,4 @@ module.exports = function (context, req) {
           })
       );
   }
-  context.done();
 };
