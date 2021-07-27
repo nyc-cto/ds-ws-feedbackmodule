@@ -4,38 +4,49 @@ import "@trussworks/react-uswds/lib/index.css";
 import "./i18n";
 import "./styles/index.scss";
 import App from "./App";
+import GA4React from "ga-4-react";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
-const renderApp = (Div, lang, pageTitle, endpoint) => {
+const renderApp = (Div, lang, pageTitle, endpoint, gaID) => {
   Div.attributes.lang && (lang = Div.attributes.lang.value);
   Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
-  ReactDOM.render(
-    <React.StrictMode>
-      <Suspense fallback="... is loading">
-        <App
-          domElement={Div}
-          lang={lang}
-          pageTitle={pageTitle}
-          endpoint={endpoint}
-        />
-      </Suspense>
-    </React.StrictMode>,
-    Div
-  );
+  const ga4react = new GA4React(gaID);
+  (async () => {
+    await ga4react
+      .initialize()
+      .then((res) => console.log(`Analytics Success: ${res}`))
+      .catch((err) => console.log(`Analytics Failure: ${err}`))
+      .finally(() => {
+        ReactDOM.render(
+          <React.StrictMode>
+            <Suspense fallback="... is loading">
+              <App
+                domElement={Div}
+                lang={lang}
+                pageTitle={pageTitle}
+                endpoint={endpoint}
+              />
+            </Suspense>
+          </React.StrictMode>,
+          Div
+        );
+      });
+  })();
 };
 
 WidgetDivs.forEach((Div) => {
   let currentLang = "en";
   let pageTitle = "";
   let endpoint = "";
+  let gaID = "";
   renderApp(Div, currentLang, pageTitle, endpoint);
 
   let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type == "attributes") {
-        renderApp(Div, currentLang, pageTitle, endpoint);
+        renderApp(Div, currentLang, pageTitle, endpoint, gaID);
       }
     });
   });
