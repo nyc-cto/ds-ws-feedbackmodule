@@ -29,11 +29,11 @@ module.exports = async function (context, req) {
   };
 
   if (body.method === "spreadsheet") {
-    const emails = req.body.emails.split(", ");
+    const emails = body.emails.split(", ");
     drive.files.copy(
       {
         fileId: process.env.FILEID,
-        resource: { name: req.body.name },
+        resource: { name: `${body.agency} Feedback Module Responses` },
       },
       (err, { data }) => {
         if (err) throw err;
