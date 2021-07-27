@@ -41,7 +41,7 @@ const apiCall = async (url, data) => {
 };
 
 app.post("/test", (req, res) => {
-  const emails = req.body.emails.split(", ");
+  const emails = req.body.emails.split(/\s*(?:,|$)\s*/);
   const permissions = emails.map((email) => {
     return {
       role: "reader",

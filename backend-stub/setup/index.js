@@ -18,18 +18,10 @@ module.exports = async function (context, req) {
   const body = req.body;
   body.id = uniqid();
 
-  const config = {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  };
-
   if (body.method === "spreadsheet") {
-    const emails = body.emails.split(", ");
+    // splits string into emails on zero or more spaces followed by a comma and zero or more spaces
+    const emails = body.emails.split(/\s*(?:,|$)\s*/);
+    console.log(emails);
     drive.files.copy(
       {
         fileId: process.env.FILEID,
@@ -37,6 +29,7 @@ module.exports = async function (context, req) {
       },
       (err, { data }) => {
         if (err) throw err;
+        body.spreadsheetID = data.id;
         async.eachSeries(
           emails,
           (email, emailCallback) => {
@@ -70,6 +63,17 @@ module.exports = async function (context, req) {
       }
     );
   }
+
+  const config = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  };
+
   await fetch(process.env.SETUP_ENDPOINT, config)
     .then(
       () =>
