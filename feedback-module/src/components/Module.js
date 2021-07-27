@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef, createRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
+import { useGA4React } from "ga-4-react";
 
 import {
   MODULE_CONTAINER_STYLE,
@@ -36,7 +37,15 @@ function Module({ pageTitle, endpoint, dir }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
+  const ga = useGA4React();
+
   useEffect(() => {
+    // ga &&
+    //   console.log("hi") &&
+    //   ga.gtag("event", "page_view", {
+    //     page_title: t(screen.title),
+    //     test: "test",
+    //   });
     // Updates the checkboxes based on the new screen
     screen.checkboxes &&
       t(screen.checkboxes.labels) &&
@@ -92,10 +101,10 @@ function Module({ pageTitle, endpoint, dir }) {
       });
       feedback.source = window.location.href;
       setFeedbackForAPI(feedback);
-      requestService("feedback", {
-        id: endpoint,
-        feedback: feedbackForAPI,
-      });
+      // requestService("feedback", {
+      //   id: endpoint,
+      //   feedback: feedbackForAPI,
+      // });
       console.log(feedbackForAPI);
     } else if (formID === "research") {
       let userObj = userInfo;
@@ -210,6 +219,16 @@ function Module({ pageTitle, endpoint, dir }) {
         inputRefs[firstErrorIndex].current.focus();
       }
     } else {
+      // ga.event("page_change", "user moved to next screen", t(screen.title));
+
+      //adds the screen title as the page title
+      ga.pageview(window.location.pathname, window.location, t(screen.title));
+
+      //triggers a new event called page_change that shares your current page and next page
+      ga.gtag("event", "page_change", {
+        current_page_title: t(screen.title),
+        next_page: t(SCREENS[nextScreen].title),
+      });
       screen.formID && handleSubmit(),
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);

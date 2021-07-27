@@ -12,11 +12,12 @@ const renderApp = (Div, lang, pageTitle, endpoint, gaID) => {
   Div.attributes.lang && (lang = Div.attributes.lang.value);
   Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
+  Div.attributes.gaID && (gaID = Div.attributes.gaID.value);
   const ga4react = new GA4React(gaID);
   (async () => {
     await ga4react
       .initialize()
-      .then((res) => console.log(`Analytics Success: ${res}`))
+      .then((res) => console.log(`Analytics Success: ${res} ${gaID}`))
       .catch((err) => console.log(`Analytics Failure: ${err}`))
       .finally(() => {
         ReactDOM.render(
@@ -41,7 +42,7 @@ WidgetDivs.forEach((Div) => {
   let pageTitle = "";
   let endpoint = "";
   let gaID = "";
-  renderApp(Div, currentLang, pageTitle, endpoint);
+  renderApp(Div, currentLang, pageTitle, endpoint, gaID);
 
   let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
