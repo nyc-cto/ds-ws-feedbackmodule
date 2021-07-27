@@ -44,7 +44,7 @@ app.post("/test", (req, res) => {
   const emails = req.body.emails.split(", ");
   const permissions = emails.map((email) => {
     return {
-      role: "writer",
+      role: "reader",
       type: "user",
       emailAddress: email,
     };
@@ -65,7 +65,7 @@ app.post("/test", (req, res) => {
               fileId: data.id,
               sendNotificationEmail: true,
               emailMessage:
-                "Your Feedback Module responses are available to view here. Please do not edit the headers.",
+                "Your Feedback Module responses are available to view. To view responses for different questions, click on the tabs at the bottom of the spreadsheet",
               resource: permission,
             },
             (err) => {
