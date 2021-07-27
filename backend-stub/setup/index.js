@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 const uniqid = require("uniqid");
 const async = require("async");
+require("dotenv").config();
 const credentials = {
   type: "service_account",
   project_id: process.env.PROJECT_ID,
@@ -13,7 +14,6 @@ const credentials = {
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
   client_x509_cert_url: process.env.CERT_URL,
 };
-require("dotenv").config();
 
 const auth = new google.auth.JWT(
   credentials.client_email,
