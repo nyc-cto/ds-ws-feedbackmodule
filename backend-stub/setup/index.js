@@ -22,13 +22,14 @@ module.exports = async function (context, req) {
     client_x509_cert_url: process.env.CERT_URL,
   };
 
+  const auth = new google.auth.JWT(
+    credentials.client_email,
+    null,
+    credentials.private_key,
+    scopes
+  );
+
   if (body.method === "spreadsheet") {
-    const auth = new google.auth.JWT(
-      credentials.client_email,
-      null,
-      credentials.private_key,
-      scopes
-    );
     const drive = google.drive({ version: "v3", auth });
     // splits string into emails on zero or more spaces followed by a comma and zero or more spaces
     const emails = body.emails.split(/\s*(?:,|$)\s*/);
@@ -42,7 +43,7 @@ module.exports = async function (context, req) {
         if (err) {
           context.res = {
             status: 500,
-            body: `Request error. ${err}`,
+            body: `Request error.`,
           };
         }
         body.spreadsheetID = data.id;
@@ -71,7 +72,7 @@ module.exports = async function (context, req) {
             if (err) {
               context.res = {
                 status: 500,
-                body: `Request error. ${err}`,
+                body: `Request error.`,
               };
             }
           }
@@ -100,7 +101,7 @@ module.exports = async function (context, req) {
         (err) =>
           (context.res = {
             status: 500,
-            body: `Request error. ${err}`,
+            body: `Request error.`,
           })
       );
   }
