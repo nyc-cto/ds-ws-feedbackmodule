@@ -26,11 +26,6 @@ const drive = google.drive({ version: "v3", auth });
 module.exports = async function (context, req) {
   context.log("JavaScript HTTP trigger function processed a request.");
 
-  context.res = {
-    status: 500,
-    body: JSON.stringify(credentials),
-  };
-
   const body = req.body;
   body.id = uniqid();
 
@@ -44,7 +39,12 @@ module.exports = async function (context, req) {
         resource: { name: `${body.agency} Feedback Module Responses` },
       },
       (err, { data }) => {
-        if (err) throw err;
+        if (err) {
+          context.res = {
+            status: 500,
+            body: `Request error. ${err}`,
+          };
+        }
         body.spreadsheetID = data.id;
         async.eachSeries(
           emails,
