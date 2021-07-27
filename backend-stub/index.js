@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const fetch = require("node-fetch");
+const uniqid = require("uniqid");
 const cors = require("cors");
 const { google } = require("googleapis");
 const scopes = ["https://www.googleapis.com/auth/drive"];
@@ -34,8 +35,8 @@ app
   .use(express.json())
   .use(express.urlencoded({ extended: true }));
 
-const apiCall = async (url, data) => {
-  try {
+app.post("/test", (req, res) => {
+  const sendRequest = async (body) => {
     const config = {
       method: "POST",
       mode: "cors",
@@ -43,24 +44,17 @@ const apiCall = async (url, data) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(body),
     };
-    const response = await fetch(url, config);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
-app.post("/test", (req, res) => {
-  const emails = req.body.emails.split(/\s*(?:,|$)\s*/);
-  const permissions = emails.map((email) => {
-    return {
-      role: "reader",
-      type: "user",
-      emailAddress: email,
-    };
-  });
+    await fetch(process.env.SETUP_ENDPOINT, config)
+      .then(res.send("success!"))
+      .catch((err) => res.send(err));
+  };
+  const body = req.body;
+  body.id = uniqid();
+  const emails = body.emails.split(/\s*(?:,|$)\s*/);
+
   drive.files.copy(
     {
       fileId: "1zNjDpY9iwNS8DJAPEyzagrGK15-JQYyYllaiwO1gu9A",
@@ -69,25 +63,28 @@ app.post("/test", (req, res) => {
     (err, result) => {
       if (err) throw err;
       async.eachSeries(
-        permissions,
-        (permission, permissionCallback) => {
+        emails,
+        (email, callback) => {
           drive.permissions.create(
             {
               fileId: result.data.id,
               sendNotificationEmail: true,
               emailMessage:
                 "Your Feedback Module responses are available to view. To view responses for different questions, click on the tabs at the bottom of the spreadsheet",
-              resource: permission,
+              resource: {
+                role: "reader",
+                type: "user",
+                emailAddress: email,
+              },
             },
             (err) => {
-              if (err) permissionCallback(err);
-              else permissionCallback();
+              if (err) callback(err);
+              else sendRequest(body);
             }
           );
         },
         (err) => {
           if (err) throw err;
-          else res.send("success!");
         }
       );
     }
