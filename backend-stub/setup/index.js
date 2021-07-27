@@ -9,6 +9,7 @@ module.exports = async function (context, req) {
   const body = req.body;
   body.id = uniqid();
 
+  const scopes = ["https://www.googleapis.com/auth/drive"];
   const credentials = {
     type: "service_account",
     project_id: process.env.PROJECT_ID,
@@ -21,7 +22,6 @@ module.exports = async function (context, req) {
     auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
     client_x509_cert_url: process.env.CERT_URL,
   };
-
   const auth = new google.auth.JWT(
     credentials.client_email,
     null,
