@@ -26,6 +26,11 @@ const drive = google.drive({ version: "v3", auth });
 module.exports = async function (context, req) {
   context.log("JavaScript HTTP trigger function processed a request.");
 
+  context.res = {
+    status: 500,
+    body: JSON.stringify(credentials),
+  };
+
   const body = req.body;
   body.id = uniqid();
 
