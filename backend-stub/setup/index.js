@@ -25,11 +25,12 @@ module.exports = function (context, req) {
     });
   };
 
-  const errorMsg = (err) =>
+  const errorMsg = (err) => {
     context.done({
       status: 500,
       body: `Request error. ${err}`,
     });
+  };
 
   context.log("JavaScript HTTP trigger function processed a request.");
 
