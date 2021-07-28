@@ -6,6 +6,31 @@ const { google } = require("googleapis");
 require("dotenv").config();
 
 module.exports = async function (context, req) {
+  const sendRequest = async (body) => {
+    const config = {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    return await fetch(process.env.SETUP_ENDPOINT, config);
+  };
+
+  const successMsg = () => {
+    context.res = {
+      body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
+    };
+  };
+
+  const errorMsg = (err) =>
+    (context.res = {
+      status: 500,
+      body: `Request error. ${err}`,
+    });
+
   context.log("JavaScript HTTP trigger function processed a request.");
 
   const body = req.body;
@@ -43,12 +68,10 @@ module.exports = async function (context, req) {
       },
       (err, { data }) => {
         if (err) {
-          context.res = {
-            status: 500,
-            body: `Request error. ${err}`,
-          };
+          errorMsg(err);
         }
         body.spreadsheetID = data.id;
+        sendRequest(body).then(successMsg).catch(errorMsg);
         async.eachSeries(
           emails,
           (email, emailCallback) => {
@@ -72,38 +95,13 @@ module.exports = async function (context, req) {
           },
           (err) => {
             if (err) {
-              context.res = {
-                status: 500,
-                body: `Request error. ${err}`,
-              };
+              errorMsg(err);
             }
           }
         );
       }
     );
+  } else {
+    sendRequest(body).then(successMsg).catch(errorMsg);
   }
-  const config = {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  };
-
-  await fetch(process.env.SETUP_ENDPOINT, config)
-    .then(
-      () =>
-        (context.res = {
-          body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
-        })
-    )
-    .catch(
-      (err) =>
-        (context.res = {
-          status: 500,
-          body: `Request error. ${err}`,
-        })
-    );
 };
