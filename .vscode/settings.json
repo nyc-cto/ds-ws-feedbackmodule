@@ -1,5 +1,5 @@
 {
-  "azureFunctions.deploySubpath": "backend-stub",
+  "azureFunctions.deploySubpath": "backend",
   "azureFunctions.postDeployTask": "npm install (functions)",
   "azureFunctions.projectLanguage": "JavaScript",
   "azureFunctions.projectRuntime": "~3",

@@ -10,7 +10,7 @@ The following are the main folders in this repository
 
 This folder contains the source files for our feedback module. It produces the widget that folks can click in order for them to pull out the feedback module.
 
-### `backend-stub`
+### `backend`
 
 This folder contains a simple backend that accepts any requests from `feedback-module`. It mainly responds `{ "status": "OK"}` or `{ "status": "error", "message": "An error occured"}` on command.
 

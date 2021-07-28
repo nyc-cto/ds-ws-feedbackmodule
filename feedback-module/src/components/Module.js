@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-control-regex */
 import React, { useEffect, useState, useRef, createRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
@@ -127,7 +128,9 @@ function Module({ pageTitle, endpoint, dir }) {
 
   //Check if valid email address
   const invalidEmail = (email, required) => {
-    const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    const re =
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
     if (!required && email === "") {
       return false;
     }
