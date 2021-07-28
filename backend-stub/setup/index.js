@@ -103,5 +103,4 @@ module.exports = function (context, req) {
   } else {
     errorMsg("Invalid method.");
   }
-  context.done();
 };
