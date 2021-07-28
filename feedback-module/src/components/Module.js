@@ -21,7 +21,7 @@ import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 import LightContainer from "./LightContainer";
 
-function Module({ pageTitle, endpoint, dir }) {
+function Module({ pagetitle, endpoint, dir }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
   const [userInfo, setUserInfo] = useState({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
@@ -246,7 +246,7 @@ function Module({ pageTitle, endpoint, dir }) {
         <LightContainer formID={screen.formID}>
           {screen.title && (
             <p className={`${H1_DARK_STYLE} ${dir === "rtl" && "text-right"}`}>
-              {`${t(screen.title, { page: pageTitle })}${
+              {`${t(screen.title, { page: pagetitle })}${
                 screen.checkboxes && screen.checkboxes.required ? "*" : ""
               }`}
             </p>

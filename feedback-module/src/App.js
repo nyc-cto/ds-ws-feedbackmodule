@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import Module from "./components/Module";
 
-function App({ pageTitle, lang, endpoint }) {
+function App({ pagetitle, lang, endpoint }) {
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function App({ pageTitle, lang, endpoint }) {
         />
       </Helmet>
       <Module
-        pageTitle={pageTitle}
+        pagetitle={pagetitle}
         endpoint={endpoint}
         dir={i18n.dir(i18n.language)}
       />
