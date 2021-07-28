@@ -94,7 +94,6 @@ module.exports = function (context, req) {
                 }
               );
             });
-            successMsg();
           })
           .catch(errorMsg);
       }
