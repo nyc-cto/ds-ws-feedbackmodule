@@ -20,16 +20,16 @@ module.exports = function (context, req) {
   };
 
   const successMsg = () => {
-    context.res = {
+    return {
+      status: 200,
       body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
     };
   };
 
-  const errorMsg = (err) =>
-    (context.res = {
-      status: 500,
-      body: `Request error. ${err}`,
-    });
+  const errorMsg = (err) => ({
+    status: 500,
+    body: `Request error. ${err}`,
+  });
 
   context.log("JavaScript HTTP trigger function processed a request.");
 
@@ -37,17 +37,17 @@ module.exports = function (context, req) {
   body.id = uniqid();
 
   if (!body.pageTitle || body.pageTitle === "") {
-    errorMsg("Please enter a valid page title.");
+    return errorMsg("Please enter a valid page title.");
   } else if (!body.agency || body.agency === "") {
-    errorMsg("Please enter a valid agency name.");
+    return errorMsg("Please enter a valid agency name.");
   } else if (!body.emails || body.emails === "") {
-    errorMsg("Please enter at least one valid email.");
+    return errorMsg("Please enter at least one valid email.");
   }
 
   const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
   const emails = body.emails.split(/\s*(?:,|$)\s*/);
   emails.forEach((email) => {
-    if (!re.test(email)) errorMsg(`${email} is not a valid email`);
+    if (!re.test(email)) return errorMsg(`${email} is not a valid email`);
   });
 
   const scopes = ["https://www.googleapis.com/auth/drive"];
@@ -68,7 +68,7 @@ module.exports = function (context, req) {
       },
       (err, { data }) => {
         if (err) {
-          errorMsg(err);
+          return errorMsg(err);
         }
         body.spreadsheetID = data.id;
         sendRequest(body)
@@ -91,17 +91,17 @@ module.exports = function (context, req) {
                 }
               );
             });
-            successMsg();
+            return successMsg();
           })
           .catch(errorMsg);
       }
     );
-    successMsg();
+    return successMsg();
   } else if (body.method === "excel" || body.method === "email") {
     sendRequest(body).then(successMsg).catch(errorMsg);
-    successMsg();
+    return successMsg();
   } else {
-    errorMsg("Invalid method.");
+    return errorMsg("Invalid method.");
   }
   context.done();
 };
