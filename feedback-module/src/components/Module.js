@@ -190,6 +190,17 @@ function Module({ pageTitle, endpoint, dir }) {
   };
 
   const changeScreen = (text, nextScreen, feedbackID) => {
+    // ga.event("page_change", "user moved to next screen", t(screen.title));
+
+    //adds the screen title as the page title
+    ga.pageview(window.location.pathname, window.location, t(screen.title));
+
+    //triggers a new event called page_change that shares your current page and next page
+    ga.gtag("event", "page_change", {
+      current_page_title: t(screen.title),
+      next_page: t(SCREENS[nextScreen].title),
+    });
+
     // If button contains a feedbackID, update the feedbackType of the feedback object
     if (feedbackID) {
       setFeedbackForAPI((feedback) => {
@@ -219,16 +230,6 @@ function Module({ pageTitle, endpoint, dir }) {
         inputRefs[firstErrorIndex].current.focus();
       }
     } else {
-      // ga.event("page_change", "user moved to next screen", t(screen.title));
-
-      //adds the screen title as the page title
-      ga.pageview(window.location.pathname, window.location, t(screen.title));
-
-      //triggers a new event called page_change that shares your current page and next page
-      ga.gtag("event", "page_change", {
-        current_page_title: t(screen.title),
-        next_page: t(SCREENS[nextScreen].title),
-      });
       screen.formID && handleSubmit(),
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);
