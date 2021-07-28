@@ -20,13 +20,13 @@ module.exports = function (context, req) {
   };
 
   const successMsg = () => {
-    context.res = {
+    context.done(null, {
       body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
-    };
+    });
   };
 
   const errorMsg = (err) =>
-    (context.res = {
+    context.done({
       status: 500,
       body: `Request error. ${err}`,
     });
