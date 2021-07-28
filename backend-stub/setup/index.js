@@ -5,7 +5,7 @@ const { google } = require("googleapis");
 
 require("dotenv").config();
 
-module.exports = async function (context, req) {
+module.exports = function (context, req) {
   const sendRequest = async (body) => {
     const config = {
       method: "POST",
@@ -103,4 +103,5 @@ module.exports = async function (context, req) {
   } else {
     errorMsg("Invalid method.");
   }
+  context.done();
 };
