@@ -20,16 +20,18 @@ module.exports = function (context, req) {
   };
 
   const successMsg = () => {
-    context.done(null, {
+    context.res = {
       body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
-    });
+    };
+    context.done();
   };
 
   const errorMsg = (err) => {
-    context.done({
+    context.res = {
       status: 500,
       body: `Request error. ${err}`,
-    });
+    };
+    context.done();
   };
 
   context.log("JavaScript HTTP trigger function processed a request.");
