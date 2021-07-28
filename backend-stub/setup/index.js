@@ -45,7 +45,7 @@ module.exports = async function (context, req) {
         if (err) {
           context.res = {
             status: 500,
-            body: `Request error.`,
+            body: `Request error. ${err}`,
           };
         }
         body.spreadsheetID = data.id;
@@ -74,37 +74,36 @@ module.exports = async function (context, req) {
             if (err) {
               context.res = {
                 status: 500,
-                body: `Request error.`,
+                body: `Request error. ${err}`,
               };
             }
           }
         );
       }
     );
-  } else {
-    const config = {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
-
-    await fetch(process.env.SETUP_ENDPOINT, config)
-      .then(
-        () =>
-          (context.res = {
-            body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
-          })
-      )
-      .catch(
-        (err) =>
-          (context.res = {
-            status: 500,
-            body: `Request error.`,
-          })
-      );
   }
+  const config = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  };
+
+  await fetch(process.env.SETUP_ENDPOINT, config)
+    .then(
+      () =>
+        (context.res = {
+          body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
+        })
+    )
+    .catch(
+      (err) =>
+        (context.res = {
+          status: 500,
+          body: `Request error. ${err}`,
+        })
+    );
 };
