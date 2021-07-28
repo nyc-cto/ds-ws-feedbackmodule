@@ -16,8 +16,11 @@ function App({ pageTitle, lang, endpoint }) {
   return (
     <>
       <Helmet>
-        {/* <link rel="stylesheet" href="https://d2ttz3as5y3dj0.cloudfront.net/main.css" /> */}
-        <link rel="stylesheet" href="/main.css" />
+        <link
+          rel="stylesheet"
+          href="https://d2ttz3as5y3dj0.cloudfront.net/main.css"
+        />
+        {/* <link rel="stylesheet" href="/main.css" /> */}
       </Helmet>
       <Module
         pageTitle={pageTitle}

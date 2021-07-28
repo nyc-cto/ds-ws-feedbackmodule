@@ -60,7 +60,6 @@ module.exports = async function (context, req) {
     const drive = google.drive({ version: "v3", auth });
     // splits string into emails on zero or more spaces followed by a comma and zero or more spaces
     const emails = body.emails.split(/\s*(?:,|$)\s*/);
-    console.log(emails);
     drive.files.copy(
       {
         fileId: process.env.FILEID,
@@ -99,4 +98,7 @@ module.exports = async function (context, req) {
   } else {
     sendRequest(body).then(successMsg).catch(errorMsg);
   }
+  context.res = {
+    body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
+  };
 };
