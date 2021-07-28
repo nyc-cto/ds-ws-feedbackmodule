@@ -36,30 +36,31 @@ module.exports = async function (context, req) {
   const body = req.body;
   body.id = uniqid();
 
+  if (!body.pageTitle || body.pageTitle === "") {
+    errorMsg("Please enter a valid page title.");
+  } else if (!body.agency || body.agency === "") {
+    errorMsg("Please enter a valid agency name.");
+  } else if (!body.emails || body.emails === "") {
+    errorMsg("Please enter at least one valid email.");
+  }
+
+  const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+  const emails = body.emails.split(/\s*(?:,|$)\s*/);
+  emails.forEach((email) => {
+    if (!re.test(email)) errorMsg(`${email} is not a valid email`);
+  });
+
   const scopes = ["https://www.googleapis.com/auth/drive"];
-  const credentials = {
-    type: "service_account",
-    project_id: process.env.PROJECT_ID,
-    private_key_id: process.env.PRIVATE_KEY_ID,
-    private_key: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
-    client_email: process.env.CLIENT_EMAIL,
-    client_id: process.env.CLIENT_ID,
-    auth_uri: "https://accounts.google.com/o/oauth2/auth",
-    token_uri: "https://oauth2.googleapis.com/token",
-    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-    client_x509_cert_url: process.env.CERT_URL,
-  };
   const auth = new google.auth.JWT(
-    credentials.client_email,
+    process.env.CLIENT_EMAIL,
     null,
-    credentials.private_key,
+    process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
     scopes
   );
 
   if (body.method === "spreadsheet") {
     const drive = google.drive({ version: "v3", auth });
     // splits string into emails on zero or more spaces followed by a comma and zero or more spaces
-    const emails = body.emails.split(/\s*(?:,|$)\s*/);
     drive.files.copy(
       {
         fileId: process.env.FILEID,
@@ -95,10 +96,11 @@ module.exports = async function (context, req) {
           .catch(errorMsg);
       }
     );
-  } else {
+    successMsg();
+  } else if (body.method === "excel" || body.method === "email") {
     sendRequest(body).then(successMsg).catch(errorMsg);
+    successMsg();
+  } else {
+    errorMsg("Invalid method.");
   }
-  context.res = {
-    body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
-  };
 };
