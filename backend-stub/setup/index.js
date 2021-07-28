@@ -46,8 +46,9 @@ module.exports = function (context, req) {
   } else if (!body.emails || body.emails === "") {
     errorMsg("Please enter at least one valid email.");
   }
+  const re =
+    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
 
-  const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
   const emails = body.emails.split(/\s*(?:,|$)\s*/);
   emails.forEach((email) => {
     if (!re.test(email)) errorMsg(`${email} is not a valid email`);
