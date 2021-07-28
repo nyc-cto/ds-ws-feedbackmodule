@@ -73,34 +73,25 @@ module.exports = async function (context, req) {
         body.spreadsheetID = data.id;
         sendRequest(body)
           .then(() => {
-            successMsg();
-            async.eachSeries(
-              emails,
-              (email, emailCallback) => {
-                drive.permissions.create(
-                  {
-                    fileId: data.id,
-                    sendNotificationEmail: true,
-                    emailMessage:
-                      "Your Feedback Module responses are available to view. To view responses for different questions, click on the tabs at the bottom of the spreadsheet",
-                    resource: {
-                      role: "reader",
-                      type: "user",
-                      emailAddress: email,
-                    },
+            async.eachSeries(emails, (email) => {
+              drive.permissions.create(
+                {
+                  fileId: data.id,
+                  sendNotificationEmail: true,
+                  emailMessage:
+                    "Your Feedback Module responses are available to view. To view responses for different questions, click on the tabs at the bottom of the spreadsheet",
+                  resource: {
+                    role: "reader",
+                    type: "user",
+                    emailAddress: email,
                   },
-                  (err) => {
-                    if (err) emailCallback(err);
-                    else emailCallback();
-                  }
-                );
-              },
-              (err) => {
-                if (err) {
-                  errorMsg(err);
+                },
+                (err) => {
+                  if (err) throw err;
                 }
-              }
-            );
+              );
+            });
+            successMsg();
           })
           .catch(errorMsg);
       }
