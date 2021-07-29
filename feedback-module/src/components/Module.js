@@ -15,7 +15,9 @@ import {
 import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
 import requestService from "../services/requestService";
 import useCheckedFields from "../lib/hooks/useCheckedFields";
-import { inputsValidated } from "../lib/utils/textboxUtil";
+import useInputQuestions from "../lib/hooks/useInputQuestions";
+import { flattenInputs } from "../lib/utils/textboxUtil";
+import { flattenCheckboxes } from "../lib/utils/checkboxUtil";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
@@ -27,9 +29,8 @@ function Module({ pagetitle, endpoint, dir }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
   const [userInfo, setUserInfo] = useState({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
-  const [inputQuestions, setInputQuestions] = useState();
   const [checkboxError, setCheckboxError] = useState(false);
-  const [inputRefs, setInputRefs] = useState([]);
+
   const {
     checkedFields,
     onCheck,
@@ -42,40 +43,27 @@ function Module({ pagetitle, endpoint, dir }) {
   const headerRef = useRef(null);
   const firstCheckRef = useRef(null);
 
+  const {
+    inputQuestions,
+    setInputQuestions,
+    newScreenInputs,
+    inputsValidated,
+    focusFirstError,
+    inputRefs,
+  } = useInputQuestions(firstCheckRef);
+
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
     newScreenCheckboxes(screen.checkboxes);
-
-    let refList = [];
-    // Updates the text inputs based on the new screen
-    t(screen.textInputs) &&
-      setInputQuestions(
-        en(screen.textInputs).map((question) => {
-          refList.push(createRef(null));
-          return {
-            question: question.text,
-            answer: "",
-            required: question.required,
-            error: false,
-            type: question.type,
-          };
-        })
-      );
-    setInputRefs(refList);
+    newScreenInputs(screen.textInputs);
 
     if (firstCheckRef.current) {
       firstCheckRef.current.focus();
     }
   }, [screen]);
-
-  useEffect(() => {
-    if (!firstCheckRef.current && inputRefs.length > 0) {
-      inputRefs[0].current.focus();
-    }
-  }, [inputRefs]);
 
   // updateFormData determines which form data state to update, based on the formID
   const updateFormData = (formID) => {
@@ -85,14 +73,8 @@ function Module({ pagetitle, endpoint, dir }) {
       let feedback = feedbackForAPI;
       /* filters checkedOptions for the fields that are checked,
            then returns only the label property */
-      feedback.checkedOptions = checkedFields
-        ? checkedFields
-            .filter(({ checked }) => checked)
-            .map(({ label }) => label)
-        : [];
-      feedback.inputResponses = inputQuestions.map(({ question, answer }) => {
-        return { question: question, answer: answer };
-      });
+      feedback.checkedOptions = flattenCheckboxes(checkedFields);
+      feedback.inputResponses = flattenInputs(inputQuestions);
       feedback.source = window.location.href;
       setFeedbackForAPI(feedback);
       requestService("feedback", {
@@ -144,16 +126,8 @@ function Module({ pagetitle, endpoint, dir }) {
       setCheckboxError(true);
       firstCheckRef.current && firstCheckRef.current.focus();
       // Make sure all required fields are completed
-    } else if (
-      screen.textInputs &&
-      !inputsValidated(inputQuestions, setInputQuestions)
-    ) {
-      const firstErrorIndex = inputQuestions.findIndex(
-        (question) => question.error
-      );
-      if (firstErrorIndex >= 0 && inputRefs[firstErrorIndex].current) {
-        inputRefs[firstErrorIndex].current.focus();
-      }
+    } else if (screen.textInputs && !inputsValidated()) {
+      focusFirstError();
     } else {
       screen.formID && handleSubmit(),
         setScreen(SCREENS[nextScreen]),

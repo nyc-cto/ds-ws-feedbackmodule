@@ -21,27 +21,8 @@ export const invalidPhone = (phone, required) => {
   return !reUS.test(phone);
 };
 
-//Checks if all the required fields have been completed - returns true if yes false if no
-export const inputsValidated = (inputQuestions, setInputQuestions) => {
-  let validated = true;
-  let questions = inputQuestions.map((question) => {
-    if (question.required && question.answer === "") {
-      (validated = false), (question.error = true);
-    } else if (
-      question.type === "email" &&
-      invalidEmail(question.answer, question.required)
-    ) {
-      (validated = false), (question.error = true);
-    } else if (
-      question.type === "tel" &&
-      invalidPhone(question.answer, question.required)
-    ) {
-      (validated = false), (question.error = true);
-    } else {
-      question.error = false;
-    }
-    return question;
+export const flattenInputs = (inputQuestions) => {
+  return inputQuestions.map(({ question, answer }) => {
+    return { question: question, answer: answer };
   });
-  setInputQuestions(questions);
-  return validated;
 };
