@@ -89,7 +89,7 @@ Add the following code into your project:
 <div
   id="feedback-widget"
   lang={<your page's current language>}
-  title="<your page name>"
+  pagetitle="<your page name>"
   endpoint="<your unique id>"
 ></div>
 <ScriptTag src="/feedback-module.min.js" type="text/javascript" />
