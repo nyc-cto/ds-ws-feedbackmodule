@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import Module from "./components/Module";
 
-function App({ pageTitle, lang, endpoint }) {
+function App({ pagetitle, lang, endpoint }) {
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -15,14 +15,13 @@ function App({ pageTitle, lang, endpoint }) {
 
   return (
     <HelmetProvider>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          href="https://d2ttz3as5y3dj0.cloudfront.net/main.css"
-        />
-      </Helmet>
+      {process.env.REACT_APP_CSS_PATH && (
+        <Helmet>
+          <link rel="stylesheet" href={process.env.REACT_APP_CSS_PATH} />
+        </Helmet>
+      )}
       <Module
-        pageTitle={pageTitle}
+        pagetitle={pagetitle}
         endpoint={endpoint}
         dir={i18n.dir(i18n.language)}
       />

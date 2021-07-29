@@ -7,9 +7,9 @@ import App from "./App";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
-const renderApp = (Div, lang, pageTitle, endpoint) => {
+const renderApp = (Div, lang, pagetitle, endpoint) => {
   Div.attributes.lang && (lang = Div.attributes.lang.value);
-  Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
+  Div.attributes.pagetitle && (pagetitle = Div.attributes.pagetitle.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
   ReactDOM.render(
     <React.StrictMode>
@@ -17,7 +17,7 @@ const renderApp = (Div, lang, pageTitle, endpoint) => {
         <App
           domElement={Div}
           lang={lang}
-          pageTitle={pageTitle}
+          pagetitle={pagetitle}
           endpoint={endpoint}
         />
       </Suspense>
@@ -28,14 +28,14 @@ const renderApp = (Div, lang, pageTitle, endpoint) => {
 
 WidgetDivs.forEach((Div) => {
   let currentLang = "en";
-  let pageTitle = "";
+  let pagetitle = "";
   let endpoint = "";
-  renderApp(Div, currentLang, pageTitle, endpoint);
+  renderApp(Div, currentLang, pagetitle, endpoint);
 
   let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type == "attributes") {
-        renderApp(Div, currentLang, pageTitle, endpoint);
+        renderApp(Div, currentLang, pagetitle, endpoint);
       }
     });
   });

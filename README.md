@@ -66,7 +66,7 @@ Add the following code into your project:
 
 ```
 <link rel="stylesheet" href="main.css" />
-<div id="feedback-widget" lang="en" pageTitle="<your page name>" endpoint="<your unique id>"></div>
+<div id="feedback-widget" lang="en" pagetitle="<your page name>" endpoint="<your unique id>"></div>
 <script src="./feedback-module.min.js"></script>
 ```
 
@@ -89,7 +89,7 @@ Add the following code into your project:
 <div
   id="feedback-widget"
   lang={<your page's current language>}
-  pageTitle="<your page name>"
+  pagetitle="<your page name>"
   endpoint="<your unique id>"
 ></div>
 <ScriptTag src="/feedback-module.min.js" type="text/javascript" />

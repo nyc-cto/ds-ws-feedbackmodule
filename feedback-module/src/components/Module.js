@@ -12,8 +12,10 @@ import {
   FORM_STYLE,
   PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
-import { SCREENS, INITIAL_SCREEN } from "../assets/constants";
+import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
 import requestService from "../services/requestService";
+import { updateOtherField, checkboxValidated } from "../lib/utils/checkboxUtil";
+import { inputsValidated } from "../lib/utils/textboxUtil";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
@@ -21,7 +23,7 @@ import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 import LightContainer from "./LightContainer";
 
-function Module({ pageTitle, endpoint, dir }) {
+function Module({ pagetitle, endpoint, dir }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
   const [userInfo, setUserInfo] = useState({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
@@ -111,71 +113,10 @@ function Module({ pageTitle, endpoint, dir }) {
     }
   };
 
-  // Updates the label to "Other: <user-input other content>" if other field is checked
-  const updateOtherField = (checkedFields) => {
-    checkedFields.forEach((field) => {
-      field.label === "Other" &&
-        field.checked &&
-        (field.label = `Other: ${otherField}`);
-    });
-    return checkedFields;
-  };
-
-  //Checks if at least one checkbox was checked - returns true if yes false if no
-  const checkboxValidated = () => {
-    return checkedFields.some((field) => field.checked);
-  };
-
-  //Check if valid email address
-  const invalidEmail = (email, required) => {
-    const re =
-      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-
-    if (!required && email === "") {
-      return false;
-    }
-    return !re.test(email);
-  };
-
-  const invalidPhone = (phone, required) => {
-    const reUS = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-
-    //Commenting this out because probably won't accept interntional phone numbers
-    //But keeping just in case:
-    // const reInternational = /^\+(?:[0-9] ?){6,14}[0-9]$/;
-    if (!required && phone === "") {
-      return false;
-    }
-    return !reUS.test(phone);
-  };
-
-  //Checks if all the required fields have been completed - returns true if yes false if no
-  const inputsValidated = () => {
-    let validated = true;
-    let questions = inputQuestions.map((question) => {
-      if (question.required && question.answer === "") {
-        (validated = false), (question.error = true);
-      } else if (
-        question.type === "email" &&
-        invalidEmail(question.answer, question.required)
-      ) {
-        (validated = false), (question.error = true);
-      } else if (
-        question.type === "tel" &&
-        invalidPhone(question.answer, question.required)
-      ) {
-        (validated = false), (question.error = true);
-      } else {
-        question.error = false;
-      }
-      return question;
-    });
-    setInputQuestions(questions);
-    return validated;
-  };
-
   const handleSubmit = () => {
-    setCheckedFields(checkedFields && updateOtherField(checkedFields));
+    setCheckedFields(
+      checkedFields && updateOtherField(checkedFields, otherField)
+    );
     updateFormData(screen.formID);
   };
 
@@ -200,12 +141,15 @@ function Module({ pageTitle, endpoint, dir }) {
     if (
       screen.checkboxes &&
       screen.checkboxes.required &&
-      !checkboxValidated()
+      !checkboxValidated(checkedFields)
     ) {
       setCheckboxError(true);
       firstCheckRef.current && firstCheckRef.current.focus();
       // Make sure all required fields are completed
-    } else if (screen.textInputs && !inputsValidated()) {
+    } else if (
+      screen.textInputs &&
+      !inputsValidated(inputQuestions, setInputQuestions)
+    ) {
       const firstErrorIndex = inputQuestions.findIndex(
         (question) => question.error
       );
@@ -246,7 +190,7 @@ function Module({ pageTitle, endpoint, dir }) {
         <LightContainer formID={screen.formID}>
           {screen.title && (
             <p className={`${H1_DARK_STYLE} ${dir === "rtl" && "text-right"}`}>
-              {`${t(screen.title, { page: pageTitle })}${
+              {`${t(screen.title, { page: pagetitle })}${
                 screen.checkboxes && screen.checkboxes.required ? "*" : ""
               }`}
             </p>
