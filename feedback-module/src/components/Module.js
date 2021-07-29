@@ -12,8 +12,8 @@ import {
   FORM_STYLE,
   PLAINTEXT_STYLE,
 } from "../assets/styling_classnames";
-import { SCREENS, INITIAL_SCREEN } from "../assets/constants";
-import requestService from "../services/requestService";
+import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
+import requestService from "../lib/services/requestService";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";

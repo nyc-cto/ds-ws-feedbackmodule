@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { AZURE_ENDPOINT } from "../assets/constants";
+import { AZURE_ENDPOINT } from "../constants";
 
 const requestService = (apiEndpoint, obj) => {
   axios
