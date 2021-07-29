@@ -13,10 +13,11 @@ const renderApp = (Div, lang, pageTitle, endpoint, gaID) => {
   Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
   Div.attributes.gaID && (gaID = Div.attributes.gaID.value);
+
   const ga4react = new GA4React(gaID);
   (async () => {
     await ga4react
-      .initialize()
+      .initialize({ send_page_view: false })
       .then((res) => console.log(`Analytics Success: ${res} ${gaID}`))
       .catch((err) => console.log(`Analytics Failure: ${err}`))
       .finally(() => {

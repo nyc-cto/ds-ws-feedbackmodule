@@ -14,6 +14,11 @@ import {
 } from "../assets/styling_classnames";
 import { SCREENS, INITIAL_SCREEN } from "../assets/constants";
 import requestService from "../services/requestService";
+import {
+  trackFutureResearch,
+  pageTitleAsScreen,
+  pageChange,
+} from "../lib/utils/googleAnalytics";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
@@ -115,7 +120,10 @@ function Module({ pageTitle, endpoint, dir }) {
       userObj.id = endpoint;
       setUserInfo(userObj);
       console.log(userInfo);
-      requestService("userResearch", userObj);
+      // requestService("userResearch", userObj);
+
+      //Send event to google analytics that the user agreed to sign up for future research
+      trackFutureResearch(ga);
     }
   };
 
@@ -193,13 +201,15 @@ function Module({ pageTitle, endpoint, dir }) {
     // ga.event("page_change", "user moved to next screen", t(screen.title));
 
     //adds the screen title as the page title
-    ga.pageview(window.location.pathname, window.location, t(screen.title));
+    // ga.pageview(window.location.pathname, window.location, t(screen.title));
+    pageTitleAsScreen(ga, t(screen.title));
 
     //triggers a new event called page_change that shares your current page and next page
-    ga.gtag("event", "page_change", {
-      current_page_title: t(screen.title),
-      next_page: t(SCREENS[nextScreen].title),
-    });
+    pageChange(ga, t(screen.title), t(SCREENS[nextScreen].title));
+    // ga.gtag("event", "page_change", {
+    //   current_page_title: t(screen.title),
+    //   next_page: t(SCREENS[nextScreen].title),
+    // });
 
     // If button contains a feedbackID, update the feedbackType of the feedback object
     if (feedbackID) {
