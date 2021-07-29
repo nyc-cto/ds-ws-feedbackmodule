@@ -15,12 +15,11 @@ function App({ pagetitle, lang, endpoint }) {
 
   return (
     <HelmetProvider>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          href="https://d2ttz3as5y3dj0.cloudfront.net/main.css"
-        />
-      </Helmet>
+      {process.env.REACT_APP_CSS_PATH && (
+        <Helmet>
+          <link rel="stylesheet" href={process.env.REACT_APP_CSS_PATH} />
+        </Helmet>
+      )}
       <Module
         pagetitle={pagetitle}
         endpoint={endpoint}
