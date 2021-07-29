@@ -3,7 +3,6 @@ import { flattenCheckboxes } from "./checkboxUtil";
 
 export const setFeedbackType = (feedbackForAPI, text, feedbackID) => {
   let feedback = feedbackForAPI;
-  console.log("label", text, "feedbackID", feedbackID);
   feedback.feedbackType = {
     label: text,
     feedbackID: feedbackID,
