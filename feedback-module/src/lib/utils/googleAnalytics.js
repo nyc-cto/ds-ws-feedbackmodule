@@ -15,3 +15,7 @@ export function pageChange(ga, currentPage, nextPage) {
     next_page: nextPage,
   });
 }
+
+export function userViewedModule(ga) {
+  ga.event("module_viewed", "module appeared on user screen");
+}

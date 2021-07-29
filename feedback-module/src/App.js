@@ -6,7 +6,7 @@ import Helmet from "react-helmet";
 
 import Module from "./components/Module";
 
-function App({ pageTitle, lang, endpoint }) {
+function App({ pagetitle, lang, endpoint }) {
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function App({ pageTitle, lang, endpoint }) {
         <link rel="stylesheet" href="/main.css" />
       </Helmet>
       <Module
-        pageTitle={pageTitle}
+        pageTitle={pagetitle}
         endpoint={endpoint}
         dir={i18n.dir(i18n.language)}
       />

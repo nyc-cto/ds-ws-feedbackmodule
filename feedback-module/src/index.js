@@ -8,17 +8,17 @@ import GA4React from "ga-4-react";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
-const renderApp = (Div, lang, pageTitle, endpoint, gaID) => {
+const renderApp = (Div, lang, pagetitle, endpoint, gaid) => {
   Div.attributes.lang && (lang = Div.attributes.lang.value);
-  Div.attributes.pageTitle && (pageTitle = Div.attributes.pageTitle.value);
+  Div.attributes.pagetitle && (pagetitle = Div.attributes.pagetitle.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
-  Div.attributes.gaID && (gaID = Div.attributes.gaID.value);
+  Div.attributes.gaid && (gaid = Div.attributes.gaid.value);
 
-  const ga4react = new GA4React(gaID);
+  const ga4react = new GA4React(gaid);
   (async () => {
     await ga4react
       .initialize({ send_page_view: false })
-      .then((res) => console.log(`Analytics Success: ${res} ${gaID}`))
+      .then((res) => console.log(`Analytics Success: ${res} ${gaid}`))
       .catch((err) => console.log(`Analytics Failure: ${err}`))
       .finally(() => {
         ReactDOM.render(
@@ -27,7 +27,7 @@ const renderApp = (Div, lang, pageTitle, endpoint, gaID) => {
               <App
                 domElement={Div}
                 lang={lang}
-                pageTitle={pageTitle}
+                pagetitle={pagetitle}
                 endpoint={endpoint}
               />
             </Suspense>
@@ -40,15 +40,15 @@ const renderApp = (Div, lang, pageTitle, endpoint, gaID) => {
 
 WidgetDivs.forEach((Div) => {
   let currentLang = "en";
-  let pageTitle = "";
+  let pagetitle = "";
   let endpoint = "";
-  let gaID = "";
-  renderApp(Div, currentLang, pageTitle, endpoint, gaID);
+  let gaid = "";
+  renderApp(Div, currentLang, pagetitle, endpoint, gaid);
 
   let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type == "attributes") {
-        renderApp(Div, currentLang, pageTitle, endpoint, gaID);
+        renderApp(Div, currentLang, pagetitle, endpoint, gaid);
       }
     });
   });
