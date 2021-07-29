@@ -14,7 +14,7 @@ import {
 } from "../assets/styling_classnames";
 import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
 import requestService from "../services/requestService";
-import { updateOtherField, checkboxValidated } from "../lib/utils/checkboxUtil";
+import useCheckedFields from "../lib/hooks/useCheckedFields";
 import { inputsValidated } from "../lib/utils/textboxUtil";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
@@ -27,11 +27,17 @@ function Module({ pagetitle, endpoint, dir }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
   const [userInfo, setUserInfo] = useState({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
-  const [checkedFields, setCheckedFields] = useState(null);
-  const [otherField, setOtherField] = useState("");
   const [inputQuestions, setInputQuestions] = useState();
   const [checkboxError, setCheckboxError] = useState(false);
   const [inputRefs, setInputRefs] = useState([]);
+  const {
+    checkedFields,
+    onCheck,
+    newScreenCheckboxes,
+    checkboxValidated,
+    updateOtherField,
+    setOtherField,
+  } = useCheckedFields();
 
   const headerRef = useRef(null);
   const firstCheckRef = useRef(null);
@@ -41,13 +47,7 @@ function Module({ pagetitle, endpoint, dir }) {
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
-    screen.checkboxes &&
-      t(screen.checkboxes.labels) &&
-      setCheckedFields(
-        en(screen.checkboxes.labels).map((label) => {
-          return { label: label, checked: false };
-        })
-      );
+    newScreenCheckboxes(screen.checkboxes);
 
     let refList = [];
     // Updates the text inputs based on the new screen
@@ -114,9 +114,7 @@ function Module({ pagetitle, endpoint, dir }) {
   };
 
   const handleSubmit = () => {
-    setCheckedFields(
-      checkedFields && updateOtherField(checkedFields, otherField)
-    );
+    updateOtherField();
     updateFormData(screen.formID);
   };
 
@@ -162,12 +160,6 @@ function Module({ pagetitle, endpoint, dir }) {
         setCheckboxError(false);
     }
     headerRef.current.scrollIntoView(true);
-  };
-
-  const onCheck = (index) => {
-    let checked = checkedFields;
-    checked[index].checked = !checked[index].checked;
-    setCheckedFields(checked);
   };
 
   return (
