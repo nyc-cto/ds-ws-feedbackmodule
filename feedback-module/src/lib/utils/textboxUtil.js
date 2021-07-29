@@ -22,7 +22,9 @@ export const invalidPhone = (phone, required) => {
 };
 
 export const flattenInputs = (inputQuestions) => {
-  return inputQuestions.map(({ question, answer }) => {
-    return { question: question, answer: answer };
-  });
+  return inputQuestions
+    ? inputQuestions.map(({ question, answer }) => {
+        return { question: question, answer: answer };
+      })
+    : [];
 };
