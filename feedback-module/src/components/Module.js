@@ -27,7 +27,7 @@ import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 import LightContainer from "./LightContainer";
 
-import useOnScreen from "../lib/utils/useOnScreen";
+import moduleOnScreen from "../lib/hooks/moduleOnScreen";
 
 function Module({ pageTitle, endpoint, dir }) {
   const [feedbackForAPI, setFeedbackForAPI] = useState({});
@@ -49,15 +49,9 @@ function Module({ pageTitle, endpoint, dir }) {
   const ga = useGA4React();
 
   const ref = useRef();
-  const isVisible = useOnScreen(ref);
+  const isVisible = moduleOnScreen(ref);
 
   useEffect(() => {
-    // ga &&
-    //   console.log("hi") &&
-    //   ga.gtag("event", "page_view", {
-    //     page_title: t(screen.title),
-    //     test: "test",
-    //   });
     // Updates the checkboxes based on the new screen
     screen.checkboxes &&
       t(screen.checkboxes.labels) &&
@@ -113,10 +107,10 @@ function Module({ pageTitle, endpoint, dir }) {
       });
       feedback.source = window.location.href;
       setFeedbackForAPI(feedback);
-      // requestService("feedback", {
-      //   id: endpoint,
-      //   feedback: feedbackForAPI,
-      // });
+      requestService("feedback", {
+        id: endpoint,
+        feedback: feedbackForAPI,
+      });
       console.log(feedbackForAPI);
     } else if (formID === "research") {
       let userObj = userInfo;
@@ -127,10 +121,10 @@ function Module({ pageTitle, endpoint, dir }) {
       userObj.id = endpoint;
       setUserInfo(userObj);
       console.log(userInfo);
-      // requestService("userResearch", userObj);
+      requestService("userResearch", userObj);
 
       //Send event to google analytics that the user agreed to sign up for future research
-      trackFutureResearch(ga);
+      ga && trackFutureResearch(ga);
     }
   };
 
@@ -205,18 +199,11 @@ function Module({ pageTitle, endpoint, dir }) {
   };
 
   const changeScreen = (text, nextScreen, feedbackID) => {
-    // ga.event("page_change", "user moved to next screen", t(screen.title));
-
     //adds the screen title as the page title
-    // ga.pageview(window.location.pathname, window.location, t(screen.title));
-    pageTitleAsScreen(ga, t(screen.title));
+    ga && pageTitleAsScreen(ga, t(screen.title));
 
     //triggers a new event called page_change that shares your current page and next page
-    pageChange(ga, t(screen.title), t(SCREENS[nextScreen].title));
-    // ga.gtag("event", "page_change", {
-    //   current_page_title: t(screen.title),
-    //   next_page: t(SCREENS[nextScreen].title),
-    // });
+    ga && pageChange(ga, t(screen.title), t(SCREENS[nextScreen].title));
 
     // If button contains a feedbackID, update the feedbackType of the feedback object
     if (feedbackID) {
@@ -264,7 +251,7 @@ function Module({ pageTitle, endpoint, dir }) {
     if (isVisible) {
       console.log("module in view");
       setUserViewed(true);
-      userViewedModule(ga);
+      ga && userViewedModule(ga);
     }
   };
 
