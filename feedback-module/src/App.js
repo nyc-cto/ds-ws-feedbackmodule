@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Helmet from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import Module from "./components/Module";
 
@@ -14,16 +14,18 @@ function App({ pagetitle, lang, endpoint }) {
   }, [lang]);
 
   return (
-    <>
-      <Helmet>
-        <link rel="stylesheet" href="/main.css" />
-      </Helmet>
+    <HelmetProvider>
+      {process.env.REACT_APP_CSS_PATH && (
+        <Helmet>
+          <link rel="stylesheet" href={process.env.REACT_APP_CSS_PATH} />
+        </Helmet>
+      )}
       <Module
-        pageTitle={pagetitle}
+        pagetitle={pagetitle}
         endpoint={endpoint}
         dir={i18n.dir(i18n.language)}
       />
-    </>
+    </HelmetProvider>
   );
 }
 

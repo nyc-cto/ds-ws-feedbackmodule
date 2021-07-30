@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  fm-backend-stub:
-    build: ./backend-stub
+  fm-backend:
+    build: ./backend
     ports:
       - "8080:8000"
   feedback-module:

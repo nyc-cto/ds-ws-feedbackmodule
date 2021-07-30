@@ -10,7 +10,7 @@ The following are the main folders in this repository
 
 This folder contains the source files for our feedback module. It produces the widget that folks can click in order for them to pull out the feedback module.
 
-### `backend-stub`
+### `backend`
 
 This folder contains a simple backend that accepts any requests from `feedback-module`. It mainly responds `{ "status": "OK"}` or `{ "status": "error", "message": "An error occured"}` on command.
 
@@ -66,7 +66,7 @@ Add the following code into your project:
 
 ```
 <link rel="stylesheet" href="main.css" />
-<div id="feedback-widget" lang="en" pageTitle="<your page name>" endpoint="<your unique id>"></div>
+<div id="feedback-widget" lang="en" pagetitle="<your page name>" endpoint="<your unique id>"></div>
 <script src="./feedback-module.min.js"></script>
 ```
 
@@ -89,7 +89,7 @@ Add the following code into your project:
 <div
   id="feedback-widget"
   lang={<your page's current language>}
-  pageTitle="<your page name>"
+  pagetitle="<your page name>"
   endpoint="<your unique id>"
 ></div>
 <ScriptTag src="/feedback-module.min.js" type="text/javascript" />

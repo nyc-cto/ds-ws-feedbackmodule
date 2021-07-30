@@ -1,6 +1,7 @@
 @use "sass:map";
 
 $theme-show-notifications: false;
+$utilities-use-important: true;
 
 $theme-image-path: "~uswds/src/img";
 $theme-font-path: "~uswds/src/fonts";
