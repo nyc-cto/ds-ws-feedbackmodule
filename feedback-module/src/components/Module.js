@@ -27,14 +27,12 @@ import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 import LightContainer from "./LightContainer";
-import moduleOnScreen from "../lib/hooks/moduleOnScreen";
 
 function Module({ pagetitle, endpoint, dir }) {
   const [feedbackForAPI, updateFeedbackForAPI] = useForm({});
   const [userInfo, updateUserInfo] = useForm({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
   const [checkboxError, setCheckboxError] = useState(false);
-  const [userViewed, setUserViewed] = useState(false);
 
   // Methods and variables for accessing the state of the checkbox fields
   const {
@@ -66,11 +64,10 @@ function Module({ pagetitle, endpoint, dir }) {
     trackFutureResearch,
     pageTitleAsScreen,
     pageChange,
-    userViewedModule,
+    moduleOnScreen,
   } = googleAnalytics();
 
   const moduleVisibleRef = useRef();
-  const isVisible = moduleOnScreen(moduleVisibleRef);
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
@@ -142,14 +139,6 @@ function Module({ pagetitle, endpoint, dir }) {
     headerRef.current.scrollIntoView(true);
   };
 
-  const checkVisible = () => {
-    if (isVisible) {
-      console.log("module in view");
-      setUserViewed(true);
-      userViewedModule();
-    }
-  };
-
   return (
     <div ref={moduleVisibleRef}>
       <GridContainer
@@ -158,7 +147,7 @@ function Module({ pagetitle, endpoint, dir }) {
         className={MODULE_CONTAINER_STYLE}
         dir={dir}
       >
-        {!userViewed && checkVisible()}
+        {moduleOnScreen(moduleVisibleRef)}
         <Header innerRef={headerRef} />
         {screen.titleInverse && (
           <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>

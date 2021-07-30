@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useGA4React } from "ga-4-react";
 
 export default function googleAnalytics() {
@@ -27,10 +28,36 @@ export default function googleAnalytics() {
     ga && ga.event("module_viewed", "module appeared on user screen");
   };
 
+  const moduleOnScreen = (ref) => {
+    const [isIntersecting, setIntersecting] = useState(false);
+    const [userViewed, setUserViewed] = useState(false);
+
+    const checkVisible = () => {
+      if (!userViewed && isIntersecting) {
+        console.log("module in view");
+        setUserViewed(true);
+        userViewedModule();
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIntersecting(entry.isIntersecting),
+      checkVisible()
+    );
+
+    useEffect(() => {
+      observer.observe(ref.current);
+      // Remove the observer as soon as the component is unmounted
+      return () => {
+        observer.disconnect();
+      };
+    }, []);
+  };
+
   return {
     trackFutureResearch,
     pageTitleAsScreen,
     pageChange,
-    userViewedModule,
+    moduleOnScreen,
   };
 }
