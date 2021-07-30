@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-control-regex */
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
@@ -15,8 +13,14 @@ import {
 import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
 import requestService from "../services/requestService";
 import googleAnalytics from "../lib/hooks/googleAnalytics";
-import { updateOtherField, checkboxValidated } from "../lib/utils/checkboxUtil";
-import { inputsValidated } from "../lib/utils/textboxUtil";
+import useCheckboxes from "../lib/hooks/useCheckboxes";
+import useInputs from "../lib/hooks/useInputs";
+import useForm from "../lib/hooks/useForm";
+import {
+  setFeedbackType,
+  processFeedback,
+  processUserInfo,
+} from "../lib/utils/formUtil";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
@@ -26,18 +30,34 @@ import LightContainer from "./LightContainer";
 import moduleOnScreen from "../lib/hooks/moduleOnScreen";
 
 function Module({ pagetitle, endpoint, dir }) {
-  const [feedbackForAPI, setFeedbackForAPI] = useState({});
-  const [userInfo, setUserInfo] = useState({});
+  const [feedbackForAPI, updateFeedbackForAPI] = useForm({});
+  const [userInfo, updateUserInfo] = useForm({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
-  const [checkedFields, setCheckedFields] = useState(null);
-  const [otherField, setOtherField] = useState("");
-  const [inputQuestions, setInputQuestions] = useState();
   const [checkboxError, setCheckboxError] = useState(false);
-  const [inputRefs, setInputRefs] = useState([]);
   const [userViewed, setUserViewed] = useState(false);
+
+  // Methods and variables for accessing the state of the checkbox fields
+  const {
+    checkedFields,
+    onCheck,
+    newScreenCheckboxes,
+    checkboxValidated,
+    updateOtherField,
+    setOtherField,
+  } = useCheckboxes();
 
   const headerRef = useRef(null);
   const firstCheckRef = useRef(null);
+
+  // Methods and variables for accessing the state of the input fields
+  const {
+    inputQuestions,
+    setInputQuestions,
+    newScreenInputs,
+    inputsValidated,
+    focusFirstError,
+    inputRefs,
+  } = useInputs(firstCheckRef);
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -54,110 +74,32 @@ function Module({ pagetitle, endpoint, dir }) {
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
-    screen.checkboxes &&
-      t(screen.checkboxes.labels) &&
-      setCheckedFields(
-        en(screen.checkboxes.labels).map((label) => {
-          return { label: label, checked: false };
-        })
-      );
-
-    let refList = [];
-    // Updates the text inputs based on the new screen
-    t(screen.textInputs) &&
-      setInputQuestions(
-        en(screen.textInputs).map((question) => {
-          refList.push(createRef(null));
-          return {
-            question: question.text,
-            answer: "",
-            required: question.required,
-            error: false,
-            type: question.type,
-          };
-        })
-      );
-    setInputRefs(refList);
+    newScreenCheckboxes(screen.checkboxes);
+    newScreenInputs(screen.textInputs);
 
     if (firstCheckRef.current) {
       firstCheckRef.current.focus();
     }
   }, [screen]);
 
-  useEffect(() => {
-    if (!firstCheckRef.current && inputRefs.length > 0) {
-      inputRefs[0].current.focus();
-    }
-  }, [inputRefs]);
-
-  // updateFormData determines which form data state to update, based on the formID
-  const updateFormData = (formID) => {
+  // sendFormData determines which form data state to update, based on the formID
+  const sendFormData = (formID) => {
     if (formID === "feedback") {
-      /* if formID is feedback, sets checkedOptions and inputResponses 
-         in the feedbackForAPI object */
-      let feedback = feedbackForAPI;
-      /* filters checkedOptions for the fields that are checked,
-           then returns only the label property */
-      feedback.checkedOptions = checkedFields
-        ? checkedFields
-            .filter(({ checked }) => checked)
-            .map(({ label }) => label)
-        : [];
-      feedback.inputResponses = inputQuestions.map(({ question, answer }) => {
-        return { question: question, answer: answer };
-      });
-      feedback.source = window.location.href;
-      setFeedbackForAPI(feedback);
+      updateFeedbackForAPI(processFeedback, [checkedFields, inputQuestions]);
       requestService("feedback", {
         id: endpoint,
         feedback: feedbackForAPI,
       });
       console.log(feedbackForAPI);
     } else if (formID === "research") {
-      let userObj = userInfo;
-      inputQuestions.forEach(({ question, answer }) => {
-        userObj[question] = answer;
-      });
-      userObj.source = window.location.href;
-      userObj.id = endpoint;
-      setUserInfo(userObj);
-      console.log(userInfo);
-      requestService("userResearch", userObj);
-
-      //Send event to google analytics that the user agreed to sign up for future research
       trackFutureResearch();
+      updateUserInfo(processUserInfo, [inputQuestions, endpoint]);
+      requestService("userResearch", userInfo);
+      console.log(userInfo);
     }
   };
 
-  const handleSubmit = () => {
-    setCheckedFields(
-      checkedFields && updateOtherField(checkedFields, otherField)
-    );
-    updateFormData(screen.formID);
-  };
-
-  const handleSend = (e) => {
-    e.preventDefault();
-  };
-
-  const changeScreen = (text, nextScreen, feedbackID) => {
-    //adds the screen title as the page title
-    pageTitleAsScreen(en(screen.title));
-
-    //triggers a new event called page_change that shares your current page and next page
-    pageChange(en(screen.title), en(SCREENS[nextScreen].title));
-
-    // If button contains a feedbackID, update the feedbackType of the feedback object
-    if (feedbackID) {
-      setFeedbackForAPI((feedback) => {
-        feedback.feedbackType = {
-          label: en(text),
-          feedbackID: feedbackID,
-        };
-        return feedback;
-      });
-    }
-
+  const submitForm = (nextScreen) => {
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
     if (
@@ -168,28 +110,36 @@ function Module({ pagetitle, endpoint, dir }) {
       setCheckboxError(true);
       firstCheckRef.current && firstCheckRef.current.focus();
       // Make sure all required fields are completed
-    } else if (
-      screen.textInputs &&
-      !inputsValidated(inputQuestions, setInputQuestions)
-    ) {
-      const firstErrorIndex = inputQuestions.findIndex(
-        (question) => question.error
-      );
-      if (firstErrorIndex >= 0 && inputRefs[firstErrorIndex].current) {
-        inputRefs[firstErrorIndex].current.focus();
-      }
+    } else if (screen.textInputs && !inputsValidated()) {
+      focusFirstError();
     } else {
-      screen.formID && handleSubmit(),
+      updateOtherField();
+      pageTitleAsScreen;
+      pageChange;
+      sendFormData(screen.formID),
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);
     }
-    headerRef.current.scrollIntoView(true);
   };
 
-  const onCheck = (index) => {
-    let checked = checkedFields;
-    checked[index].checked = !checked[index].checked;
-    setCheckedFields(checked);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const changeScreen = (text, nextScreen, feedbackID) => {
+    // If button contains a feedbackID, update the feedbackType of the feedback object
+    if (screen.formID) {
+      submitForm(nextScreen);
+    } else {
+      feedbackID &&
+        updateFeedbackForAPI(setFeedbackType, [en(text), feedbackID]);
+      setScreen(SCREENS[nextScreen]);
+      setCheckboxError(false);
+      pageTitleAsScreen;
+      pageChange;
+    }
+
+    headerRef.current.scrollIntoView(true);
   };
 
   const checkVisible = () => {
@@ -235,7 +185,7 @@ function Module({ pagetitle, endpoint, dir }) {
                 dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
               ></p>
             )}
-            <Form className={FORM_STYLE} onSubmit={handleSend}>
+            <Form className={FORM_STYLE} onSubmit={handleSubmit}>
               {screen.checkboxes && t(screen.checkboxes.labels) && (
                 <>
                   {checkboxError && (
