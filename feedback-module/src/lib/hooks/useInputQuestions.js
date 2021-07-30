@@ -3,6 +3,12 @@ import { useTranslation } from "react-i18next";
 
 import { invalidEmail, invalidPhone } from "../utils/textboxUtil";
 
+/**
+ * Custom hook that contains the state for the text input responses on a screen and refs to text inputs
+ * Includes methods for validating inputs, updating input data for new screens, and adding focus states to inputs
+ * @param {*} firstCheckRef - a reference to the first check on a page, if applicable
+ * @returns {Object}
+ */
 export default function useInputQuestions(firstCheckRef) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -10,13 +16,15 @@ export default function useInputQuestions(firstCheckRef) {
   const [inputQuestions, setInputQuestions] = useState(null);
   const [inputRefs, setInputRefs] = useState([]);
 
+  /* On a new screen, if there are no checkboxes & at least 1 input,
+   * the first input is focused */
   useEffect(() => {
     if (!firstCheckRef.current && inputRefs.length > 0) {
       inputRefs[0].current.focus();
     }
   }, [inputRefs]);
 
-  // sets new checkboxes upon screen change (screen.checkboxes will be passed in)
+  // initializes new input values and refs upon screen change, if there are any
   const newScreenInputs = (textInputs) => {
     let refList = [];
     // Updates the text inputs based on the new screen
@@ -61,6 +69,7 @@ export default function useInputQuestions(firstCheckRef) {
     return validated;
   };
 
+  /* If input errors are present, the input with the first error is focused */
   const focusFirstError = () => {
     const firstErrorIndex = inputQuestions.findIndex(
       (question) => question.error

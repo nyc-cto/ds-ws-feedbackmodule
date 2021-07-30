@@ -33,6 +33,7 @@ function Module({ pagetitle, endpoint, dir }) {
   const [screen, setScreen] = useState(INITIAL_SCREEN);
   const [checkboxError, setCheckboxError] = useState(false);
 
+  // Methods and variables for accessing the state of the checkbox fields
   const {
     checkedFields,
     onCheck,
@@ -45,6 +46,7 @@ function Module({ pagetitle, endpoint, dir }) {
   const headerRef = useRef(null);
   const firstCheckRef = useRef(null);
 
+  // Methods and variables for accessing the state of the input fields
   const {
     inputQuestions,
     setInputQuestions,

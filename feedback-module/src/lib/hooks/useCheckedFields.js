@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Custom hook that contains the state for a set of checkbox's
+ * checked values and "Other" value, if applicable
+ * @param {Object[]} initialFields
+ * @param {string} initialOther
+ * @returns {Object}
+ */
 export default function useCheckedFields(
   initialFields = null,
   initialOther = ""
@@ -17,7 +24,7 @@ export default function useCheckedFields(
     setCheckedFields(checked);
   };
 
-  // sets new checkboxes upon screen change (screen.checkboxes will be passed in)
+  // sets new checkboxes upon screen change, if there are any
   const newScreenCheckboxes = (checkboxes) => {
     checkboxes &&
       t(checkboxes.labels) &&
@@ -28,11 +35,12 @@ export default function useCheckedFields(
       );
   };
 
-  //Checks if at least one checkbox was checked - returns true if yes false if no
+  // checks if at least one checkbox was checked - returns true if yes false if no
   const checkboxValidated = () => {
     return checkedFields.some((field) => field.checked);
   };
 
+  // updates the other field's label
   const updateOtherField = () => {
     if (checkedFields) {
       checkedFields.forEach((field) => {
