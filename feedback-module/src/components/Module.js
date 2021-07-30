@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef, createRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
-import { useGA4React } from "ga-4-react";
 
 import {
   MODULE_CONTAINER_STYLE,
@@ -15,12 +14,7 @@ import {
 } from "../assets/styling_classnames";
 import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
 import requestService from "../services/requestService";
-import {
-  trackFutureResearch,
-  pageTitleAsScreen,
-  pageChange,
-  userViewedModule,
-} from "../lib/utils/googleAnalytics";
+import googleAnalytics from "../lib/hooks/googleAnalytics";
 import { updateOtherField, checkboxValidated } from "../lib/utils/checkboxUtil";
 import { inputsValidated } from "../lib/utils/textboxUtil";
 import Header from "./common/Header";
@@ -29,7 +23,6 @@ import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 import LightContainer from "./LightContainer";
-
 import moduleOnScreen from "../lib/hooks/moduleOnScreen";
 
 function Module({ pagetitle, endpoint, dir }) {
@@ -49,10 +42,15 @@ function Module({ pagetitle, endpoint, dir }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
-  const ga = useGA4React();
+  const {
+    trackFutureResearch,
+    pageTitleAsScreen,
+    pageChange,
+    userViewedModule,
+  } = googleAnalytics();
 
-  const ref = useRef();
-  const isVisible = moduleOnScreen(ref);
+  const moduleVisibleRef = useRef();
+  const isVisible = moduleOnScreen(moduleVisibleRef);
 
   useEffect(() => {
     // Updates the checkboxes based on the new screen
@@ -127,7 +125,7 @@ function Module({ pagetitle, endpoint, dir }) {
       requestService("userResearch", userObj);
 
       //Send event to google analytics that the user agreed to sign up for future research
-      ga && trackFutureResearch(ga);
+      trackFutureResearch();
     }
   };
 
@@ -144,10 +142,10 @@ function Module({ pagetitle, endpoint, dir }) {
 
   const changeScreen = (text, nextScreen, feedbackID) => {
     //adds the screen title as the page title
-    ga && pageTitleAsScreen(ga, en(screen.title));
+    pageTitleAsScreen(en(screen.title));
 
     //triggers a new event called page_change that shares your current page and next page
-    ga && pageChange(ga, en(screen.title), en(SCREENS[nextScreen].title));
+    pageChange(en(screen.title), en(SCREENS[nextScreen].title));
 
     // If button contains a feedbackID, update the feedbackType of the feedback object
     if (feedbackID) {
@@ -198,12 +196,12 @@ function Module({ pagetitle, endpoint, dir }) {
     if (isVisible) {
       console.log("module in view");
       setUserViewed(true);
-      ga && userViewedModule(ga);
+      userViewedModule();
     }
   };
 
   return (
-    <div ref={ref}>
+    <div ref={moduleVisibleRef}>
       <GridContainer
         desktop={{ col: 2 }}
         mobile={{ col: "fill" }}
