@@ -50,7 +50,7 @@ WidgetDivs.forEach((Div) => {
   let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type == "attributes") {
-        renderApp(Div, currentLang, pagetitle, endpoint, gaid);
+        renderApp(Div, currentLang, pagetitle, endpoint, ga4react);
       }
     });
   });
