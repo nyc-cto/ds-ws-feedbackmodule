@@ -8,10 +8,7 @@ import { useTranslation } from "react-i18next";
  * @param {string} initialOther
  * @returns {Object}
  */
-export default function useCheckedFields(
-  initialFields = null,
-  initialOther = ""
-) {
+export default function useCheckboxes(initialFields = null, initialOther = "") {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 

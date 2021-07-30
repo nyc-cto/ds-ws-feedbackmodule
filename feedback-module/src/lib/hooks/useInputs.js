@@ -9,7 +9,7 @@ import { invalidEmail, invalidPhone } from "../utils/textboxUtil";
  * @param {*} firstCheckRef - a reference to the first check on a page, if applicable
  * @returns {Object}
  */
-export default function useInputQuestions(firstCheckRef) {
+export default function useInputs(firstCheckRef) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 

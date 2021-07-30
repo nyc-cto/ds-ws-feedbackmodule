@@ -12,8 +12,8 @@ import {
 } from "../assets/styling_classnames";
 import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
 import requestService from "../services/requestService";
-import useCheckedFields from "../lib/hooks/useCheckedFields";
-import useInputQuestions from "../lib/hooks/useInputQuestions";
+import useCheckboxes from "../lib/hooks/useCheckboxes";
+import useInputs from "../lib/hooks/useInputs";
 import useForm from "../lib/hooks/useForm";
 import {
   setFeedbackType,
@@ -41,7 +41,7 @@ function Module({ pagetitle, endpoint, dir }) {
     checkboxValidated,
     updateOtherField,
     setOtherField,
-  } = useCheckedFields();
+  } = useCheckboxes();
 
   const headerRef = useRef(null);
   const firstCheckRef = useRef(null);
@@ -54,7 +54,7 @@ function Module({ pagetitle, endpoint, dir }) {
     inputsValidated,
     focusFirstError,
     inputRefs,
-  } = useInputQuestions(firstCheckRef);
+  } = useInputs(firstCheckRef);
 
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
