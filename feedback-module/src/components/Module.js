@@ -114,8 +114,8 @@ function Module({ pagetitle, endpoint, dir }) {
       focusFirstError();
     } else {
       updateOtherField();
-      pageTitleAsScreen;
-      pageChange;
+      pageTitleAsScreen(en(screen.title));
+      pageChange(en(screen.title), en(SCREENS[nextScreen].title));
       sendFormData(screen.formID),
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);
@@ -135,8 +135,8 @@ function Module({ pagetitle, endpoint, dir }) {
         updateFeedbackForAPI(setFeedbackType, [en(text), feedbackID]);
       setScreen(SCREENS[nextScreen]);
       setCheckboxError(false);
-      pageTitleAsScreen;
-      pageChange;
+      pageTitleAsScreen(en(screen.title));
+      pageChange(en(screen.title), en(SCREENS[nextScreen].title));
     }
 
     headerRef.current.scrollIntoView(true);

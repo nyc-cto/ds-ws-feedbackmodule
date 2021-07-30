@@ -17,7 +17,7 @@ const renderApp = (Div, lang, pagetitle, endpoint, gaid) => {
   const ga4react = new GA4React(gaid);
   (async () => {
     await ga4react
-      .initialize({ send_page_view: false })
+      .initialize()
       .then((res) => console.log(`Analytics Success: ${res} ${gaid}`))
       .catch((err) => console.log(`Analytics Failure: ${err}`))
       .finally(() => {
