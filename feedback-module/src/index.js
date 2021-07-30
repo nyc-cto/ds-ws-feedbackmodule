@@ -8,17 +8,15 @@ import GA4React from "ga-4-react";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
-const renderApp = (Div, lang, pagetitle, endpoint, gaid) => {
+const renderApp = (Div, lang, pagetitle, endpoint, ga4react) => {
   Div.attributes.lang && (lang = Div.attributes.lang.value);
   Div.attributes.pagetitle && (pagetitle = Div.attributes.pagetitle.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
-  Div.attributes.gaid && (gaid = Div.attributes.gaid.value);
 
-  const ga4react = new GA4React(gaid);
   (async () => {
     await ga4react
       .initialize()
-      .then((res) => console.log(`Analytics Success: ${res} ${gaid}`))
+      .then((res) => console.log(`Analytics Success: ${res}`))
       .catch((err) => console.log(`Analytics Failure: ${err}`))
       .finally(() => {
         ReactDOM.render(
@@ -43,7 +41,11 @@ WidgetDivs.forEach((Div) => {
   let pagetitle = "";
   let endpoint = "";
   let gaid = "";
-  renderApp(Div, currentLang, pagetitle, endpoint, gaid);
+
+  Div.attributes.gaid && (gaid = Div.attributes.gaid.value);
+  const ga4react = new GA4React(gaid);
+
+  renderApp(Div, currentLang, pagetitle, endpoint, ga4react);
 
   let observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
