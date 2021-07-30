@@ -144,10 +144,10 @@ function Module({ pagetitle, endpoint, dir }) {
 
   const changeScreen = (text, nextScreen, feedbackID) => {
     //adds the screen title as the page title
-    ga && pageTitleAsScreen(ga, t(screen.title));
+    ga && pageTitleAsScreen(ga, en(screen.title));
 
     //triggers a new event called page_change that shares your current page and next page
-    ga && pageChange(ga, t(screen.title), t(SCREENS[nextScreen].title));
+    ga && pageChange(ga, en(screen.title), en(SCREENS[nextScreen].title));
 
     // If button contains a feedbackID, update the feedbackType of the feedback object
     if (feedbackID) {
