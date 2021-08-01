@@ -111,8 +111,17 @@ function Module({ pagetitle, endpoint, dir }) {
       focusFirstError();
     } else {
       updateOtherField();
-      pageTitleAsScreen(en(screen.title));
-      pageChange(en(screen.title), en(SCREENS[nextScreen].title));
+
+      let currentPageTitle = en(screen.title)
+        ? en(screen.title, { page: pagetitle })
+        : en(screen.titleInverse, { page: pagetitle });
+      let nextPageTitle = en(SCREENS[nextScreen].title)
+        ? en(SCREENS[nextScreen].title, { page: pagetitle })
+        : en(SCREENS[nextScreen].titleInverse, { page: pagetitle });
+
+      pageTitleAsScreen(currentPageTitle);
+      pageChange(currentPageTitle, nextPageTitle);
+
       sendFormData(screen.formID),
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);
@@ -132,8 +141,16 @@ function Module({ pagetitle, endpoint, dir }) {
         updateFeedbackForAPI(setFeedbackType, [en(text), feedbackID]);
       setScreen(SCREENS[nextScreen]);
       setCheckboxError(false);
-      pageTitleAsScreen(en(screen.title));
-      pageChange(en(screen.title), en(SCREENS[nextScreen].title));
+
+      let currentPageTitle = en(screen.title)
+        ? en(screen.title, { page: pagetitle })
+        : en(screen.titleInverse, { page: pagetitle });
+      let nextPageTitle = en(SCREENS[nextScreen].title)
+        ? en(SCREENS[nextScreen].title, { page: pagetitle })
+        : en(SCREENS[nextScreen].titleInverse, { page: pagetitle });
+
+      pageTitleAsScreen(currentPageTitle);
+      pageChange(currentPageTitle, nextPageTitle);
     }
 
     headerRef.current.scrollIntoView(true);
