@@ -90,7 +90,8 @@ export const TRANSLATIONS_EN = {
     checkboxError: "Please select at least one option.",
     nameError: "Please provide your name.",
     emailError: "Please provide a valid email address.",
-    phoneError: "This is an invalid phone number.",
+    phoneError:
+      "This is an invalid phone number. We only accept US numbers at the moment",
     inputEmptyError: "Please provide a response.",
   },
 };
