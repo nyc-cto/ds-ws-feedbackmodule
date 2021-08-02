@@ -1,5 +1,4 @@
-export const BUTTON_STYLE =
-  "flex-align-self-start width-auto text-left border-transparent hover-bg-primary-light hover:bg-primary-light hover:text-primary hover-text-primary hover:border-primary hover-border-primary padding-105 mobile-lg:padding-x-205 mobile-lg:padding-y-105 mobile-lg-padding-x-205 mobile-lg-padding-y-105 mobile-lg-font-sans-md2 mobile-lg:font-sans-md2 border-2px hover:border-bottom-2px hover-border-bottom-2px shadow-btn margin-y-1 mobile-lg:margin-y-2 mobile-lg-margin-y-2";
+export const BUTTON_STYLE = "";
 export const BUTTON_RIGHT_STYLE = "flex-align-self-end";
 
 export const CHECKBOX_STYLE =

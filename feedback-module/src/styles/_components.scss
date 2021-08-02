@@ -1,0 +1,20 @@
+.usa-button {
+  @extend .flex-align-self-start,
+    .width-auto,
+    .text-left,
+    .border-transparent,
+    .padding-105,
+    .border-2px,
+    .shadow-btn,
+    .margin-y-1,
+    .mobile-lg\:padding-x-205,
+    .mobile-lg\:padding-y-105,
+    .mobile-lg\:font-sans-md2,
+    .mobile-lg\:margin-y-2;
+  &:hover {
+    @extend .bg-primary-light,
+      .text-primary,
+      .border-primary,
+      .border-bottom-2px;
+  }
+}

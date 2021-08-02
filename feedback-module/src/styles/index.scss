@@ -5,10 +5,11 @@
 @import "~uswds/src/stylesheets/theme/_uswds-theme-utilities.scss";
 @import "~uswds/src/stylesheets/packages/_required.scss";
 
-@import "variables.scss";
-@import "theme.scss";
+@import "variables";
+@import "theme";
 
 #feedback-widget {
   @import "uswds";
-  @import "reset.scss";
+  @import "reset";
+  @import "components";
 }
