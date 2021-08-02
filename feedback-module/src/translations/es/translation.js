@@ -46,8 +46,7 @@ export const TRANSLATIONS_ES = {
     textInputs: [
       {
         type: "textarea",
-        text:
-          "[es] Can you give us more details on what you were trying to do, or the exact problem you encountered?",
+        text: "[es] Can you give us more details on what you were trying to do, or the exact problem you encountered?",
       },
     ],
   },
@@ -68,7 +67,7 @@ export const TRANSLATIONS_ES = {
     title:
       "[es] Thank you for your feedback! It has been submitted.<br /><br />Your feedback is anonymous and confidential, so you will not receive a reply.",
     plainText:
-      "[es] The City of New York is always trying to improve its services. Are you interesed in being a user research participant? This is is entirely voluntary and you can opt out at any time. Signing up to be a user research participant will have no impact on your feedback today, or your eligibility to access or receive services in the future.",
+      "<p>[es] The City of New York is always trying to improve its services. Are you interesed in being a user research participant? This is is entirely voluntary and you can opt out at any time. Signing up to be a user research participant will have no impact on your feedback today, or your eligibility to access or receive services in the future.</p>",
     button: "[es] Yes, sign me up!",
   },
 
@@ -76,7 +75,7 @@ export const TRANSLATIONS_ES = {
     title:
       "[es] As a user research participant you can help us continue to improve services for New Yorkers",
     plainText:
-      "[es] Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.<br />You can opt out at any time.",
+      '<p>[es] Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.</p><p class="padding-top-2">You can opt out at any time.</p>',
     textInputs: [
       { type: "text", text: "[es] Your name", required: true },
       { type: "email", text: "[es] Your email", required: true },

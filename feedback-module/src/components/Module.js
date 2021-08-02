@@ -172,10 +172,10 @@ function Module({ pagetitle, endpoint, dir }) {
               </p>
             )}
             {screen.plainText && (
-              <p
+              <div
                 className="font-sans-md feedback-plaintext"
                 dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
-              ></p>
+              ></div>
             )}
             <Form onSubmit={handleSubmit}>
               {screen.checkboxes && t(screen.checkboxes.labels) && (
