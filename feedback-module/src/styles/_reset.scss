@@ -1,15 +1,3 @@
-@import "variables.scss";
-
-.usa-input,
-.usa-textarea,
-.usa-checkbox__label {
-  color: $feedback__dark;
-  font-size: 1.375rem;
-  @media screen and (max-width: 479px) {
-    font-size: 1.125rem;
-  }
-}
-
 .usa-checkbox__label {
   font-weight: 700;
   @media screen and (max-width: 479px) {

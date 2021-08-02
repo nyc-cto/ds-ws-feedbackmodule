@@ -1,8 +1,4 @@
-export const BUTTON_STYLE = "";
-export const BUTTON_RIGHT_STYLE = "flex-align-self-end";
-
-export const CHECKBOX_STYLE =
-  "text-bold text-primary bg-transparent mobile-lg:font-sans-lg mobile-lg-font-sans-lg font-sans-md mobile-lg:margin-y-2 mobile-lg-margin-y-2 margin-y-1 text-no-uppercase";
+export const CHECKBOX_STYLE = "";
 
 export const HEADER_STYLE =
   "radius-top-lg bg-primary display-flex padding-1 mobile-lg:padding-x-2 mobile-lg:padding-y-105 mobile-lg-padding-x-2 mobile-lg-padding-y-105 font-sans-check";

@@ -1,3 +1,4 @@
+// Buttons
 .usa-button {
   @extend .flex-align-self-start,
     .width-auto,
@@ -6,15 +7,39 @@
     .padding-105,
     .border-2px,
     .shadow-btn,
-    .margin-y-1,
-    .mobile-lg\:padding-x-205,
+    .margin-y-1;
+  @extend .mobile-lg-padding-x-205,
+    .mobile-lg-padding-y-105,
+    .mobile-lg-font-sans-md2,
+    .mobile-lg-margin-y-2 !optional;
+  @extend .mobile-lg\:padding-x-205,
     .mobile-lg\:padding-y-105,
     .mobile-lg\:font-sans-md2,
-    .mobile-lg\:margin-y-2;
+    .mobile-lg\:margin-y-2 !optional;
   &:hover {
     @extend .bg-primary-light,
       .text-primary,
       .border-primary,
       .border-bottom-2px;
   }
+}
+
+// Checkbox
+.usa-checkbox {
+  @extend .text-bold,
+    .text-primary,
+    .bg-transparent,
+    .font-sans-md,
+    .margin-y-1,
+    .text-no-uppercase;
+  @extend .mobile-lg\:font-sans-lg, .mobile-lg\:margin-y-2 !optional;
+  @extend .mobile-lg-font-sans-lg, .mobile-lg-margin-y-2 !optional;
+}
+
+.usa-input,
+.usa-textarea,
+.usa-checkbox__label {
+  @extend .text-primary, .font-sans-md;
+  @extend .mobile-lg\:font-sans-lg !optional;
+  @extend .mobile-lg-font-sans-lg !optional;
 }
