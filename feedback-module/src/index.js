@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "@trussworks/react-uswds/lib/index.css";
@@ -5,6 +6,8 @@ import "./i18n";
 import "./styles/index.scss";
 import App from "./App";
 import GA4React from "ga-4-react";
+
+import LoadingSpinner from "./components/common/LoadingSpinner";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
@@ -15,7 +18,8 @@ const renderApp = (Div, lang, pagetitle, endpoint) => {
 
   ReactDOM.render(
     <React.StrictMode>
-      <Suspense fallback="... is loading">
+      <Suspense fallback={<LoadingSpinner />}>
+        <LoadingSpinner />
         <App
           domElement={Div}
           lang={lang}
