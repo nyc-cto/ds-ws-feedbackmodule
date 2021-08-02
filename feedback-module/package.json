@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "feather-icons-react": "^0.4.3",
+    "ga-4-react": "^0.1.281",
     "glob": "^7.1.6",
     "i18next": "^20.3.2",
     "i18next-browser-languagedetector": "^6.1.2",

@@ -12,6 +12,7 @@ import {
 } from "../assets/styling_classnames";
 import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
 import requestService from "../services/requestService";
+import googleAnalytics from "../lib/hooks/googleAnalytics";
 import useCheckboxes from "../lib/hooks/useCheckboxes";
 import useInputs from "../lib/hooks/useInputs";
 import useForm from "../lib/hooks/useForm";
@@ -59,6 +60,15 @@ function Module({ pagetitle, endpoint, dir }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
+  const {
+    trackFutureResearch,
+    pageTitleAsScreen,
+    pageChange,
+    moduleOnScreen,
+  } = googleAnalytics();
+
+  const moduleVisibleRef = useRef();
+
   useEffect(() => {
     // Updates the checkboxes based on the new screen
     newScreenCheckboxes(screen.checkboxes);
@@ -79,6 +89,7 @@ function Module({ pagetitle, endpoint, dir }) {
       });
       console.log(feedbackForAPI);
     } else if (formID === "research") {
+      trackFutureResearch();
       updateUserInfo(processUserInfo, [inputQuestions, endpoint]);
       requestService("userResearch", userInfo);
       console.log(userInfo);
@@ -100,6 +111,17 @@ function Module({ pagetitle, endpoint, dir }) {
       focusFirstError();
     } else {
       updateOtherField();
+
+      let currentPageTitle = en(screen.title)
+        ? en(screen.title, { page: pagetitle })
+        : en(screen.titleInverse, { page: pagetitle });
+      let nextPageTitle = en(SCREENS[nextScreen].title)
+        ? en(SCREENS[nextScreen].title, { page: pagetitle })
+        : en(SCREENS[nextScreen].titleInverse, { page: pagetitle });
+
+      pageTitleAsScreen(currentPageTitle);
+      pageChange(currentPageTitle, nextPageTitle);
+
       sendFormData(screen.formID),
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);
@@ -119,86 +141,103 @@ function Module({ pagetitle, endpoint, dir }) {
         updateFeedbackForAPI(setFeedbackType, [en(text), feedbackID]);
       setScreen(SCREENS[nextScreen]);
       setCheckboxError(false);
+
+      let currentPageTitle = en(screen.title)
+        ? en(screen.title, { page: pagetitle })
+        : en(screen.titleInverse, { page: pagetitle });
+      let nextPageTitle = en(SCREENS[nextScreen].title)
+        ? en(SCREENS[nextScreen].title, { page: pagetitle })
+        : en(SCREENS[nextScreen].titleInverse, { page: pagetitle });
+
+      pageTitleAsScreen(currentPageTitle);
+      pageChange(currentPageTitle, nextPageTitle);
     }
 
     headerRef.current.scrollIntoView(true);
   };
 
   return (
-    <GridContainer
-      desktop={{ col: 2 }}
-      mobile={{ col: "fill" }}
-      className={MODULE_CONTAINER_STYLE}
-      dir={dir}
-    >
-      <Header innerRef={headerRef} />
-      {screen.titleInverse && (
-        <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>
-          <p
-            className={`${H1_WHITE_STYLE} ${dir === "rtl" && "text-right"}`}
-            dangerouslySetInnerHTML={{ __html: t(screen.titleInverse) }}
-          ></p>
-        </Grid>
-      )}
-      {
-        <LightContainer formID={screen.formID}>
-          {screen.title && (
-            <p className={`${H1_DARK_STYLE} ${dir === "rtl" && "text-right"}`}>
-              {`${t(screen.title, { page: pagetitle })}${
-                screen.checkboxes && screen.checkboxes.required ? "*" : ""
-              }`}
-            </p>
-          )}
-          {screen.plainText && (
+    <div ref={moduleVisibleRef}>
+      <GridContainer
+        desktop={{ col: 2 }}
+        mobile={{ col: "fill" }}
+        className={MODULE_CONTAINER_STYLE}
+        dir={dir}
+      >
+        {moduleOnScreen(moduleVisibleRef)}
+        <Header innerRef={headerRef} />
+        {screen.titleInverse && (
+          <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>
             <p
-              className={PLAINTEXT_STYLE}
-              dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
+              className={`${H1_WHITE_STYLE} ${dir === "rtl" && "text-right"}`}
+              dangerouslySetInnerHTML={{ __html: t(screen.titleInverse) }}
             ></p>
-          )}
-          <Form className={FORM_STYLE} onSubmit={handleSubmit}>
-            {screen.checkboxes && t(screen.checkboxes.labels) && (
-              <>
-                {checkboxError && (
-                  <ErrorAlert
-                    errorText={t("errorMessages.checkboxError")}
-                    dir={dir}
-                  />
-                )}
-                <CheckboxList
-                  feedbackCheckboxes={t(screen.checkboxes.labels)}
-                  onCheck={(index) => onCheck(index)}
-                  setOtherField={setOtherField}
-                  checkboxKey={screen.checkboxes.labels}
-                  firstCheckRef={firstCheckRef}
-                />
-              </>
+          </Grid>
+        )}
+        {
+          <LightContainer formID={screen.formID}>
+            {screen.title && (
+              <p
+                className={`${H1_DARK_STYLE} ${dir === "rtl" && "text-right"}`}
+              >
+                {`${t(screen.title, { page: pagetitle })}${
+                  screen.checkboxes && screen.checkboxes.required ? "*" : ""
+                }`}
+              </p>
             )}
-            {screen.textInputs && t(screen.textInputs) && (
-              <TextboxList
-                inputs={t(screen.textInputs)}
-                setInputQuestions={setInputQuestions}
-                inputQuestions={inputQuestions}
-                inputRefs={inputRefs}
-              />
+            {screen.plainText && (
+              <p
+                className={PLAINTEXT_STYLE}
+                dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
+              ></p>
             )}
-            {screen.buttons &&
-              screen.buttons.map(
-                ({ type, text, nextScreen, feedbackID }, index) => {
-                  return (
-                    <ModuleButton
-                      buttonText={t(text)}
-                      isRight={type === "submit"}
-                      className={dir === "rtl" ? "text-right" : ""}
-                      onClick={() => changeScreen(text, nextScreen, feedbackID)}
-                      key={index}
+            <Form className={FORM_STYLE} onSubmit={handleSubmit}>
+              {screen.checkboxes && t(screen.checkboxes.labels) && (
+                <>
+                  {checkboxError && (
+                    <ErrorAlert
+                      errorText={t("errorMessages.checkboxError")}
+                      dir={dir}
                     />
-                  );
-                }
+                  )}
+                  <CheckboxList
+                    feedbackCheckboxes={t(screen.checkboxes.labels)}
+                    onCheck={(index) => onCheck(index)}
+                    setOtherField={setOtherField}
+                    checkboxKey={screen.checkboxes.labels}
+                    firstCheckRef={firstCheckRef}
+                  />
+                </>
               )}
-          </Form>
-        </LightContainer>
-      }
-    </GridContainer>
+              {screen.textInputs && t(screen.textInputs) && (
+                <TextboxList
+                  inputs={t(screen.textInputs)}
+                  setInputQuestions={setInputQuestions}
+                  inputQuestions={inputQuestions}
+                  inputRefs={inputRefs}
+                />
+              )}
+              {screen.buttons &&
+                screen.buttons.map(
+                  ({ type, text, nextScreen, feedbackID }, index) => {
+                    return (
+                      <ModuleButton
+                        buttonText={t(text)}
+                        isRight={type === "submit"}
+                        className={dir === "rtl" ? "text-right" : ""}
+                        onClick={() =>
+                          changeScreen(text, nextScreen, feedbackID)
+                        }
+                        key={index}
+                      />
+                    );
+                  }
+                )}
+            </Form>
+          </LightContainer>
+        }
+      </GridContainer>
+    </div>
   );
 }
 
