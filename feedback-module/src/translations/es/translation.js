@@ -92,7 +92,8 @@ export const TRANSLATIONS_ES = {
   errorMessages: {
     checkboxError: "[es] Please select at least one option.",
     nameError: "[es] Please provide your name.",
-    emailPhoneError: "[es] Please provide your email or phone number.",
+    emailError: "[es] Please provide a valid email address.",
+    phoneError: "[es] This is an invalid phone number.",
     inputEmptyError: "[es] Please provide a response.",
   },
 };

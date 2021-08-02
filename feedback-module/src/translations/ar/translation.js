@@ -46,7 +46,8 @@ export const TRANSLATIONS_AR = {
     textInputs: [
       {
         type: "textarea",
-        text: "[ar] Can you give us more details on what you were trying to do, or the exact problem you encountered?",
+        text:
+          "[ar] Can you give us more details on what you were trying to do, or the exact problem you encountered?",
       },
     ],
   },
@@ -91,7 +92,8 @@ export const TRANSLATIONS_AR = {
   errorMessages: {
     checkboxError: "[ar] Please select at least one option.",
     nameError: "[ar] Please provide your name.",
-    emailPhoneError: "[ar] Please provide your email or phone number.",
+    emailError: "[ar] Please provide a valid email address.",
+    phoneError: "[ar] This is an invalid phone number.",
     inputEmptyError: "[ar] Please provide a response.",
   },
 };
