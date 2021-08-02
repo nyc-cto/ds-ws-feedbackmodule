@@ -1,5 +1,4 @@
 .usa-checkbox__label {
-  font-weight: 700;
   @media screen and (max-width: 479px) {
     padding-left: 0rem;
     text-indent: 0rem;
@@ -17,25 +16,25 @@
 }
 
 .grid-container[dir="rtl"] {
-  text-align: right;
+  @extend .text-right;
 
   .usa-checkbox__label {
-    text-indent: 0rem;
+    @extend .text-indent-0;
+  }
+
+  .usa-button {
+    @extend .text-right;
   }
 
   .usa-checkbox__label::before {
-    margin-left: 0.75rem;
-    margin-right: 0rem;
-    right: 2px;
-    left: 0px;
+    @extend .margin-left-105, .margin-right-0, .right-2px, .left-0;
 
     @media screen and (max-width: 479px) {
       margin-left: 1.375rem;
-      margin-right: 0rem;
     }
   }
-}
 
-.usa-alert__text {
-  display: flex;
+  .feedback-h1 {
+    @extend .text-right;
+  }
 }

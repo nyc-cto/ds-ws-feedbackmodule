@@ -43,8 +43,7 @@ export const TRANSLATIONS_EN = {
     textInputs: [
       {
         type: "textarea",
-        text:
-          "Can you give us more details on what you were trying to do, or the exact problem you encountered?",
+        text: "Can you give us more details on what you were trying to do, or the exact problem you encountered?",
       },
     ],
   },
@@ -91,7 +90,7 @@ export const TRANSLATIONS_EN = {
     nameError: "Please provide your name.",
     emailError: "Please provide a valid email address.",
     phoneError:
-      "This is an invalid phone number. We only accept US numbers at the moment",
+      "This is an invalid phone number. We only accept US numbers at the moment.",
     inputEmptyError: "Please provide a response.",
   },
 };

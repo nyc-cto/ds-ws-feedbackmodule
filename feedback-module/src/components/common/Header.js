@@ -2,14 +2,13 @@ import React from "react";
 import { GridContainer } from "@trussworks/react-uswds";
 
 import Logo from "../../assets/header_logo.png";
-import { HEADER_STYLE } from "../../assets/styling_classnames";
 
 function Header({ innerRef }) {
   return (
     <>
       {/* Using dummy empty div to host headerRef since ref does not work with GridContainer  */}
       <div ref={innerRef}></div>
-      <GridContainer className={HEADER_STYLE}>
+      <GridContainer className="feedback-header">
         <img
           className="width-auto height-2 mobile-lg:height-205 mobile-lg-height-205"
           src={Logo}

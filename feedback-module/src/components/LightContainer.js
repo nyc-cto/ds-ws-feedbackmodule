@@ -1,8 +1,6 @@
 import React from "react";
 import { Grid } from "@trussworks/react-uswds";
 
-import { SCREEN_CONTAINER_STYLE } from "../assets/styling_classnames";
-
 function LightContainer({ children, formID }) {
   const isChildNull = (children) => {
     /* returns true if there are no elements outside of the form element
@@ -12,7 +10,7 @@ function LightContainer({ children, formID }) {
   return isChildNull(children) ? (
     children
   ) : (
-    <Grid className={SCREEN_CONTAINER_STYLE}>{children}</Grid>
+    <Grid className="feedback-screen-container">{children}</Grid>
   );
 }
 
