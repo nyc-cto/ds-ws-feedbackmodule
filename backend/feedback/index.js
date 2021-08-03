@@ -1,8 +1,26 @@
 const fetch = require("node-fetch");
 require("dotenv").config();
 
-module.exports = async function (context, req) {
+module.exports = function (context, req) {
   context.log("JavaScript HTTP trigger function processed a request.");
+
+  const successMsg = (res) => {
+    context.res = {
+      status: 200,
+      body: `Your submission was successful! ${
+        res.status
+      } ${typeof res.status}`,
+    };
+    context.done();
+  };
+
+  const errorMsg = (res) => {
+    context.res = {
+      status: 500,
+      body: `Request error. ${res.status} ${typeof res.status}`,
+    };
+    context.done();
+  };
 
   const config = {
     method: "POST",
@@ -14,13 +32,7 @@ module.exports = async function (context, req) {
     body: JSON.stringify(req.body),
   };
 
-  await fetch(process.env.ENDPOINT, config)
-    .then(() => (context.res = { body: "success!" }))
-    .catch(
-      (err) =>
-        (context.res = {
-          status: 500,
-          body: `Request error. ${err}`,
-        })
-    );
+  fetch(process.env.ENDPOINT, config)
+    .then((res) => (res.status === 202 ? successMsg(res) : errorMsg(res)))
+    .catch(errorMsg);
 };
