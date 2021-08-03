@@ -93,5 +93,7 @@ export const TRANSLATIONS_EN = {
     phoneError:
       "This is an invalid phone number. We only accept US numbers at the moment",
     inputEmptyError: "Please provide a response.",
+    requestFailure:
+      "Sorry your feedback could not be submitted at this time. Please retry in a few minutes.",
   },
 };

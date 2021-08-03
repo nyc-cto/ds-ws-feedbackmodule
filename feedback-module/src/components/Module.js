@@ -33,6 +33,8 @@ function Module({ pagetitle, endpoint, dir }) {
   const [userInfo, updateUserInfo] = useForm({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
   const [checkboxError, setCheckboxError] = useState(false);
+  const [failedRequest, setFailedRequest] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Methods and variables for accessing the state of the checkbox fields
   const {
@@ -83,20 +85,22 @@ function Module({ pagetitle, endpoint, dir }) {
   const sendFormData = (formID) => {
     if (formID === "feedback") {
       updateFeedbackForAPI(processFeedback, [checkedFields, inputQuestions]);
-      requestService("feedback", {
+
+      console.log(feedbackForAPI);
+
+      return requestService("feedback", {
         id: endpoint,
         feedback: feedbackForAPI,
       });
-      console.log(feedbackForAPI);
     } else if (formID === "research") {
       trackFutureResearch();
       updateUserInfo(processUserInfo, [inputQuestions, endpoint]);
-      requestService("userResearch", userInfo);
       console.log(userInfo);
+      return requestService("userResearch", userInfo);
     }
   };
 
-  const submitForm = (nextScreen) => {
+  const submitForm = async (nextScreen) => {
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
     if (
@@ -122,9 +126,22 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      sendFormData(screen.formID),
-        setScreen(SCREENS[nextScreen]),
-        setCheckboxError(false);
+      setLoading(true);
+      await sendFormData(screen.formID).then((res) => {
+        console.log(res);
+        //a failed request to API
+        if (res === "failure") {
+          setFailedRequest(true);
+          setLoading(false);
+        }
+        //a successful request to API
+        else {
+          setScreen(SCREENS[nextScreen]),
+            setCheckboxError(false),
+            setFailedRequest(false);
+          setLoading(false);
+        }
+      });
     }
   };
 
@@ -166,6 +183,7 @@ function Module({ pagetitle, endpoint, dir }) {
       >
         {moduleOnScreen(moduleVisibleRef)}
         <Header innerRef={headerRef} />
+
         {screen.titleInverse && (
           <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>
             <p
@@ -174,7 +192,12 @@ function Module({ pagetitle, endpoint, dir }) {
             ></p>
           </Grid>
         )}
-        {
+        {loading ? (
+          <LightContainer>
+            {/* will replace this <p></p> with loading spinner once merged in */}
+            <p>Network Call Loading</p>
+          </LightContainer>
+        ) : (
           <LightContainer formID={screen.formID}>
             {screen.title && (
               <p
@@ -224,6 +247,8 @@ function Module({ pagetitle, endpoint, dir }) {
                       <ModuleButton
                         buttonText={t(text)}
                         isRight={type === "submit"}
+                        dir={dir}
+                        networkError={failedRequest}
                         className={dir === "rtl" ? "text-right" : ""}
                         onClick={() =>
                           changeScreen(text, nextScreen, feedbackID)
@@ -235,7 +260,7 @@ function Module({ pagetitle, endpoint, dir }) {
                 )}
             </Form>
           </LightContainer>
-        }
+        )}
       </GridContainer>
     </div>
   );
