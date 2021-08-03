@@ -171,17 +171,18 @@ function Module({ pagetitle, endpoint, dir }) {
                 }`}
               </p>
             )}
-            {screen.plainText && t(screen.plainText) && (
-              <div className="font-sans-md">
-                {t(screen.plainText).map((paragraph, index) => {
-                  return (
-                    <p className="feedback-module__plaintext" key={index}>
-                      {paragraph}
-                    </p>
-                  );
-                })}
-              </div>
-            )}
+            {screen.plainText &&
+              t(screen.plainText) &&
+              t(screen.plainText).map((paragraph, index) => {
+                return (
+                  <p
+                    className="font-sans-md feedback-module__plaintext"
+                    key={index}
+                  >
+                    {paragraph}
+                  </p>
+                );
+              })}
             <Form onSubmit={handleSubmit}>
               {screen.checkboxes && t(screen.checkboxes.labels) && (
                 <>
