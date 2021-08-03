@@ -37,6 +37,20 @@ function Textbox({
           maxLength={500}
           isTextArea
         />
+      ) : id === "other-field" ? (
+        <CharacterCount
+          id={id}
+          name={label}
+          type={type}
+          className={`${className} ${TEXTINPUT_STYLE} ${
+            invalid && "margin-top-3"
+          } margin-right-2px`}
+          onChange={onChange}
+          aria-invalid={invalid}
+          aria-describedby={invalid ? describedBy : undefined}
+          inputRef={inputRef}
+          maxLength={140}
+        />
       ) : (
         <TextInput
           id={id}
