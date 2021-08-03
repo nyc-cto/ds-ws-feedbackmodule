@@ -1,5 +1,5 @@
 import React from "react";
-import { Textarea, TextInput, Label } from "@trussworks/react-uswds";
+import { TextInput, Label, CharacterCount } from "@trussworks/react-uswds";
 
 import {
   LABEL_STYLE,
@@ -25,9 +25,8 @@ function Textbox({
         {`${label}${required ? "*" : ""}`}
       </Label>
       {showErrors}
-      {/* {invalid && <div className="margin-bottom-3"></div>} */}
       {type === "textarea" ? (
-        <Textarea
+        <CharacterCount
           id={id}
           name={label}
           className={`${TEXTAREA_STYLE} ${invalid && "margin-top-3"} `}
@@ -35,6 +34,8 @@ function Textbox({
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
           inputRef={inputRef}
+          maxLength={500}
+          isTextArea
         />
       ) : (
         <TextInput
