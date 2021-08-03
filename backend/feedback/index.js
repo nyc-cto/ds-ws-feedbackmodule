@@ -4,20 +4,18 @@ require("dotenv").config();
 module.exports = function (context, req) {
   context.log("JavaScript HTTP trigger function processed a request.");
 
-  const successMsg = (res) => {
+  const successMsg = () => {
     context.res = {
       status: 200,
-      body: `Your submission was successful! ${
-        res.status
-      } ${typeof res.status}`,
+      body: "Your submission was successful!",
     };
     context.done();
   };
 
-  const errorMsg = (res) => {
+  const errorMsg = (err) => {
     context.res = {
       status: 500,
-      body: `Request error. ${res.status} ${typeof res.status}`,
+      body: `Request error. ${err}`,
     };
     context.done();
   };
@@ -33,6 +31,8 @@ module.exports = function (context, req) {
   };
 
   fetch(process.env.ENDPOINT, config)
-    .then((res) => (res.status === 202 ? successMsg(res) : errorMsg(res)))
+    .then((res) =>
+      res.status === 202 ? successMsg() : errorMsg(JSON.stringify(res.body))
+    )
     .catch(errorMsg);
 };
