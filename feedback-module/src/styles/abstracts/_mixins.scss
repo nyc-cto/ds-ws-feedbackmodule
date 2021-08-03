@@ -1,0 +1,9 @@
+@use "sass:list";
+
+// Sets styling for mobile-lg viewport size
+@mixin mobile-lg($properties...) {
+  @each $property in $properties {
+    @extend .mobile-lg\:#{$property} !optional; // Sets styling locally
+    @extend .mobile-lg-#{$property} !optional; // Sets styling in build
+  }
+}

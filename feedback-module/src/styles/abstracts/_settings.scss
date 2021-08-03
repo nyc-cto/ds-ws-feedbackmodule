@@ -44,26 +44,3 @@ $height-settings: map-merge(
     responsive: true,
   )
 );
-
-// Colors
-$theme-color-primary: $feedback__dark;
-$theme-color-primary-light: $feedback__light;
-$theme-color-base: $feedback__dark;
-$theme-color-primary-lighter: $feedback__lightest;
-
-// Typography
-$theme-font-type-sans: "public-sans";
-$theme-process-list-heading-color: "primary";
-
-// Buttons
-$theme-button-border-radius: "md";
-
-//Checkbox
-$theme-checkbox-border-radius: 0;
-
-// Alert:
-$theme-alert-bar-width: 1;
-$theme-alert-padding-x: 2;
-$theme-color-error-lighter: $error-alert-bg-color;
-$theme-color-error: $error-alert-bar-color;
-$theme-color-base-ink: $alert-text-color; //alert text color

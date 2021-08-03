@@ -1,13 +1,3 @@
-@use "sass:list";
-
-// Sets styling for mobile-lg viewport size
-@mixin mobile-lg($properties...) {
-  @each $property in $properties {
-    @extend .mobile-lg\:#{$property} !optional; // Sets styling locally
-    @extend .mobile-lg-#{$property} !optional; // Sets styling in build
-  }
-}
-
 // Common Styles
 .usa-checkbox,
 .usa-label,
@@ -21,18 +11,15 @@
   @extend .text-primary;
 }
 
-.usa-label,
-.usa-checkbox,
-.usa-checkbox__label,
-.feedback-h1 {
-  @extend .text-bold;
-}
-
 .feedback-module-container,
 .usa-button:hover,
 .usa-textarea,
 .usa-input {
   @extend .bg-primary-light;
+}
+
+.feedback-header {
+  @extend .bg-primary;
 }
 
 .feedback-plaintext,
@@ -62,51 +49,15 @@
   @extend .display-flex;
 }
 
-// Buttons
-.usa-button {
-  @extend .flex-align-self-start,
-    .width-auto,
-    .text-left,
-    .border-transparent,
-    .padding-105,
-    .border-2px,
-    .shadow-btn,
-    .margin-y-1;
-  @include mobile-lg(
-    "padding-x-205",
-    "padding-y-105",
-    "font-sans-md2",
-    "margin-y-105"
-  );
-  &:hover {
-    @extend .border-primary, .border-bottom-2px;
-  }
+.grid-container[dir="rtl"] {
+  @extend .text-right;
 }
 
-// Checkbox
-.usa-checkbox {
-  @extend .bg-transparent, .margin-y-1, .text-no-uppercase;
-  @include mobile-lg("margin-y-105");
-}
-
-.usa-label {
-  @extend .font-sans-md2,
-    .line-height-sans-2,
-    .maxw-none,
-    .margin-y-205,
-    .text-no-uppercase;
-}
-
-.usa-textarea,
-.usa-input {
-  @extend .border-05, .border-primary;
-  &:focus {
-    @extend .border-width-6px, .bg-primary-lighter;
-  }
-}
-
-.usa-input {
-  @extend .height-auto, .flex-1;
+.usa-label,
+.usa-checkbox,
+.usa-checkbox__label,
+.feedback-h1 {
+  @extend .text-bold;
 }
 
 .usa-form {
@@ -114,7 +65,7 @@
 }
 
 .feedback-header {
-  @extend .radius-top-lg, .bg-primary, .padding-1;
+  @extend .radius-top-lg, .padding-1;
   @include mobile-lg("padding-x-2", "padding-y-105");
 }
 
@@ -134,11 +85,10 @@
     .margin-bottom-3,
     .text-no-uppercase,
     .line-height-sans-2;
-
-  &--light {
+  &--inverse {
     @extend .text-white;
   }
-  &--dark {
+  &--default {
     @extend .text-primary;
   }
 }
@@ -149,5 +99,11 @@
 
   p {
     @extend .margin-0;
+  }
+}
+
+.grid-container[dir="rtl"] {
+  .feedback-h1 {
+    @extend .text-right;
   }
 }
