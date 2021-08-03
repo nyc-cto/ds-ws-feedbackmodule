@@ -18,6 +18,7 @@ module.exports = function (context, req) {
       body: `Request error. ${err}`,
     };
     context.done();
+    throw `Request error. ${err}`;
   };
 
   const config = {
