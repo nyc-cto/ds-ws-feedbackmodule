@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "@trussworks/react-uswds/lib/index.css";
@@ -19,7 +18,6 @@ const renderApp = (Div, lang, pagetitle, endpoint) => {
   ReactDOM.render(
     <React.StrictMode>
       <Suspense fallback={<LoadingSpinner />}>
-        <LoadingSpinner />
         <App
           domElement={Div}
           lang={lang}
