@@ -10,9 +10,8 @@ import LoadingSpinner from "./components/common/LoadingSpinner";
 
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
-const renderApp = (Div, lang, pagetitle, endpoint) => {
+const renderApp = (Div, lang, endpoint) => {
   Div.attributes.lang && (lang = Div.attributes.lang.value);
-  Div.attributes.pagetitle && (pagetitle = Div.attributes.pagetitle.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
 
   ReactDOM.render(
@@ -21,8 +20,8 @@ const renderApp = (Div, lang, pagetitle, endpoint) => {
         <App
           domElement={Div}
           lang={lang}
-          pagetitle={pagetitle}
           endpoint={endpoint}
+          pagetitle={document.title.length > 50 ? "this page" : document.title}
         />
       </Suspense>
     </React.StrictMode>,
@@ -32,7 +31,6 @@ const renderApp = (Div, lang, pagetitle, endpoint) => {
 
 WidgetDivs.forEach((Div) => {
   let currentLang = "en";
-  let pagetitle = "";
   let endpoint = "";
   let gaid = "";
 
@@ -45,17 +43,27 @@ WidgetDivs.forEach((Div) => {
       .then((res) => console.log(`Analytics Success: ${res}`))
       .catch((err) => console.log(`Analytics Failure: ${err}`))
       .finally(() => {
-        renderApp(Div, currentLang, pagetitle, endpoint);
+        renderApp(Div, currentLang, endpoint);
         let observer = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
             if (mutation.type == "attributes") {
-              renderApp(Div, currentLang, pagetitle, endpoint);
+              renderApp(Div, currentLang, endpoint);
             }
+          });
+        });
+        let titleObserver = new MutationObserver((mutations) => {
+          mutations.forEach(() => {
+            renderApp(Div, currentLang, endpoint);
           });
         });
 
         observer.observe(Div, {
           attributes: true,
+        });
+        titleObserver.observe(document.querySelector("title"), {
+          subtree: true,
+          characterData: true,
+          childList: true,
         });
       });
   })();
