@@ -10,7 +10,7 @@ function LightContainer({ children, formID }) {
   return isChildNull(children) ? (
     children
   ) : (
-    <Grid className="feedback-screen-container">{children}</Grid>
+    <Grid className="feedback-module__main">{children}</Grid>
   );
 }
 

@@ -149,15 +149,15 @@ function Module({ pagetitle, endpoint, dir }) {
       <GridContainer
         desktop={{ col: 2 }}
         mobile={{ col: "fill" }}
-        className="feedback-module-container"
+        className="feedback-module"
         dir={dir}
       >
         {moduleOnScreen(moduleVisibleRef)}
         <Header innerRef={headerRef} />
         {screen.titleInverse && (
-          <Grid className={"bg-primary feedback-screen-container"}>
+          <Grid className={"bg-primary feedback-module__main"}>
             <p
-              className="font-sans-md2 feedback-h1 feedback-h1--inverse"
+              className="font-sans-md2 feedback-module__h1 feedback-module__h1--inverse"
               dangerouslySetInnerHTML={{ __html: t(screen.titleInverse) }}
             ></p>
           </Grid>
@@ -165,7 +165,7 @@ function Module({ pagetitle, endpoint, dir }) {
         {
           <LightContainer formID={screen.formID}>
             {screen.title && (
-              <p className="font-sans-md2 feedback-h1 feedback-h1--default">
+              <p className="font-sans-md2 feedback-module__h1 feedback-module__h1--default">
                 {`${t(screen.title, { page: pagetitle })}${
                   screen.checkboxes && screen.checkboxes.required ? "*" : ""
                 }`}
@@ -173,7 +173,7 @@ function Module({ pagetitle, endpoint, dir }) {
             )}
             {screen.plainText && (
               <div
-                className="font-sans-md feedback-plaintext"
+                className="font-sans-md feedback-module__plaintext"
                 dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
               ></div>
             )}

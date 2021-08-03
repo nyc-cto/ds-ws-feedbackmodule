@@ -8,7 +8,7 @@ function Header({ innerRef }) {
     <>
       {/* Using dummy empty div to host headerRef since ref does not work with GridContainer  */}
       <div ref={innerRef}></div>
-      <GridContainer className="feedback-header">
+      <GridContainer className="feedback-module__header">
         <img
           className="width-auto height-2 mobile-lg:height-205 mobile-lg-height-205"
           src={Logo}

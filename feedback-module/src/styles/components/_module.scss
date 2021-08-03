@@ -1,0 +1,33 @@
+.feedback-module {
+  @extend .radius-top-lg, .padding-x-0, .shadow-btn;
+  @include mobile-lg("width-desktop-sm");
+  &__header {
+    @extend .radius-top-lg, .padding-1;
+    @include mobile-lg("padding-x-2", "padding-y-105");
+  }
+  &__main {
+    @extend .padding-x-5, .padding-y-205;
+    @include mobile-lg("padding-x-7", "padding-y-6");
+  }
+  &__h1 {
+    @extend .text-left,
+      .margin-top-0,
+      .margin-bottom-3,
+      .text-no-uppercase,
+      .line-height-sans-2;
+    &--inverse {
+      @extend .text-white;
+    }
+    &--default {
+      @extend .text-primary;
+    }
+  }
+  &__plaintext {
+    @extend .line-height-sans-3, .margin-0, .padding-y-3, .text-no-uppercase;
+    @include mobile-lg("line-height-sans-5");
+
+    p {
+      @extend .margin-0;
+    }
+  }
+}
