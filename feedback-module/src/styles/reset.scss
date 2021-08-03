@@ -5,6 +5,7 @@
 .usa-checkbox__label {
   color: $feedback__dark;
   font-size: 1.375rem;
+  resize: none;
   @media screen and (max-width: 479px) {
     font-size: 1.125rem;
   }
