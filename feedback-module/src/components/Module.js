@@ -171,7 +171,6 @@ function Module({ pagetitle, endpoint, dir }) {
                 }`}
               </p>
             )}
-            {console.log(t(screen.plainText))}
             {screen.plainText && t(screen.plainText) && (
               <div className="font-sans-md">
                 {t(screen.plainText).map((paragraph, index) => {
