@@ -171,11 +171,17 @@ function Module({ pagetitle, endpoint, dir }) {
                 }`}
               </p>
             )}
-            {screen.plainText && (
-              <div
-                className="font-sans-md feedback-module__plaintext"
-                dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
-              ></div>
+            {console.log(t(screen.plainText))}
+            {screen.plainText && t(screen.plainText) && (
+              <div className="font-sans-md">
+                {t(screen.plainText).map((paragraph, index) => {
+                  return (
+                    <p className="feedback-module__plaintext" key={index}>
+                      {paragraph}
+                    </p>
+                  );
+                })}
+              </div>
             )}
             <Form onSubmit={handleSubmit}>
               {screen.checkboxes && t(screen.checkboxes.labels) && (

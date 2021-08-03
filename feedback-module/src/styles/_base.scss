@@ -18,7 +18,7 @@
   @extend .bg-primary-light;
 }
 
-.feedback-header {
+.feedback-module__header {
   @extend .bg-primary;
 }
 
@@ -45,12 +45,8 @@
 
 .usa-alert__text,
 .usa-form,
-.feedback-header {
+.feedback-module__header {
   @extend .display-flex;
-}
-
-.grid-container[dir="rtl"] {
-  @extend .text-right;
 }
 
 .usa-label,
@@ -65,6 +61,8 @@
 }
 
 .grid-container[dir="rtl"] {
+  @extend .text-right;
+
   .feedback-module__h1 {
     @extend .text-right;
   }
