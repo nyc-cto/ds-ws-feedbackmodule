@@ -17,17 +17,20 @@ function Textbox({
   describedBy,
   invalid,
   inputRef,
+  showErrors,
 }) {
   return (
     <>
       <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
         {`${label}${required ? "*" : ""}`}
       </Label>
+      {showErrors}
+      {/* {invalid && <div className="margin-bottom-3"></div>} */}
       {type === "textarea" ? (
         <Textarea
           id={id}
           name={label}
-          className={TEXTAREA_STYLE}
+          className={`${TEXTAREA_STYLE} ${invalid && "margin-top-3"} `}
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
@@ -38,7 +41,9 @@ function Textbox({
           id={id}
           name={label}
           type={type}
-          className={`${className} ${TEXTINPUT_STYLE}`}
+          className={`${className} ${TEXTINPUT_STYLE} ${
+            invalid && "margin-top-3"
+          }`}
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}

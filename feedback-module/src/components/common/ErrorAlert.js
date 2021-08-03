@@ -11,7 +11,7 @@ function ErrorAlert({ errorText, dir, id }) {
         strokeWidth="2.5"
         className={`${
           dir === "rtl" ? "margin-left-205" : "margin-right-205"
-        } padding-top-2px`}
+        } padding-top-2px `}
       />
       {errorText}
     </Alert>

@@ -63,7 +63,6 @@ function TextboxList({
               input.type === "textarea" ? 4 : 3
             }`}
           >
-            {showErrors(input, index)}
             <Textbox
               id={`feedback-input-${index}`}
               type={input.type}
@@ -73,6 +72,7 @@ function TextboxList({
               invalid={isInvalid(index)}
               describedBy={`feedback-input-error-${index}`}
               inputRef={inputRefs[index]}
+              showErrors={showErrors(input, index)}
             />
           </Grid>
         );
