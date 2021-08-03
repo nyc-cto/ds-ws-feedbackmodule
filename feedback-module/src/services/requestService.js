@@ -1,10 +1,16 @@
 import axios from "axios";
 
-const requestService = (apiEndpoint, obj) => {
-  axios
+async function requestService(apiEndpoint, obj) {
+  let response = "";
+  await axios
     .post(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/${apiEndpoint}`, obj)
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
-};
+    .then((res) => {
+      console.log(res), (response = "success");
+    })
+    .catch((err) => {
+      console.log(err), (response = "failure");
+    });
+  return response;
+}
 
 export default requestService;
