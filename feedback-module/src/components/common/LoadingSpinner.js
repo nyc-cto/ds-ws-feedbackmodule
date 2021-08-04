@@ -3,7 +3,7 @@ import Loader from "react-loader-spinner";
 
 import styles from "../../styles/_export.module.scss";
 
-function LoadingSpinner() {
+function LoadingSpinner({ className }) {
   return (
     <div>
       <Loader
@@ -11,7 +11,7 @@ function LoadingSpinner() {
         color={styles.primaryColor}
         height={75}
         width={75}
-        className="text-center"
+        className={`text-center ${className}`}
       />
     </div>
   );
