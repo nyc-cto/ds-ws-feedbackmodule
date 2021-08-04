@@ -157,7 +157,7 @@ function Module({ pagetitle, endpoint, dir }) {
         {screen.titleInverse && (
           <Grid className={"bg-primary feedback-module__main"}>
             <p
-              className="font-sans-md2 feedback-module__h1 feedback-module__h1--inverse"
+              className="font-sans-md2 feedback-module__heading feedback-module__heading--inverse"
               dangerouslySetInnerHTML={{ __html: t(screen.titleInverse) }}
             ></p>
           </Grid>
@@ -165,7 +165,7 @@ function Module({ pagetitle, endpoint, dir }) {
         {
           <LightContainer formID={screen.formID}>
             {screen.title && (
-              <p className="font-sans-md2 feedback-module__h1 feedback-module__h1--default">
+              <p className="font-sans-md2 feedback-module__heading feedback-module__heading--default">
                 {`${t(screen.title, { page: pagetitle })}${
                   screen.checkboxes && screen.checkboxes.required ? "*" : ""
                 }`}

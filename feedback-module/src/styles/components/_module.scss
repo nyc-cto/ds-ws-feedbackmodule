@@ -16,7 +16,7 @@
     @extend .padding-x-5, .padding-y-205;
     @include mobile-lg("padding-x-7", "padding-y-6");
   }
-  &__h1 {
+  &__heading {
     @extend .text-left,
       .margin-top-0,
       .margin-bottom-3,

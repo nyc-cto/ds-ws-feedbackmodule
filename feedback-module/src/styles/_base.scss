@@ -38,7 +38,7 @@
   @include mobile-lg("font-sans-lg");
 }
 
-.feedback-module__h1,
+.feedback-module__heading,
 .usa-label {
   @include mobile-lg("font-sans-lg2");
 }
@@ -52,7 +52,7 @@
 .usa-label,
 .usa-checkbox,
 .usa-checkbox__label,
-.feedback-module__h1 {
+.feedback-module__heading {
   @extend .text-bold;
 }
 
@@ -63,7 +63,7 @@
 .grid-container[dir="rtl"] {
   @extend .text-right;
 
-  .feedback-module__h1 {
+  .feedback-module__heading {
     @extend .text-right;
   }
 }
