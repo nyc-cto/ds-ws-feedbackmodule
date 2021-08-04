@@ -46,7 +46,8 @@ export const TRANSLATIONS_AR = {
     textInputs: [
       {
         type: "textarea",
-        text: "[ar] Can you give us more details on what you were trying to do, or the exact problem you encountered?",
+        text:
+          "[ar] Can you give us more details on what you were trying to do, or the exact problem you encountered?",
       },
     ],
   },
@@ -93,5 +94,7 @@ export const TRANSLATIONS_AR = {
     nameError: "[ar] Please provide your name.",
     emailPhoneError: "[ar] Please provide your email or phone number.",
     inputEmptyError: "[ar] Please provide a response.",
+    requestFailure:
+      "[ar] Sorry your feedback could not be submitted at this time. Please retry in a few moments.",
   },
 };

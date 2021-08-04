@@ -94,5 +94,7 @@ export const TRANSLATIONS_ES = {
     nameError: "[es] Please provide your name.",
     emailPhoneError: "[es] Please provide your email or phone number.",
     inputEmptyError: "[es] Please provide a response.",
+    requestFailure:
+      "[es] Sorry your feedback could not be submitted at this time. Please retry in a few moments.",
   },
 };
