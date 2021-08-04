@@ -27,6 +27,7 @@ import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 import LightContainer from "./LightContainer";
+import LoadingSpinner from "./common/LoadingSpinner";
 
 function Module({ pagetitle, endpoint, dir }) {
   const [feedbackForAPI, updateFeedbackForAPI] = useForm({});
@@ -194,8 +195,7 @@ function Module({ pagetitle, endpoint, dir }) {
         )}
         {loading ? (
           <LightContainer>
-            {/* will replace this <p></p> with loading spinner once merged in */}
-            <p>Network Call Loading</p>
+            <LoadingSpinner className="margin-2" />
           </LightContainer>
         ) : (
           <LightContainer formID={screen.formID}>
@@ -248,7 +248,7 @@ function Module({ pagetitle, endpoint, dir }) {
                         buttonText={t(text)}
                         isRight={type === "submit"}
                         dir={dir}
-                        networkError={failedRequest}
+                        networkError={!checkboxError && failedRequest}
                         className={dir === "rtl" ? "text-right" : ""}
                         onClick={() =>
                           changeScreen(text, nextScreen, feedbackID)
