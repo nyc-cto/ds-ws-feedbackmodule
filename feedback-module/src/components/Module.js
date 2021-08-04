@@ -215,7 +215,7 @@ function Module({ pagetitle, endpoint, dir }) {
                     return (
                       <ModuleButton
                         buttonText={t(text)}
-                        isRight={type === "submit"}
+                        className={`usa-button--${type}`}
                         onClick={() =>
                           changeScreen(text, nextScreen, feedbackID)
                         }

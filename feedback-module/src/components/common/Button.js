@@ -1,12 +1,12 @@
 import React from "react";
 import { Button } from "@trussworks/react-uswds";
 
-function ModuleButton({ buttonText, onClick, isRight, className }) {
+function ModuleButton({ buttonText, onClick, className }) {
   return (
     <Button
       aria-label={buttonText}
       onClick={onClick}
-      className={`${isRight && "flex-align-self-end"} ${className}`}
+      className={className}
       type="button"
     >
       {buttonText}
