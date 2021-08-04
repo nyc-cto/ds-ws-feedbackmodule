@@ -78,21 +78,24 @@ function Module({ pagetitle, endpoint, dir }) {
   }, [screen]);
 
   // sendFormData determines which form data state to update, based on the formID
-  const sendFormData = (formID) => {
+  const requestInfo = (formID) => {
     if (formID === "feedback") {
       updateFeedbackForAPI(processFeedback, [checkedFields, inputQuestions]);
 
       console.log(feedbackForAPI);
 
-      return requestService("feedback", {
-        id: endpoint,
-        feedback: feedbackForAPI,
-      });
+      return [
+        "feedback",
+        {
+          id: endpoint,
+          feedback: feedbackForAPI,
+        },
+      ];
     } else if (formID === "research") {
       trackFutureResearch();
       updateUserInfo(processUserInfo, [inputQuestions, endpoint]);
       console.log(userInfo);
-      return requestService("userResearch", userInfo);
+      return ["userResearch", userInfo];
     }
   };
 
@@ -122,22 +125,19 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      setLoading(true);
-      await sendFormData(screen.formID).then((res) => {
-        console.log(res);
-        //a failed request to API
-        if (res === "failure") {
-          setFailedRequest(true);
-          setLoading(false);
-        }
-        //a successful request to API
-        else {
-          setScreen(SCREENS[nextScreen]),
-            setCheckboxError(false),
-            setFailedRequest(false);
-          setLoading(false);
-        }
-      });
+      if (requestInfo(screen.formID)) {
+        setLoading(true);
+        requestService(
+          ...requestInfo(screen.formID),
+          () => {
+            setScreen(SCREENS[nextScreen]),
+              setCheckboxError(false),
+              setFailedRequest(false);
+          },
+          () => setFailedRequest(true),
+          () => setLoading(false)
+        );
+      }
     }
   };
 
