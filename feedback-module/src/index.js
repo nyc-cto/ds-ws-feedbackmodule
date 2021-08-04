@@ -21,7 +21,7 @@ const renderApp = (Div, lang, endpoint) => {
           domElement={Div}
           lang={lang}
           endpoint={endpoint}
-          pagetitle={document.title.length > 50 ? "this page" : document.title}
+          pagetitle={document.title.length > 75 ? "this page" : document.title}
         />
       </Suspense>
     </React.StrictMode>,
