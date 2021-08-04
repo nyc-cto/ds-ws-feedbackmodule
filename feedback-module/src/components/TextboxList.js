@@ -25,8 +25,10 @@ function TextboxList({
 
   const inputError = (input, id) => {
     let key;
-    if (input.type === "tel" || input.type === "email") {
-      key = "emailPhoneError";
+    if (input.type === "tel") {
+      key = "phoneError";
+    } else if (input.type === "email") {
+      key = "emailError";
     } else if (input.text === "Your name") {
       key = "nameError";
     } else if (input.type === "textarea" || input.type === "text") {

@@ -92,7 +92,8 @@ export const TRANSLATIONS_AR = {
   errorMessages: {
     checkboxError: "[ar] Please select at least one option.",
     nameError: "[ar] Please provide your name.",
-    emailPhoneError: "[ar] Please provide your email or phone number.",
+    emailError: "[ar] Please provide a valid email address.",
+    phoneError: "[ar] This is an invalid phone number.",
     inputEmptyError: "[ar] Please provide a response.",
     requestFailure:
       "[ar] Sorry your feedback could not be submitted at this time. Please retry in a few moments.",
