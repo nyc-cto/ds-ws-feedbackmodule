@@ -1,7 +1,6 @@
 // Checkbox
 .usa-checkbox {
   @extend .bg-transparent, .margin-y-1, .text-no-uppercase;
-  @include mobile-lg("margin-y-105");
   @media screen and (max-width: 479px) {
     &__label {
       padding-left: 0rem;
@@ -9,8 +8,8 @@
       display: grid;
       grid-auto-flow: column;
       &::before {
-        height: 2rem;
-        width: 2rem;
+        height: 1.6rem;
+        width: 1.6rem;
         margin-right: 1.375rem;
       }
     }

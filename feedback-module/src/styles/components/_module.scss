@@ -5,6 +5,10 @@
     @extend .radius-top-lg, .padding-top-105, .padding-bottom-1, .padding-x-1;
     @include mobile-lg("padding-x-2", "padding-bottom-105", "padding-top-2");
   }
+  &__logo {
+    @extend .width-auto, .height-2, .margin-top-1px;
+    @include mobile-lg("height-205");
+  }
   &__main {
     @extend .padding-x-5, .padding-y-205;
     @include mobile-lg("padding-x-7", "padding-y-6");
