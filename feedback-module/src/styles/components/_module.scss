@@ -26,11 +26,12 @@
     @extend .line-height-sans-3,
       .margin-0,
       .padding-top-3,
+      .padding-bottom-0,
       .text-no-uppercase,
       .margin-0;
     @include mobile-lg("line-height-sans-5");
 
-    &:last-child {
+    &:last-of-type {
       @extend .padding-bottom-3;
     }
   }
