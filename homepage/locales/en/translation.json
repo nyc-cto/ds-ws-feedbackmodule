@@ -63,7 +63,7 @@
 
   "userResearch": {
     "title": "As a user research participant you can help us continue to improve services for New Yorkers",
-    "plainText": "Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.<br />You can opt out at any time.",
+    "plainText": "Please leave your contact details and we will get in touch with you. Being a research participant means you may be contacted from time to time to help us test new services and products. We will send you an email with more details.<br /><br />You can opt out at any time.",
     "textInputs": [
       { "type": "text", "text": "Your name" },
       { "type": "email", "text": "Your email" },

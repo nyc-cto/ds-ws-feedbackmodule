@@ -1,0 +1,69 @@
+// Common Styles
+.usa-checkbox,
+.usa-label,
+.usa-input,
+.usa-textarea,
+.usa-checkbox__label,
+.usa-textarea,
+.usa-input,
+.feedback-module__plaintext,
+.usa-button:hover {
+  @extend .text-primary;
+}
+
+.feedback-module,
+.usa-button:hover,
+.usa-textarea,
+.usa-input {
+  @extend .bg-primary-light;
+}
+
+.feedback-module__header {
+  @extend .bg-primary;
+}
+
+.feedback-module__plaintext,
+.usa-checkbox,
+.usa-input,
+.usa-textarea,
+.usa-checkbox__label {
+  @extend .font-sans-md;
+}
+
+.usa-input,
+.usa-textarea,
+.usa-checkbox__label,
+.usa-checkbox,
+.feedback-module__plaintext {
+  @include mobile-lg("font-sans-lg");
+}
+
+.feedback-module__heading,
+.usa-label {
+  @include mobile-lg("font-sans-lg2");
+}
+
+.usa-alert__text,
+.usa-form,
+.feedback-module__header {
+  @extend .display-flex;
+}
+
+.usa-label,
+.usa-checkbox,
+.usa-checkbox__label,
+.feedback-module__heading {
+  @extend .text-bold;
+}
+
+.usa-form {
+  @extend .maxw-none, .width-full, .flex-column, .flex-align-stretch;
+}
+
+.grid-container[dir="rtl"] {
+  @extend .text-right;
+
+  .feedback-module__heading {
+    @extend .text-right;
+  }
+}

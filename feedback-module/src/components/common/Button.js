@@ -1,22 +1,13 @@
 import React from "react";
 import { Button } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
-
-import { BUTTON_STYLE } from "../../assets/styling_classnames";
 import ErrorAlert from "./ErrorAlert";
 
-function ModuleButton({
-  buttonText,
-  onClick,
-  isRight,
-  networkError,
-  dir,
-  className,
-}) {
+function ModuleButton({ buttonText, onClick, networkError, dir, className }) {
   const { t } = useTranslation();
 
   return (
-    <div className={`display-flex ${isRight && "flex-align-self-end"}`}>
+    <div className={`display-flex ${className}`}>
       {networkError && (
         <ErrorAlert
           errorText={t("errorMessages.requestFailure")}
@@ -27,7 +18,7 @@ function ModuleButton({
       <Button
         aria-label={buttonText}
         onClick={onClick}
-        className={`${BUTTON_STYLE} ${className}`}
+        className={className}
         type="button"
       >
         {buttonText}

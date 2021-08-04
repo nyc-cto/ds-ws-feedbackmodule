@@ -2,14 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
-import {
-  MODULE_CONTAINER_STYLE,
-  SCREEN_CONTAINER_STYLE,
-  H1_DARK_STYLE,
-  H1_WHITE_STYLE,
-  FORM_STYLE,
-  PLAINTEXT_STYLE,
-} from "../assets/styling_classnames";
 import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
 import requestService from "../services/requestService";
 import googleAnalytics from "../lib/hooks/googleAnalytics";
@@ -175,16 +167,16 @@ function Module({ pagetitle, endpoint, dir }) {
       <GridContainer
         desktop={{ col: 2 }}
         mobile={{ col: "fill" }}
-        className={MODULE_CONTAINER_STYLE}
+        className="feedback-module"
         dir={dir}
       >
         {moduleOnScreen(moduleVisibleRef)}
         <Header innerRef={headerRef} />
 
         {screen.titleInverse && (
-          <Grid className={`bg-primary ${SCREEN_CONTAINER_STYLE}`}>
+          <Grid className={"bg-primary feedback-module__main"}>
             <p
-              className={`${H1_WHITE_STYLE} ${dir === "rtl" && "text-right"}`}
+              className="font-sans-md2 feedback-module__heading feedback-module__heading--inverse"
               dangerouslySetInnerHTML={{ __html: t(screen.titleInverse) }}
             ></p>
           </Grid>
@@ -196,21 +188,25 @@ function Module({ pagetitle, endpoint, dir }) {
         ) : (
           <LightContainer formID={screen.formID}>
             {screen.title && (
-              <p
-                className={`${H1_DARK_STYLE} ${dir === "rtl" && "text-right"}`}
-              >
+              <p className="font-sans-md2 feedback-module__heading feedback-module__heading--default">
                 {`${t(screen.title, { page: pagetitle })}${
                   screen.checkboxes && screen.checkboxes.required ? "*" : ""
                 }`}
               </p>
             )}
-            {screen.plainText && (
-              <p
-                className={PLAINTEXT_STYLE}
-                dangerouslySetInnerHTML={{ __html: t(screen.plainText) }}
-              ></p>
-            )}
-            <Form className={FORM_STYLE} onSubmit={handleSubmit}>
+            {screen.plainText &&
+              t(screen.plainText) &&
+              t(screen.plainText).map((paragraph, index) => {
+                return (
+                  <p
+                    className="font-sans-md feedback-module__plaintext"
+                    key={index}
+                  >
+                    {paragraph}
+                  </p>
+                );
+              })}
+            <Form onSubmit={handleSubmit}>
               {screen.checkboxes && t(screen.checkboxes.labels) && (
                 <>
                   {checkboxError && (
@@ -243,10 +239,9 @@ function Module({ pagetitle, endpoint, dir }) {
                     return (
                       <ModuleButton
                         buttonText={t(text)}
-                        isRight={type === "submit"}
+                        className={`usa-button--${type}`}
                         dir={dir}
                         networkError={!checkboxError && failedRequest}
-                        className={dir === "rtl" ? "text-right" : ""}
                         onClick={() =>
                           changeScreen(text, nextScreen, feedbackID)
                         }

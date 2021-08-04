@@ -9,7 +9,7 @@ function requestService(
 ) {
   console.log("request");
   axios
-    .post(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/${apiEndpoint}`, obj)
+    .post(`.${process.env.REACT_APP_BACKEND_ENDPOINT}/api/${apiEndpoint}`, obj)
     .then((res) => {
       console.log(res);
       successCallback();
