@@ -6,6 +6,7 @@ import {
   TEXTAREA_STYLE,
   TEXTINPUT_STYLE,
 } from "../../assets/styling_classnames";
+import { TEXTAREA_MAX_CHAR, OTHER_MAX_CHAR } from "../../lib/constants";
 
 function Textbox({
   id,
@@ -34,7 +35,7 @@ function Textbox({
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
           inputRef={inputRef}
-          maxLength={500}
+          maxLength={TEXTAREA_MAX_CHAR}
           isTextArea
         />
       ) : id === "other-field" ? (
@@ -49,7 +50,7 @@ function Textbox({
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
           inputRef={inputRef}
-          maxLength={140}
+          maxLength={OTHER_MAX_CHAR}
         />
       ) : (
         <TextInput

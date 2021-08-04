@@ -46,9 +46,23 @@ function TextboxList({
     );
   };
 
+  const charLimitReached = (index) => {
+    return (
+      inputQuestions && inputQuestions[index] && inputQuestions[index].charError
+    );
+  };
+
   const showErrors = (input, index) => {
     if (isInvalid(index)) {
       return inputError(input, `feedback-input-error-${index}`);
+    } else if (charLimitReached(index)) {
+      return (
+        <ErrorAlert
+          key="inputCharError"
+          errorText={t("errorMessages.charLimitError")}
+          id={`feedback-input-error-${index}`}
+        />
+      );
     }
   };
 

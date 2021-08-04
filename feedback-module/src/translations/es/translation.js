@@ -95,5 +95,7 @@ export const TRANSLATIONS_ES = {
     emailError: "[es] Please provide a valid email address.",
     phoneError: "[es] This is an invalid phone number.",
     inputEmptyError: "[es] Please provide a response.",
+    charLimitError:
+      "[es] You're over the character limit. Please shorten your submission.",
   },
 };

@@ -2,6 +2,7 @@ import { useState, useEffect, createRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { invalidEmail, invalidPhone } from "../utils/textboxUtil";
+import { TEXTAREA_MAX_CHAR } from "../constants";
 
 /**
  * Custom hook that contains the state for the text input responses on a screen and refs to text inputs
@@ -60,8 +61,14 @@ export default function useInputs(firstCheckRef) {
         invalidPhone(question.answer, question.required)
       ) {
         (validated = false), (question.error = true);
+      } else if (
+        question.type === "textarea" &&
+        question.answer.length > TEXTAREA_MAX_CHAR
+      ) {
+        (validated = false), (question.charError = true);
       } else {
         question.error = false;
+        question.charError = false;
       }
       return question;
     });
