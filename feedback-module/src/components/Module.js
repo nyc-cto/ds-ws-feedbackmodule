@@ -63,12 +63,8 @@ function Module({ pagetitle, endpoint, dir }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
-  const {
-    trackFutureResearch,
-    pageTitleAsScreen,
-    pageChange,
-    moduleOnScreen,
-  } = googleAnalytics();
+  const { trackFutureResearch, pageTitleAsScreen, pageChange, moduleOnScreen } =
+    googleAnalytics();
 
   const moduleVisibleRef = useRef();
 
@@ -229,6 +225,7 @@ function Module({ pagetitle, endpoint, dir }) {
                     setOtherField={setOtherField}
                     checkboxKey={screen.checkboxes.labels}
                     firstCheckRef={firstCheckRef}
+                    checkedFields={checkedFields}
                   />
                 </>
               )}
