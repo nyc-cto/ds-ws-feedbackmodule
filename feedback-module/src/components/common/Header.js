@@ -1,7 +1,7 @@
 import React from "react";
 import { GridContainer } from "@trussworks/react-uswds";
 
-import Logo from "../../assets/header_logo.png";
+import Logo from "../../assets/header_logo.svg";
 
 function Header({ innerRef }) {
   return (
@@ -10,7 +10,7 @@ function Header({ innerRef }) {
       <div ref={innerRef}></div>
       <GridContainer className="feedback-module__header">
         <img
-          className="width-auto height-2 mobile-lg:height-205 mobile-lg-height-205"
+          className="width-auto height-2 mobile-lg:height-205 mobile-lg-height-205 margin-top-1px"
           src={Logo}
           alt="New York City feedback module logo"
         />
