@@ -2,7 +2,8 @@
   &__text {
     display: grid !important;
     grid-auto-flow: column;
-    @extend .font-sans-xs;
+    justify-content: start;
+    @extend .font-sans-xs, .line-height-sans-2;
     @include mobile-lg("font-sans-sm");
   }
   .feather-alert-triangle {
