@@ -10,7 +10,7 @@ function ErrorAlert({ errorText, id, className }) {
       noIcon
       wrapper="span"
       id={id}
-      className={className ?? ""}
+      className={className ?? null}
     >
       <FeatherIcon icon="alert-triangle" size="22" strokeWidth="2.5" />
       {errorText}

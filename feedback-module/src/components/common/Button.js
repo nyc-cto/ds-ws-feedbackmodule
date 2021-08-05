@@ -7,7 +7,7 @@ function ModuleButton({ buttonText, onClick, networkError, className }) {
   const { t } = useTranslation();
 
   return (
-    <div className={className}>
+    <div className={className ?? null}>
       {networkError && (
         <ErrorAlert
           errorText={t("errorMessages.requestFailure")}
