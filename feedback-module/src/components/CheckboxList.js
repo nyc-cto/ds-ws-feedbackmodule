@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import ModuleCheckbox from "./common/Checkbox";
 import Textbox from "./common/Textbox";
+import ErrorAlert from "./common/ErrorAlert";
 
 function CheckboxList({
   feedbackCheckboxes,
@@ -11,8 +12,10 @@ function CheckboxList({
   setOtherField,
   checkboxKey,
   firstCheckRef,
+  otherTooLong,
+  dir,
 }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const en = i18n.getFixedT("en");
 
   const [otherChecked, setOtherChecked] = useState(false);
@@ -30,24 +33,33 @@ function CheckboxList({
     <Grid>
       {feedbackCheckboxes.map((label, index) => {
         return (
-          <Grid row key={index} className="flex-no-wrap flex-align-end">
-            <ModuleCheckbox
-              id={`feedback-checkbox-${index}`}
-              label={label}
-              onCheck={() => onCheckOther(index)}
-              className="width-full"
-              firstCheckRef={index === 0 ? firstCheckRef : undefined}
-            />
-            {otherChecked && en(checkboxKey)[index] === "Other" && (
-              <Textbox
-                id="other-field"
-                type="text"
-                className="margin-left-1"
-                onChange={onChangeOther}
-                label=""
+          <div key={index}>
+            {en(checkboxKey)[index] === "Other" && otherTooLong && (
+              <ErrorAlert
+                errorText={t("errorMessages.charLimitError")}
+                dir={dir}
               />
             )}
-          </Grid>
+            <Grid row className="flex-no-wrap flex-align-end">
+              <ModuleCheckbox
+                id={`feedback-checkbox-${index}`}
+                label={label}
+                onCheck={() => onCheckOther(index)}
+                className="width-full"
+                firstCheckRef={index === 0 ? firstCheckRef : undefined}
+              />
+
+              {otherChecked && en(checkboxKey)[index] === "Other" && (
+                <Textbox
+                  id="other-field"
+                  type="text"
+                  className="margin-left-1"
+                  onChange={onChangeOther}
+                  label=""
+                />
+              )}
+            </Grid>
+          </div>
         );
       })}
     </Grid>

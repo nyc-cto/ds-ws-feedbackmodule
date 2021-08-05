@@ -33,6 +33,7 @@ function Module({ pagetitle, endpoint, dir }) {
   const [userInfo, updateUserInfo] = useForm({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
   const [checkboxError, setCheckboxError] = useState(false);
+  const [otherTooLong, setOtherTooLong] = useState(false);
 
   // Methods and variables for accessing the state of the checkbox fields
   const {
@@ -42,6 +43,7 @@ function Module({ pagetitle, endpoint, dir }) {
     checkboxValidated,
     updateOtherField,
     setOtherField,
+    otherFieldValidated,
   } = useCheckboxes();
 
   const headerRef = useRef(null);
@@ -107,6 +109,8 @@ function Module({ pagetitle, endpoint, dir }) {
       setCheckboxError(true);
       firstCheckRef.current && firstCheckRef.current.focus();
       // Make sure all required fields are completed
+    } else if (!otherFieldValidated()) {
+      setOtherTooLong(true);
     } else if (screen.textInputs && !inputsValidated()) {
       focusFirstError();
     } else {
@@ -125,6 +129,7 @@ function Module({ pagetitle, endpoint, dir }) {
       sendFormData(screen.formID),
         setScreen(SCREENS[nextScreen]),
         setCheckboxError(false);
+      setOtherTooLong(false);
     }
   };
 
@@ -141,6 +146,7 @@ function Module({ pagetitle, endpoint, dir }) {
         updateFeedbackForAPI(setFeedbackType, [en(text), feedbackID]);
       setScreen(SCREENS[nextScreen]);
       setCheckboxError(false);
+      setOtherTooLong(false);
 
       let currentPageTitle = en(screen.title)
         ? en(screen.title, { page: pagetitle })
@@ -206,6 +212,8 @@ function Module({ pagetitle, endpoint, dir }) {
                     setOtherField={setOtherField}
                     checkboxKey={screen.checkboxes.labels}
                     firstCheckRef={firstCheckRef}
+                    otherTooLong={otherTooLong}
+                    dir={dir}
                   />
                 </>
               )}
