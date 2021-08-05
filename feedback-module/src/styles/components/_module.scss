@@ -1,9 +1,6 @@
 .feedback-module {
-  @extend .radius-top-lg, .padding-x-0, .shadow-btn;
-  @include mobile-lg("width-desktop-sm");
-  @media screen and (max-width: 479px) {
-    box-shadow: none !important;
-  }
+  @extend .radius-top-lg, .padding-x-0, .shadow-none;
+  @include mobile-lg("width-desktop-sm", "shadow-btn");
   &__header {
     @extend .radius-top-lg, .padding-top-105, .padding-bottom-1, .padding-x-1;
     @include mobile-lg("padding-x-2", "padding-bottom-105", "padding-top-2");

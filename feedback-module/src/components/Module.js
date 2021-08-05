@@ -207,10 +207,7 @@ function Module({ pagetitle, endpoint, dir }) {
             {screen.checkboxes && t(screen.checkboxes.labels) && (
               <>
                 {checkboxError && (
-                  <ErrorAlert
-                    errorText={t("errorMessages.checkboxError")}
-                    dir={dir}
-                  />
+                  <ErrorAlert errorText={t("errorMessages.checkboxError")} />
                 )}
                 <CheckboxList
                   feedbackCheckboxes={t(screen.checkboxes.labels)}
@@ -236,8 +233,7 @@ function Module({ pagetitle, endpoint, dir }) {
                   return (
                     <ModuleButton
                       buttonText={t(text)}
-                      className={`usa-button--${type}`}
-                      dir={dir}
+                      className={`flex-button flex-button--${type}`}
                       networkError={!checkboxError && failedRequest}
                       onClick={() => changeScreen(text, nextScreen, feedbackID)}
                       key={index}

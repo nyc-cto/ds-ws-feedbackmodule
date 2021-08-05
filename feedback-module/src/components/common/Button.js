@@ -3,16 +3,15 @@ import { Button } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 import ErrorAlert from "./ErrorAlert";
 
-function ModuleButton({ buttonText, onClick, networkError, dir, className }) {
+function ModuleButton({ buttonText, onClick, networkError, className }) {
   const { t } = useTranslation();
 
   return (
-    <div className={`display-flex ${className}`}>
+    <div className={className}>
       {networkError && (
         <ErrorAlert
           errorText={t("errorMessages.requestFailure")}
-          dir={dir}
-          className="margin-right-2"
+          className="flex-button__alert"
         />
       )}
       <Button

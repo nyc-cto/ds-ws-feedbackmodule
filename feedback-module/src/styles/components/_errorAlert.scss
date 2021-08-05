@@ -1,0 +1,28 @@
+.usa-alert {
+  &__text {
+    display: grid !important;
+    grid-auto-flow: column;
+    @extend .font-sans-xs;
+    @include mobile-lg("font-sans-sm");
+  }
+  .feather-alert-triangle {
+    @extend .margin-right-205, .padding-top-2px;
+  }
+}
+
+.flex-button__alert {
+  @extend .order-1;
+  @include mobile-lg("order-initial", "margin-right-1");
+}
+
+.grid-container[dir="rtl"] {
+  .usa-alert {
+    .feather-alert-triangle {
+      @extend .margin-left-205, .margin-right-0;
+    }
+  }
+
+  .flex-button__alert {
+    @include mobile-lg("margin-left-1", "margin-right-0");
+  }
+}

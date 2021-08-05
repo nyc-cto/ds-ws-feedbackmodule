@@ -1,10 +1,15 @@
-.usa-button {
+.flex-button {
+  @extend .display-flex, .flex-column;
+  @include mobile-lg("flex-row");
   &--submit {
     @extend .flex-align-self-end, .width-auto;
   }
   &--form {
     @extend .flex-align-self-start, .width-full;
   }
+}
+
+.usa-button {
   box-sizing: border-box;
   @extend .text-left,
     .border-transparent,
