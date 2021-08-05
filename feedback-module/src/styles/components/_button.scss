@@ -19,8 +19,7 @@
     .padding-105,
     .border-2px,
     .shadow-btn,
-    .margin-y-0,
-    .margin-x-0;
+    .margin-0;
   @include mobile-lg("padding-x-205", "font-sans-md2", "width-auto");
   &:hover {
     @extend .border-primary, .border-bottom-2px;
