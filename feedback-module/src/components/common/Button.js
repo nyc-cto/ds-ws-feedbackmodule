@@ -14,12 +14,7 @@ function ModuleButton({ buttonText, onClick, networkError, className }) {
           className="flex-button__alert"
         />
       )}
-      <Button
-        aria-label={buttonText}
-        onClick={onClick}
-        className={className}
-        type="button"
-      >
+      <Button aria-label={buttonText} onClick={onClick} type="button">
         {buttonText}
       </Button>
     </div>

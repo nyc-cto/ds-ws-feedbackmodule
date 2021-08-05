@@ -1,8 +1,11 @@
 .flex-button {
-  @extend .display-flex, .flex-column;
-  @include mobile-lg("flex-row");
+  @extend .display-flex, .flex-column, .margin-y-1;
+  @include mobile-lg("flex-row", "margin-y-105");
   &--submit {
-    @extend .flex-align-self-end, .width-auto;
+    .usa-button {
+      @extend .flex-align-self-end, .width-auto;
+      @include mobile-lg("margin-bottom-auto");
+    }
   }
   &--form {
     @extend .flex-align-self-start, .width-full;
@@ -16,15 +19,9 @@
     .padding-105,
     .border-2px,
     .shadow-btn,
-    .margin-y-1,
+    .margin-y-0,
     .margin-x-0;
-  @include mobile-lg(
-    "padding-x-205",
-    "padding-y-105",
-    "font-sans-md2",
-    "margin-y-105",
-    "width-auto"
-  );
+  @include mobile-lg("padding-x-205", "font-sans-md2", "width-auto");
   &:hover {
     @extend .border-primary, .border-bottom-2px;
   }
