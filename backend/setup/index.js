@@ -39,9 +39,7 @@ module.exports = function (context, req) {
   const body = req.body;
   body.id = uniqid();
 
-  if (!body.pagetitle || body.pagetitle === "") {
-    errorMsg("Please enter a valid page title.");
-  } else if (!body.agency || body.agency === "") {
+  if (!body.agency || body.agency === "") {
     errorMsg("Please enter a valid agency name.");
   } else if (!body.emails || body.emails === "") {
     errorMsg("Please enter at least one valid email.");
