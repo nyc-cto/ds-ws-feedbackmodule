@@ -1,12 +1,6 @@
 import React from "react";
 import { Textarea, TextInput, Label } from "@trussworks/react-uswds";
 
-import {
-  LABEL_STYLE,
-  TEXTAREA_STYLE,
-  TEXTINPUT_STYLE,
-} from "../../assets/styling_classnames";
-
 function Textbox({
   id,
   type,
@@ -20,14 +14,13 @@ function Textbox({
 }) {
   return (
     <>
-      <Label className={`${className} ${LABEL_STYLE}`} htmlFor={id}>
+      <Label className={className} htmlFor={id}>
         {`${label}${required ? "*" : ""}`}
       </Label>
       {type === "textarea" ? (
         <Textarea
           id={id}
           name={label}
-          className={TEXTAREA_STYLE}
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
@@ -38,7 +31,7 @@ function Textbox({
           id={id}
           name={label}
           type={type}
-          className={`${className} ${TEXTINPUT_STYLE}`}
+          className={className}
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
