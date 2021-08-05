@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { useGA4React } from "ga-4-react";
 
-import { CUSTOM_TRACK_EVENTS } from "../constants";
+import { FORM_EVENTS } from "../constants";
 
 export default function googleAnalytics() {
   const ga = useGA4React();
 
   const trackFormAction = (formID) => {
-    if (CUSTOM_TRACK_EVENTS[formID]) {
-      console.log(formID, CUSTOM_TRACK_EVENTS[formID]);
-      ga && ga.event(formID, CUSTOM_TRACK_EVENTS[formID]);
+    if (FORM_EVENTS[formID]) {
+      ga && ga.event(FORM_EVENTS[formID].event_name, FORM_EVENTS[formID].event);
     }
   };
 

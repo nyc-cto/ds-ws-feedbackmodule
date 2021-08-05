@@ -1,6 +1,9 @@
 export const VALID_ENDPOINTS = ["feedback", "userResearch"];
-export const CUSTOM_TRACK_EVENTS = {
-  userResearch: "user agreed to participate in research in the future",
+export const FORM_EVENTS = {
+  userResearch: {
+    event_name: "future_research",
+    event: "user agreed to participate in research in the future",
+  },
 };
 export const SCREENS = {
   feedback_type: {
