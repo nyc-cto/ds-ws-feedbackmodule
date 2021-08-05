@@ -6,6 +6,8 @@ import "./styles/index.scss";
 import App from "./App";
 import GA4React from "ga-4-react";
 
+import LoadingSpinner from "./components/common/LoadingSpinner";
+
 const WidgetDivs = document.querySelectorAll("#feedback-widget");
 
 const renderApp = (Div, lang, pagetitle, endpoint) => {
@@ -15,7 +17,7 @@ const renderApp = (Div, lang, pagetitle, endpoint) => {
 
   ReactDOM.render(
     <React.StrictMode>
-      <Suspense fallback="... is loading">
+      <Suspense fallback={<LoadingSpinner />}>
         <App
           domElement={Div}
           lang={lang}

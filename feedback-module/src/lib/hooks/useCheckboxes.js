@@ -40,7 +40,6 @@ export default function useCheckboxes(initialFields = null, initialOther = "") {
   };
 
   const otherFieldValidated = () => {
-    console.log(otherField.length);
     return otherField.length <= OTHER_MAX_CHAR;
   };
 
