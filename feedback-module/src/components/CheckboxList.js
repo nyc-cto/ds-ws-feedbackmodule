@@ -40,7 +40,7 @@ function CheckboxList({
                 dir={dir}
               />
             )}
-            <Grid row className="flex-no-wrap flex-align-end">
+            <Grid row className="flex-no-wrap ">
               <ModuleCheckbox
                 id={`feedback-checkbox-${index}`}
                 label={label}
@@ -50,13 +50,14 @@ function CheckboxList({
               />
 
               {otherChecked && en(checkboxKey)[index] === "Other" && (
-                <Textbox
-                  id="other-field"
-                  type="text"
-                  className="margin-left-1"
-                  onChange={onChangeOther}
-                  label=""
-                />
+                <div className="margin-left-1 width-full margin-right-3">
+                  <Textbox
+                    id="other-field"
+                    type="text"
+                    onChange={onChangeOther}
+                    label=""
+                  />
+                </div>
               )}
             </Grid>
           </div>

@@ -16,7 +16,6 @@ export default function useCheckboxes(initialFields = null, initialOther = "") {
 
   const [checkedFields, setCheckedFields] = useState(initialFields);
   const [otherField, setOtherField] = useState(initialOther);
-  const [otherOverCharLimit, setOtherOverCharLimit] = useState(false);
 
   const onCheck = (index) => {
     let checked = checkedFields;
