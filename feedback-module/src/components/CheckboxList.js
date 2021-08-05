@@ -20,8 +20,12 @@ function CheckboxList({
 
   const [otherChecked, setOtherChecked] = useState(false);
 
+  const isOther = (index) => {
+    return en(checkboxKey)[index] === "Other";
+  };
+
   const onCheckOther = (index) => {
-    en(checkboxKey)[index] === "Other" && setOtherChecked(!otherChecked);
+    isOther(index) && setOtherChecked(!otherChecked);
     onCheck(index);
   };
 
@@ -34,13 +38,18 @@ function CheckboxList({
       {feedbackCheckboxes.map((label, index) => {
         return (
           <div key={index}>
-            {en(checkboxKey)[index] === "Other" && otherTooLong && (
+            {isOther(index) && otherTooLong && (
               <ErrorAlert
                 errorText={t("errorMessages.charLimitError")}
                 dir={dir}
               />
             )}
-            <Grid row className="flex-no-wrap ">
+            <Grid
+              row
+              className={`flex-no-wrap ${
+                isOther(index) && "flex-align-baseline"
+              }`}
+            >
               <ModuleCheckbox
                 id={`feedback-checkbox-${index}`}
                 label={label}
@@ -49,7 +58,7 @@ function CheckboxList({
                 firstCheckRef={index === 0 ? firstCheckRef : undefined}
               />
 
-              {otherChecked && en(checkboxKey)[index] === "Other" && (
+              {otherChecked && isOther(index) && (
                 <div className="margin-left-1 width-full margin-right-3">
                   <Textbox
                     id="other-field"

@@ -36,7 +36,12 @@ function TextboxList({
     }
     if (!key) return;
     return (
-      <ErrorAlert key={key} errorText={t(`errorMessages.${key}`)} id={id} />
+      <ErrorAlert
+        key={key}
+        errorText={t(`errorMessages.${key}`)}
+        id={id}
+        className="margin-bottom-2"
+      />
     );
   };
 
@@ -61,6 +66,7 @@ function TextboxList({
           key="inputCharError"
           errorText={t("errorMessages.charLimitError")}
           id={`feedback-input-error-${index}`}
+          className="margin-bottom-2"
         />
       );
     }

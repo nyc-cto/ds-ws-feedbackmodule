@@ -2,9 +2,16 @@ import React from "react";
 import { Alert } from "@trussworks/react-uswds";
 import FeatherIcon from "feather-icons-react";
 
-function ErrorAlert({ errorText, dir, id }) {
+function ErrorAlert({ errorText, dir, id, className }) {
   return (
-    <Alert type="error" slim noIcon wrapper="span" id={id}>
+    <Alert
+      type="error"
+      slim
+      noIcon
+      wrapper="span"
+      id={id}
+      className={className}
+    >
       <FeatherIcon
         icon="alert-triangle"
         size="22"

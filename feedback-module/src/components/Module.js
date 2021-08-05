@@ -54,8 +54,12 @@ function Module({ pagetitle, endpoint, dir }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
-  const { trackFutureResearch, pageTitleAsScreen, pageChange, moduleOnScreen } =
-    googleAnalytics();
+  const {
+    trackFutureResearch,
+    pageTitleAsScreen,
+    pageChange,
+    moduleOnScreen,
+  } = googleAnalytics();
 
   const moduleVisibleRef = useRef();
 
@@ -87,6 +91,8 @@ function Module({ pagetitle, endpoint, dir }) {
   };
 
   const submitForm = (nextScreen) => {
+    setOtherTooLong(false);
+    setCheckboxError(false);
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
     if (
@@ -114,10 +120,7 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      sendFormData(screen.formID),
-        setScreen(SCREENS[nextScreen]),
-        setCheckboxError(false);
-      setOtherTooLong(false);
+      sendFormData(screen.formID), setScreen(SCREENS[nextScreen]);
     }
   };
 
