@@ -7,7 +7,7 @@
     @include mobile-lg("font-sans-sm");
   }
   .feather-alert-triangle {
-    @extend .margin-right-205, .padding-top-2px;
+    @extend .margin-right-205, .padding-top-0;
   }
 }
 

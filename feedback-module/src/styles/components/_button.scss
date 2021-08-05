@@ -1,7 +1,7 @@
 .flex-button {
   @extend .display-flex, .flex-column, .margin-y-1;
-  @include mobile-lg("flex-row", "margin-y-105");
   &--submit {
+    @include mobile-lg("flex-justify-end", "flex-row");
     .usa-button {
       @extend .flex-align-self-end, .width-auto;
       @include mobile-lg("margin-bottom-auto");
@@ -9,6 +9,9 @@
   }
   &--form {
     @extend .flex-align-self-start, .width-full;
+    .usa-button {
+      @extend .flex-align-self-start;
+    }
   }
 }
 
