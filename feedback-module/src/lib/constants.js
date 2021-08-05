@@ -1,6 +1,11 @@
+export const VALID_ENDPOINTS = ["feedback", "userResearch"];
+export const CUSTOM_TRACK_EVENTS = {
+  userResearch: "user agreed to participate in research in the future",
+};
 export const SCREENS = {
   feedback_type: {
     title: "feedbackType.title",
+    formID: "feedback",
     buttons: [
       {
         type: "form",
@@ -63,7 +68,7 @@ export const SCREENS = {
     title: "userResearch.title",
     plainText: "userResearch.plainText",
     textInputs: "userResearch.textInputs",
-    formID: "research",
+    formID: "userResearch",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "user_feedback_result" },
     ],

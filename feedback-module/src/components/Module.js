@@ -2,17 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
-import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
+import { SCREENS, INITIAL_SCREEN, VALID_ENDPOINTS } from "../lib/constants";
 import requestService from "../services/requestService";
 import googleAnalytics from "../lib/hooks/googleAnalytics";
 import useCheckboxes from "../lib/hooks/useCheckboxes";
 import useInputs from "../lib/hooks/useInputs";
 import useForm from "../lib/hooks/useForm";
-import {
-  setFeedbackType,
-  processFeedback,
-  processUserInfo,
-} from "../lib/utils/formUtil";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
@@ -22,9 +17,15 @@ import LightContainer from "./LightContainer";
 import LoadingSpinner from "./common/LoadingSpinner";
 
 function Module({ pagetitle, endpoint, dir }) {
-  const [feedbackForAPI, updateFeedbackForAPI] = useForm({});
-  const [userInfo, updateUserInfo] = useForm({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
+  const {
+    formData,
+    setFormData,
+    setFeedbackType,
+    setCheckedOptions,
+    setInputResponses,
+    setSource,
+  } = useForm(screen);
   const [checkboxError, setCheckboxError] = useState(false);
   const [failedRequest, setFailedRequest] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ function Module({ pagetitle, endpoint, dir }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
-  const { trackFutureResearch, pageTitleAsScreen, pageChange, moduleOnScreen } =
+  const { trackFormAction, pageTitleAsScreen, pageChange, moduleOnScreen } =
     googleAnalytics();
 
   const moduleVisibleRef = useRef();
@@ -70,25 +71,17 @@ function Module({ pagetitle, endpoint, dir }) {
     }
   }, [screen]);
 
-  // sendFormData determines which form data state to update, based on the formID
+  // requestInfo returns the object to be submitted
   const requestInfo = (formID) => {
-    if (formID === "feedback") {
-      updateFeedbackForAPI(processFeedback, [checkedFields, inputQuestions]);
-
-      console.log(feedbackForAPI);
-
-      return [
-        "feedback",
-        {
-          id: endpoint,
-          feedback: feedbackForAPI,
-        },
-      ];
-    } else if (formID === "research") {
-      trackFutureResearch();
-      updateUserInfo(processUserInfo, [inputQuestions, endpoint]);
-      console.log(userInfo);
-      return ["userResearch", userInfo];
+    if (VALID_ENDPOINTS.includes(formID)) {
+      trackFormAction(formID);
+      setCheckedOptions(checkedFields);
+      setInputResponses(inputQuestions);
+      setSource();
+      const submission = { id: endpoint };
+      submission[formID] = formData;
+      console.log(submission);
+      return submission;
     }
   };
 
@@ -119,10 +112,12 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      if (requestInfo(screen.formID)) {
+      const submissionObj = requestInfo(screen.formID);
+      if (submissionObj) {
         setLoading(true);
         requestService(
-          ...requestInfo(screen.formID),
+          screen.formID,
+          submissionObj,
           () => {
             setScreen(SCREENS[nextScreen]);
             headerRef.current.scrollIntoView(true);
@@ -130,6 +125,7 @@ function Module({ pagetitle, endpoint, dir }) {
           setFailedRequest,
           setLoading
         );
+        setFormData({});
       }
     }
   };
@@ -138,13 +134,12 @@ function Module({ pagetitle, endpoint, dir }) {
     e.preventDefault();
   };
 
-  const changeScreen = (text, nextScreen, feedbackID) => {
+  const changeScreen = (type, text, nextScreen, feedbackID) => {
     // If button contains a feedbackID, update the feedbackType of the feedback object
-    if (screen.formID) {
+    if (screen.formID && type === "submit") {
       submitForm(nextScreen);
     } else {
-      feedbackID &&
-        updateFeedbackForAPI(setFeedbackType, [en(text), feedbackID]);
+      feedbackID && setFeedbackType(en(text), feedbackID);
       setScreen(SCREENS[nextScreen]);
       setCheckboxError(false);
 
@@ -235,7 +230,9 @@ function Module({ pagetitle, endpoint, dir }) {
                       buttonText={t(text)}
                       className={`flex-button flex-button--${type}`}
                       networkError={!checkboxError && failedRequest}
-                      onClick={() => changeScreen(text, nextScreen, feedbackID)}
+                      onClick={() =>
+                        changeScreen(type, text, nextScreen, feedbackID)
+                      }
                       key={index}
                     />
                   );
