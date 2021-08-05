@@ -183,7 +183,7 @@ function Module({ pagetitle, endpoint, dir }) {
         )}
 
         <LightContainer formID={screen.formID}>
-          {loading && <LoadingSpinner />}
+          {loading && <LoadingSpinner overlay />}
           {screen.title && (
             <p className="font-sans-md2 feedback-module__heading feedback-module__heading--default">
               {`${t(screen.title, { page: pagetitle })}${
