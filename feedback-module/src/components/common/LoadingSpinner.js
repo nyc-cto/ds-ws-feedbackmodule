@@ -5,14 +5,16 @@ import styles from "../../styles/export.module.scss";
 
 function LoadingSpinner({ className }) {
   return (
-    <div>
-      <Loader
-        type="TailSpin"
-        color={styles.primaryColor}
-        height={75}
-        width={75}
-        className={`text-center ${className}`}
-      />
+    <div className="overlay">
+      <div className="overlay__wrapper">
+        <Loader
+          type="TailSpin"
+          color={styles.primaryColor}
+          height={75}
+          width={75}
+          className={`overlay__spinner text-center ${className}`}
+        />
+      </div>
     </div>
   );
 }

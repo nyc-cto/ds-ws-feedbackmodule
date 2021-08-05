@@ -13,7 +13,7 @@
     @include mobile-lg("height-205");
   }
   &__main {
-    @extend .padding-x-5, .padding-y-205;
+    @extend .position-relative, .padding-x-5, .padding-y-205;
     @include mobile-lg("padding-x-7", "padding-y-6");
   }
   &__heading {

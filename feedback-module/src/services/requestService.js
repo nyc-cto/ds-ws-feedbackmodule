@@ -3,22 +3,22 @@ import axios from "axios";
 function requestService(
   apiEndpoint,
   obj,
-  successCallback,
-  failureCallback,
-  final
+  onSuccess,
+  setFailedRequest,
+  setLoading
 ) {
-  console.log("request");
   axios
-    .post(`.${process.env.REACT_APP_BACKEND_ENDPOINT}/api/${apiEndpoint}`, obj)
+    .post(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/${apiEndpoint}`, obj)
     .then((res) => {
       console.log(res);
-      successCallback();
+      onSuccess();
+      setFailedRequest(false);
     })
     .catch((err) => {
-      console.log(err);
-      failureCallback();
+      console.log("err", err);
+      setFailedRequest(true);
     })
-    .finally(final);
+    .finally(() => setLoading(false));
 }
 
 export default requestService;
