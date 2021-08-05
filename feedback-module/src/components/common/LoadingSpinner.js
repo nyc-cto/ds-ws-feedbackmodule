@@ -8,10 +8,10 @@ function LoadingSpinner({ className, overlay = false }) {
     <div className="overlay">
       <div className="overlay__wrapper">
         <Loader
-          type="TailSpin"
+          type="ThreeDots"
           color={styles.primaryColor}
-          height={75}
-          width={75}
+          height={60}
+          width={60}
           className={`overlay__spinner ${className ?? ""}`}
         />
       </div>
