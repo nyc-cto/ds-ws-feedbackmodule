@@ -23,7 +23,7 @@ function LoadingSpinner({ className, overlay = false }) {
         color={styles.primaryColor}
         height={75}
         width={75}
-        className={className ?? ""}
+        className={className ?? null}
       />
     </div>
   );
