@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Grid } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
@@ -21,6 +21,8 @@ function CheckboxList({
 
   const [otherChecked, setOtherChecked] = useState(false);
 
+  const otherTextboxRef = useRef();
+
   const isOther = (index) => {
     return en(checkboxKey)[index] === "Other";
   };
@@ -36,17 +38,21 @@ function CheckboxList({
     setOtherField(target.value);
   };
 
+  const otherCharError = (index) => {
+    if (isOther(index) && otherTooLong) {
+      otherTextboxRef.current.focus();
+      return (
+        <ErrorAlert errorText={t("errorMessages.charLimitError")} dir={dir} />
+      );
+    }
+  };
+
   return (
     <Grid>
       {feedbackCheckboxes.map((label, index) => {
         return (
           <div key={index}>
-            {isOther(index) && otherTooLong && (
-              <ErrorAlert
-                errorText={t("errorMessages.charLimitError")}
-                dir={dir}
-              />
-            )}
+            {otherCharError(index)}
             <Grid
               row
               className={`flex-no-wrap ${
@@ -68,6 +74,7 @@ function CheckboxList({
                     type="text"
                     onChange={onChangeOther}
                     label=""
+                    inputRef={otherTextboxRef}
                   />
                 </div>
               )}
