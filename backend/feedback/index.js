@@ -31,8 +31,6 @@ module.exports = function (context, req) {
   };
 
   fetch(process.env.ENDPOINT, config)
-    .then((res) =>
-      res.status === 202 ? successMsg() : errorMsg(JSON.stringify(res.body))
-    )
+    .then((res) => (res.ok ? successMsg() : errorMsg(JSON.stringify(res.body))))
     .catch(errorMsg);
 };
