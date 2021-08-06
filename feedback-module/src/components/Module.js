@@ -29,6 +29,7 @@ function Module({ pagetitle, endpoint, dir }) {
   const [checkboxError, setCheckboxError] = useState(false);
   const [failedRequest, setFailedRequest] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [otherTooLong, setOtherTooLong] = useState(false);
 
   // Methods and variables for accessing the state of the checkbox fields
   const {
@@ -38,6 +39,7 @@ function Module({ pagetitle, endpoint, dir }) {
     checkboxValidated,
     updateOtherField,
     setOtherField,
+    otherFieldValidated,
   } = useCheckboxes();
 
   const headerRef = useRef(null);
@@ -84,20 +86,39 @@ function Module({ pagetitle, endpoint, dir }) {
     }
   };
 
+  //Check to see if there are any errors within the form the user tries to submit
+  const formErrors = () => {
+    return (
+      (screen.textInputs && !inputsValidated()) ||
+      (screen.checkboxes &&
+        screen.checkboxes.required &&
+        !checkboxValidated(checkedFields)) ||
+      !otherFieldValidated()
+    );
+  };
+
   const submitForm = (nextScreen) => {
+    setOtherTooLong(false);
+    setCheckboxError(false);
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
-    if (
-      screen.checkboxes &&
-      screen.checkboxes.required &&
-      !checkboxValidated(checkedFields)
-    ) {
-      setCheckboxError(true);
-      firstCheckRef.current && firstCheckRef.current.focus();
-      // Make sure all required fields are completed
-    } else if (screen.textInputs && !inputsValidated()) {
-      focusFirstError();
-    } else {
+    // Make sure all required fields are completed and no inputs are over the character limit
+    if (formErrors()) {
+      if (
+        screen.checkboxes &&
+        screen.checkboxes.required &&
+        !checkboxValidated(checkedFields)
+      ) {
+        setCheckboxError(true);
+        firstCheckRef.current && firstCheckRef.current.focus();
+      } else if (!otherFieldValidated()) {
+        setOtherTooLong(true);
+      } else if (screen.textInputs && !inputsValidated()) {
+        focusFirstError();
+      }
+    }
+    //If all inputs are valid:
+    else {
       updateOtherField();
       setCheckboxError(false);
 
@@ -143,6 +164,7 @@ function Module({ pagetitle, endpoint, dir }) {
       feedbackID && setFeedbackType(en(text), feedbackID);
       changeScreen(nextScreen);
       setCheckboxError(false);
+      setOtherTooLong(false);
 
       let currentPageTitle = en(screen.title)
         ? en(screen.title, { page: pagetitle })
@@ -210,6 +232,8 @@ function Module({ pagetitle, endpoint, dir }) {
                   checkboxKey={screen.checkboxes.labels}
                   firstCheckRef={firstCheckRef}
                   checkedFields={checkedFields}
+                  otherTooLong={otherTooLong}
+                  setOtherTooLong={setOtherTooLong}
                 />
               </>
             )}

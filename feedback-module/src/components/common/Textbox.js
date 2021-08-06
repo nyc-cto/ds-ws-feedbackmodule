@@ -1,5 +1,7 @@
 import React from "react";
-import { Textarea, TextInput, Label } from "@trussworks/react-uswds";
+import { TextInput, Label, CharacterCount } from "@trussworks/react-uswds";
+
+import { TEXTAREA_MAX_CHAR, OTHER_MAX_CHAR } from "../../lib/constants";
 
 function Textbox({
   id,
@@ -11,20 +13,35 @@ function Textbox({
   describedBy,
   invalid,
   inputRef,
+  showErrors,
 }) {
   return (
     <>
       <Label className={className ?? null} htmlFor={id}>
         {`${label}${required ? "*" : ""}`}
       </Label>
+      {showErrors}
       {type === "textarea" ? (
-        <Textarea
+        <CharacterCount
           id={id}
           name={label}
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
           inputRef={inputRef}
+          maxLength={TEXTAREA_MAX_CHAR}
+          isTextArea
+        />
+      ) : id === "other-field" ? (
+        <CharacterCount
+          id={id}
+          name={label}
+          type={type}
+          onChange={onChange}
+          aria-invalid={invalid}
+          aria-describedby={invalid ? describedBy : undefined}
+          inputRef={inputRef}
+          maxLength={OTHER_MAX_CHAR}
         />
       ) : (
         <TextInput

@@ -99,5 +99,7 @@ export const TRANSLATIONS_ES = {
     inputEmptyError: "[es] Please provide a response.",
     requestFailure:
       "[es] Sorry your feedback could not be submitted at this time. Please retry in a few moments.",
+    charLimitError:
+      "[es] You're over the character limit. Please shorten your submission.",
   },
 };

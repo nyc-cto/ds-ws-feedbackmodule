@@ -2,6 +2,7 @@ import { useState, useEffect, createRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { invalidEmail, invalidPhone } from "../utils/textboxUtil";
+import { TEXTAREA_MAX_CHAR } from "../constants";
 
 /**
  * Custom hook that contains the state for the text input responses on a screen and refs to text inputs
@@ -47,27 +48,31 @@ export default function useInputs(firstCheckRef) {
 
   //Checks if all the required fields have been completed - returns true if yes false if no
   const inputsValidated = () => {
-    let validated = true;
     let questions = inputQuestions.map((question) => {
       if (question.required && question.answer === "") {
-        (validated = false), (question.error = true);
+        question.error = "inputEmptyError";
       } else if (
         question.type === "email" &&
         invalidEmail(question.answer, question.required)
       ) {
-        (validated = false), (question.error = true);
+        question.error = "emailError";
       } else if (
         question.type === "tel" &&
         invalidPhone(question.answer, question.required)
       ) {
-        (validated = false), (question.error = true);
+        question.error = "phoneError";
+      } else if (
+        question.type === "textarea" &&
+        question.answer.length > TEXTAREA_MAX_CHAR
+      ) {
+        question.error = "charLimitError";
       } else {
-        question.error = false;
+        question.error = null;
       }
       return question;
     });
     setInputQuestions(questions);
-    return validated;
+    return !inputQuestions.some((question) => question.error);
   };
 
   /* If input errors are present, the input with the first error is focused */
