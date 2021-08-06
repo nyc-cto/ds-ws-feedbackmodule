@@ -116,6 +116,7 @@ function Module({ pagetitle, endpoint, dir }) {
       } else if (screen.textInputs && !inputsValidated()) {
         focusFirstError();
       }
+      setFailedRequest(false);
     }
     //If all inputs are valid:
     else {
@@ -252,7 +253,7 @@ function Module({ pagetitle, endpoint, dir }) {
                     <ModuleButton
                       buttonText={t(text)}
                       className={`flex-button flex-button--${type}`}
-                      networkError={!checkboxError && failedRequest}
+                      networkError={failedRequest}
                       onClick={() =>
                         handleClick(type, text, nextScreen, feedbackID)
                       }
