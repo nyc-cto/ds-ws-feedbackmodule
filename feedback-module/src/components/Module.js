@@ -90,24 +90,40 @@ function Module({ pagetitle, endpoint, dir }) {
     }
   };
 
+  //Check to see if there are any errors within the form the user tries to submit
+  const formErrors = () => {
+    return (
+      (screen.checkboxes &&
+        screen.checkboxes.required &&
+        !checkboxValidated(checkedFields)) ||
+      !otherFieldValidated() ||
+      (screen.textInputs && !inputsValidated())
+    );
+  };
+
   const submitForm = (nextScreen) => {
     setOtherTooLong(false);
     setCheckboxError(false);
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
-    if (
-      screen.checkboxes &&
-      screen.checkboxes.required &&
-      !checkboxValidated(checkedFields)
-    ) {
-      setCheckboxError(true);
-      firstCheckRef.current && firstCheckRef.current.focus();
-      // Make sure all required fields are completed
-    } else if (!otherFieldValidated()) {
-      setOtherTooLong(true);
-    } else if (screen.textInputs && !inputsValidated()) {
-      focusFirstError();
-    } else {
+    // Make sure all required fields are completed and no inputs are over the character limit
+    if (formErrors()) {
+      if (
+        screen.checkboxes &&
+        screen.checkboxes.required &&
+        !checkboxValidated(checkedFields)
+      ) {
+        setCheckboxError(true);
+        firstCheckRef.current && firstCheckRef.current.focus();
+      } else if (!otherFieldValidated()) {
+        setOtherTooLong(true);
+      }
+      if (screen.textInputs && !inputsValidated()) {
+        focusFirstError();
+      }
+    }
+    //If all inputs are valid:
+    else {
       updateOtherField();
 
       let currentPageTitle = en(screen.title)
@@ -208,6 +224,7 @@ function Module({ pagetitle, endpoint, dir }) {
                     checkboxKey={screen.checkboxes.labels}
                     firstCheckRef={firstCheckRef}
                     otherTooLong={otherTooLong}
+                    setOtherTooLong={setOtherTooLong}
                     dir={dir}
                   />
                 </>

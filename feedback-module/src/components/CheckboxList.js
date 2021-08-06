@@ -13,6 +13,7 @@ function CheckboxList({
   checkboxKey,
   firstCheckRef,
   otherTooLong,
+  setOtherTooLong,
   dir,
 }) {
   const { i18n, t } = useTranslation();
@@ -26,6 +27,8 @@ function CheckboxList({
 
   const onCheckOther = (index) => {
     isOther(index) && setOtherChecked(!otherChecked);
+    setOtherTooLong(false);
+    setOtherField("");
     onCheck(index);
   };
 
