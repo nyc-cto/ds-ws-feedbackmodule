@@ -23,20 +23,20 @@ function TextboxList({
     };
   };
 
-  const inputError = (input, id) => {
-    let key;
-    if (input.type === "tel") {
-      key = "phoneError";
-    } else if (input.type === "email") {
-      key = "emailError";
-    } else if (input.text === "Your name") {
-      key = "nameError";
-    } else if (input.type === "textarea" || input.type === "text") {
-      key = "inputEmptyError";
-    }
-    if (!key) return;
+  const alertDescription = (index) => {
+    return `feedback-input-error-${index}`;
+  };
+
+  const inputError = (index) => {
+    const key = inputQuestions[index].error;
+
     return (
-      <ErrorAlert key={key} errorText={t(`errorMessages.${key}`)} id={id} />
+      <ErrorAlert
+        key={key}
+        errorText={t(`errorMessages.${key}`)}
+        id={alertDescription(index)}
+        className="margin-bottom-2"
+      />
     );
   };
 
@@ -46,9 +46,9 @@ function TextboxList({
     );
   };
 
-  const showErrors = (input, index) => {
+  const showErrors = (index) => {
     if (isInvalid(index)) {
-      return inputError(input, `feedback-input-error-${index}`);
+      return inputError(index);
     }
   };
 
@@ -63,7 +63,6 @@ function TextboxList({
               input.type === "textarea" ? 4 : 3
             }`}
           >
-            {showErrors(input, index)}
             <Textbox
               id={`feedback-input-${index}`}
               type={input.type}
@@ -71,8 +70,9 @@ function TextboxList({
               onChange={onChange(index)}
               required={input.required}
               invalid={isInvalid(index)}
-              describedBy={`feedback-input-error-${index}`}
+              describedBy={alertDescription(index)}
               inputRef={inputRefs[index]}
+              showErrors={showErrors(index)}
             />
           </Grid>
         );

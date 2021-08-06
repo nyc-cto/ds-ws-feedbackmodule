@@ -73,3 +73,6 @@ export const SCREENS = {
   },
 };
 export const INITIAL_SCREEN = SCREENS.feedback_type;
+
+export const TEXTAREA_MAX_CHAR = 500;
+export const OTHER_MAX_CHAR = 140;

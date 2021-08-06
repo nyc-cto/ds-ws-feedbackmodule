@@ -25,6 +25,7 @@ function Module({ pagetitle, endpoint, dir }) {
   const [userInfo, updateUserInfo] = useForm({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
   const [checkboxError, setCheckboxError] = useState(false);
+  const [otherTooLong, setOtherTooLong] = useState(false);
 
   // Methods and variables for accessing the state of the checkbox fields
   const {
@@ -34,6 +35,7 @@ function Module({ pagetitle, endpoint, dir }) {
     checkboxValidated,
     updateOtherField,
     setOtherField,
+    otherFieldValidated,
   } = useCheckboxes();
 
   const headerRef = useRef(null);
@@ -52,8 +54,12 @@ function Module({ pagetitle, endpoint, dir }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
-  const { trackFutureResearch, pageTitleAsScreen, pageChange, moduleOnScreen } =
-    googleAnalytics();
+  const {
+    trackFutureResearch,
+    pageTitleAsScreen,
+    pageChange,
+    moduleOnScreen,
+  } = googleAnalytics();
 
   const moduleVisibleRef = useRef();
 
@@ -84,20 +90,39 @@ function Module({ pagetitle, endpoint, dir }) {
     }
   };
 
+  //Check to see if there are any errors within the form the user tries to submit
+  const formErrors = () => {
+    return (
+      (screen.textInputs && !inputsValidated()) ||
+      (screen.checkboxes &&
+        screen.checkboxes.required &&
+        !checkboxValidated(checkedFields)) ||
+      !otherFieldValidated()
+    );
+  };
+
   const submitForm = (nextScreen) => {
+    setOtherTooLong(false);
+    setCheckboxError(false);
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
-    if (
-      screen.checkboxes &&
-      screen.checkboxes.required &&
-      !checkboxValidated(checkedFields)
-    ) {
-      setCheckboxError(true);
-      firstCheckRef.current && firstCheckRef.current.focus();
-      // Make sure all required fields are completed
-    } else if (screen.textInputs && !inputsValidated()) {
-      focusFirstError();
-    } else {
+    // Make sure all required fields are completed and no inputs are over the character limit
+    if (formErrors()) {
+      if (
+        screen.checkboxes &&
+        screen.checkboxes.required &&
+        !checkboxValidated(checkedFields)
+      ) {
+        setCheckboxError(true);
+        firstCheckRef.current && firstCheckRef.current.focus();
+      } else if (!otherFieldValidated()) {
+        setOtherTooLong(true);
+      } else if (screen.textInputs && !inputsValidated()) {
+        focusFirstError();
+      }
+    }
+    //If all inputs are valid:
+    else {
       updateOtherField();
 
       let currentPageTitle = en(screen.title)
@@ -110,9 +135,7 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      sendFormData(screen.formID),
-        setScreen(SCREENS[nextScreen]),
-        setCheckboxError(false);
+      sendFormData(screen.formID), setScreen(SCREENS[nextScreen]);
     }
   };
 
@@ -129,6 +152,7 @@ function Module({ pagetitle, endpoint, dir }) {
         updateFeedbackForAPI(setFeedbackType, [en(text), feedbackID]);
       setScreen(SCREENS[nextScreen]);
       setCheckboxError(false);
+      setOtherTooLong(false);
 
       let currentPageTitle = en(screen.title)
         ? en(screen.title, { page: pagetitle })
@@ -198,6 +222,9 @@ function Module({ pagetitle, endpoint, dir }) {
                     setOtherField={setOtherField}
                     checkboxKey={screen.checkboxes.labels}
                     firstCheckRef={firstCheckRef}
+                    otherTooLong={otherTooLong}
+                    setOtherTooLong={setOtherTooLong}
+                    dir={dir}
                   />
                 </>
               )}

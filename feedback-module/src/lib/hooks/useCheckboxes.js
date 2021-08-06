@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { OTHER_MAX_CHAR } from "../constants";
+
 /**
  * Custom hook that contains the state for a set of checkbox's
  * checked values and "Other" value, if applicable
@@ -37,6 +39,10 @@ export default function useCheckboxes(initialFields = null, initialOther = "") {
     return checkedFields.some((field) => field.checked);
   };
 
+  const otherFieldValidated = () => {
+    return otherField.length <= OTHER_MAX_CHAR;
+  };
+
   // updates the other field's label
   const updateOtherField = () => {
     if (checkedFields) {
@@ -56,5 +62,6 @@ export default function useCheckboxes(initialFields = null, initialOther = "") {
     checkboxValidated,
     updateOtherField,
     setOtherField,
+    otherFieldValidated,
   };
 }

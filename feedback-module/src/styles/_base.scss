@@ -28,6 +28,7 @@
 .usa-textarea,
 .usa-checkbox__label {
   @extend .font-sans-md;
+  resize: none;
 }
 
 .usa-input,

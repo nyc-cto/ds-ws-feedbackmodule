@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Grid } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
 import ModuleCheckbox from "./common/Checkbox";
 import Textbox from "./common/Textbox";
+import ErrorAlert from "./common/ErrorAlert";
 
 function CheckboxList({
   feedbackCheckboxes,
@@ -11,14 +12,25 @@ function CheckboxList({
   setOtherField,
   checkboxKey,
   firstCheckRef,
+  otherTooLong,
+  setOtherTooLong,
+  dir,
 }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const en = i18n.getFixedT("en");
 
   const [otherChecked, setOtherChecked] = useState(false);
 
+  const otherTextboxRef = useRef();
+
+  const isOther = (index) => {
+    return en(checkboxKey)[index] === "Other";
+  };
+
   const onCheckOther = (index) => {
-    en(checkboxKey)[index] === "Other" && setOtherChecked(!otherChecked);
+    isOther(index) && setOtherChecked(!otherChecked);
+    setOtherTooLong(false);
+    setOtherField("");
     onCheck(index);
   };
 
@@ -26,28 +38,48 @@ function CheckboxList({
     setOtherField(target.value);
   };
 
+  const otherCharError = (index) => {
+    if (isOther(index) && otherTooLong) {
+      otherTextboxRef.current.focus();
+      return (
+        <ErrorAlert errorText={t("errorMessages.charLimitError")} dir={dir} />
+      );
+    }
+  };
+
   return (
     <Grid>
       {feedbackCheckboxes.map((label, index) => {
         return (
-          <Grid row key={index} className="flex-no-wrap">
-            <ModuleCheckbox
-              id={`feedback-checkbox-${index}`}
-              label={label}
-              onCheck={() => onCheckOther(index)}
-              className="width-full"
-              firstCheckRef={index === 0 ? firstCheckRef : undefined}
-            />
-            {otherChecked && en(checkboxKey)[index] === "Other" && (
-              <Textbox
-                id="other-field"
-                type="text"
-                className="margin-left-1"
-                onChange={onChangeOther}
-                label=""
+          <div key={index}>
+            {otherCharError(index)}
+            <Grid
+              row
+              className={`flex-no-wrap ${
+                isOther(index) && "flex-align-baseline"
+              }`}
+            >
+              <ModuleCheckbox
+                id={`feedback-checkbox-${index}`}
+                label={label}
+                onCheck={() => onCheckOther(index)}
+                className="width-full"
+                firstCheckRef={index === 0 ? firstCheckRef : undefined}
               />
-            )}
-          </Grid>
+
+              {otherChecked && isOther(index) && (
+                <div className="margin-left-1 width-full margin-right-3">
+                  <Textbox
+                    id="other-field"
+                    type="text"
+                    onChange={onChangeOther}
+                    label=""
+                    inputRef={otherTextboxRef}
+                  />
+                </div>
+              )}
+            </Grid>
+          </div>
         );
       })}
     </Grid>
