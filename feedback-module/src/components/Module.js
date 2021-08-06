@@ -153,8 +153,6 @@ function Module({ pagetitle, endpoint, dir }) {
 
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
-
-      headerRef.current.scrollIntoView(true);
     }
   };
 
