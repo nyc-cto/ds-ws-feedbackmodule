@@ -1,6 +1,14 @@
+export const ENDPOINTS = ["feedback", "userResearch"];
+export const FORM_EVENTS = {
+  userResearch: {
+    event_name: "future_research",
+    event: "user agreed to participate in research in the future",
+  },
+};
 export const SCREENS = {
   feedback_type: {
     title: "feedbackType.title",
+    formID: "feedback",
     buttons: [
       {
         type: "form",
@@ -63,7 +71,7 @@ export const SCREENS = {
     title: "userResearch.title",
     plainText: "userResearch.plainText",
     textInputs: "userResearch.textInputs",
-    formID: "research",
+    formID: "userResearch",
     buttons: [
       { type: "submit", text: "submitBtn", nextScreen: "user_feedback_result" },
     ],

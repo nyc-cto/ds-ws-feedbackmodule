@@ -59,7 +59,7 @@ function TextboxList({
           <Grid
             col="fill"
             key={index}
-            className={`${className} padding-y-2 mobile:padding-y-${
+            className={`${className ?? ""} padding-y-2 mobile:padding-y-${
               input.type === "textarea" ? 4 : 3
             }`}
           >

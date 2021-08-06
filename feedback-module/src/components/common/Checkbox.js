@@ -1,7 +1,7 @@
 import React from "react";
 import { Checkbox } from "@trussworks/react-uswds";
 
-function ModuleCheckbox({ label, id, onCheck, firstCheckRef }) {
+function ModuleCheckbox({ label, id, onCheck, firstCheckRef, defaultChecked }) {
   // Sets checkbox to checked when user presses enter
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -18,6 +18,7 @@ function ModuleCheckbox({ label, id, onCheck, firstCheckRef }) {
       onChange={onCheck}
       onKeyDown={handleKeyDown}
       inputRef={firstCheckRef}
+      defaultChecked={defaultChecked}
     />
   );
 }

@@ -17,7 +17,7 @@ function Textbox({
 }) {
   return (
     <>
-      <Label className={className} htmlFor={id}>
+      <Label className={className ?? null} htmlFor={id}>
         {`${label}${required ? "*" : ""}`}
       </Label>
       {showErrors}
@@ -48,7 +48,7 @@ function Textbox({
           id={id}
           name={label}
           type={type}
-          className={className}
+          className={className ?? null}
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}

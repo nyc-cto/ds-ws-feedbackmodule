@@ -29,19 +29,20 @@ export default function useInputs(firstCheckRef) {
   const newScreenInputs = (textInputs) => {
     let refList = [];
     // Updates the text inputs based on the new screen
-    t(textInputs) &&
-      setInputQuestions(
-        en(textInputs).map((question) => {
-          refList.push(createRef(null));
-          return {
-            question: question.text,
-            answer: "",
-            required: question.required,
-            error: false,
-            type: question.type,
-          };
-        })
-      );
+    t(textInputs)
+      ? setInputQuestions(
+          en(textInputs).map((question) => {
+            refList.push(createRef(null));
+            return {
+              question: question.text,
+              answer: "",
+              required: question.required,
+              error: false,
+              type: question.type,
+            };
+          })
+        )
+      : setInputQuestions(null);
     setInputRefs(refList);
   };
 

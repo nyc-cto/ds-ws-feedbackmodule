@@ -2,29 +2,33 @@ import React, { useEffect, useState, useRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
-import { SCREENS, INITIAL_SCREEN } from "../lib/constants";
+import { SCREENS, INITIAL_SCREEN, ENDPOINTS } from "../lib/constants";
 import requestService from "../services/requestService";
 import googleAnalytics from "../lib/hooks/googleAnalytics";
 import useCheckboxes from "../lib/hooks/useCheckboxes";
 import useInputs from "../lib/hooks/useInputs";
 import useForm from "../lib/hooks/useForm";
-import {
-  setFeedbackType,
-  processFeedback,
-  processUserInfo,
-} from "../lib/utils/formUtil";
 import Header from "./common/Header";
 import ModuleButton from "./common/Button";
 import CheckboxList from "./CheckboxList";
 import TextboxList from "./TextboxList";
 import ErrorAlert from "./common/ErrorAlert";
 import LightContainer from "./LightContainer";
+import LoadingSpinner from "./common/LoadingSpinner";
 
 function Module({ pagetitle, endpoint, dir }) {
-  const [feedbackForAPI, updateFeedbackForAPI] = useForm({});
-  const [userInfo, updateUserInfo] = useForm({});
   const [screen, setScreen] = useState(INITIAL_SCREEN);
+  const {
+    formData,
+    setFormData,
+    setFeedbackType,
+    setCheckedOptions,
+    setInputResponses,
+    setSource,
+  } = useForm(screen);
   const [checkboxError, setCheckboxError] = useState(false);
+  const [failedRequest, setFailedRequest] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [otherTooLong, setOtherTooLong] = useState(false);
 
   // Methods and variables for accessing the state of the checkbox fields
@@ -54,12 +58,8 @@ function Module({ pagetitle, endpoint, dir }) {
   const { t, i18n } = useTranslation();
   const en = i18n.getFixedT("en");
 
-  const {
-    trackFutureResearch,
-    pageTitleAsScreen,
-    pageChange,
-    moduleOnScreen,
-  } = googleAnalytics();
+  const { trackFormAction, pageTitleAsScreen, pageChange, moduleOnScreen } =
+    googleAnalytics();
 
   const moduleVisibleRef = useRef();
 
@@ -73,20 +73,16 @@ function Module({ pagetitle, endpoint, dir }) {
     }
   }, [screen]);
 
-  // sendFormData determines which form data state to update, based on the formID
-  const sendFormData = (formID) => {
-    if (formID === "feedback") {
-      updateFeedbackForAPI(processFeedback, [checkedFields, inputQuestions]);
-      requestService("feedback", {
-        id: endpoint,
-        feedback: feedbackForAPI,
-      });
-      console.log(feedbackForAPI);
-    } else if (formID === "research") {
-      trackFutureResearch();
-      updateUserInfo(processUserInfo, [inputQuestions, endpoint]);
-      requestService("userResearch", userInfo);
-      console.log(userInfo);
+  // requestInfo parses the user's info and returns the object that will be submitted to the Microsoft Flow endpoint
+  const requestInfo = (formID) => {
+    if (ENDPOINTS.includes(formID)) {
+      trackFormAction(formID);
+      setCheckedOptions(checkedFields);
+      setInputResponses(inputQuestions);
+      setSource();
+      const submission = { id: endpoint, [formID]: formData };
+      console.log(submission);
+      return submission;
     }
   };
 
@@ -120,10 +116,12 @@ function Module({ pagetitle, endpoint, dir }) {
       } else if (screen.textInputs && !inputsValidated()) {
         focusFirstError();
       }
+      setFailedRequest(false);
     }
     //If all inputs are valid:
     else {
       updateOtherField();
+      setCheckboxError(false);
 
       let currentPageTitle = en(screen.title)
         ? en(screen.title, { page: pagetitle })
@@ -135,7 +133,18 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      sendFormData(screen.formID), setScreen(SCREENS[nextScreen]);
+      const submissionObj = requestInfo(screen.formID);
+      if (submissionObj) {
+        setLoading(true);
+        requestService(
+          screen.formID,
+          submissionObj,
+          () => changeScreen(nextScreen),
+          setFailedRequest,
+          setLoading
+        );
+        setFormData({});
+      }
     }
   };
 
@@ -143,14 +152,18 @@ function Module({ pagetitle, endpoint, dir }) {
     e.preventDefault();
   };
 
-  const changeScreen = (text, nextScreen, feedbackID) => {
+  const changeScreen = (nextScreen) => {
+    setScreen(SCREENS[nextScreen]);
+    headerRef.current.scrollIntoView(true);
+  };
+
+  const handleClick = (type, text, nextScreen, feedbackID) => {
     // If button contains a feedbackID, update the feedbackType of the feedback object
-    if (screen.formID) {
+    if (screen.formID && type === "submit") {
       submitForm(nextScreen);
     } else {
-      feedbackID &&
-        updateFeedbackForAPI(setFeedbackType, [en(text), feedbackID]);
-      setScreen(SCREENS[nextScreen]);
+      feedbackID && setFeedbackType(en(text), feedbackID);
+      changeScreen(nextScreen);
       setCheckboxError(false);
       setOtherTooLong(false);
 
@@ -164,8 +177,6 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
     }
-
-    headerRef.current.scrollIntoView(true);
   };
 
   return (
@@ -178,6 +189,7 @@ function Module({ pagetitle, endpoint, dir }) {
       >
         {moduleOnScreen(moduleVisibleRef)}
         <Header innerRef={headerRef} />
+
         {screen.titleInverse && (
           <Grid className={"bg-primary feedback-module__main"}>
             <p
@@ -186,74 +198,72 @@ function Module({ pagetitle, endpoint, dir }) {
             ></p>
           </Grid>
         )}
-        {
-          <LightContainer formID={screen.formID}>
-            {screen.title && (
-              <p className="font-sans-md2 feedback-module__heading feedback-module__heading--default">
-                {`${t(screen.title, { page: pagetitle })}${
-                  screen.checkboxes && screen.checkboxes.required ? "*" : ""
-                }`}
-              </p>
-            )}
-            {screen.plainText &&
-              t(screen.plainText) &&
-              t(screen.plainText).map((paragraph, index) => {
-                return (
-                  <p
-                    className="font-sans-md feedback-module__plaintext"
-                    key={index}
-                  >
-                    {paragraph}
-                  </p>
-                );
-              })}
-            <Form onSubmit={handleSubmit}>
-              {screen.checkboxes && t(screen.checkboxes.labels) && (
-                <>
-                  {checkboxError && (
-                    <ErrorAlert
-                      errorText={t("errorMessages.checkboxError")}
-                      dir={dir}
-                    />
-                  )}
-                  <CheckboxList
-                    feedbackCheckboxes={t(screen.checkboxes.labels)}
-                    onCheck={(index) => onCheck(index)}
-                    setOtherField={setOtherField}
-                    checkboxKey={screen.checkboxes.labels}
-                    firstCheckRef={firstCheckRef}
-                    otherTooLong={otherTooLong}
-                    setOtherTooLong={setOtherTooLong}
-                    dir={dir}
-                  />
-                </>
-              )}
-              {screen.textInputs && t(screen.textInputs) && (
-                <TextboxList
-                  inputs={t(screen.textInputs)}
-                  setInputQuestions={setInputQuestions}
-                  inputQuestions={inputQuestions}
-                  inputRefs={inputRefs}
-                />
-              )}
-              {screen.buttons &&
-                screen.buttons.map(
-                  ({ type, text, nextScreen, feedbackID }, index) => {
-                    return (
-                      <ModuleButton
-                        buttonText={t(text)}
-                        className={`usa-button--${type}`}
-                        onClick={() =>
-                          changeScreen(text, nextScreen, feedbackID)
-                        }
-                        key={index}
-                      />
-                    );
-                  }
+
+        <LightContainer formID={screen.formID}>
+          {loading && <LoadingSpinner overlay />}
+          {screen.title && (
+            <p className="font-sans-md2 feedback-module__heading feedback-module__heading--default">
+              {`${t(screen.title, { page: pagetitle })}${
+                screen.checkboxes && screen.checkboxes.required ? "*" : ""
+              }`}
+            </p>
+          )}
+          {screen.plainText &&
+            t(screen.plainText) &&
+            t(screen.plainText).map((paragraph, index) => {
+              return (
+                <p
+                  className="font-sans-md feedback-module__plaintext"
+                  key={index}
+                >
+                  {paragraph}
+                </p>
+              );
+            })}
+          <Form onSubmit={handleSubmit}>
+            {screen.checkboxes && t(screen.checkboxes.labels) && (
+              <>
+                {checkboxError && (
+                  <ErrorAlert errorText={t("errorMessages.checkboxError")} />
                 )}
-            </Form>
-          </LightContainer>
-        }
+                <CheckboxList
+                  feedbackCheckboxes={t(screen.checkboxes.labels)}
+                  onCheck={(index) => onCheck(index)}
+                  setOtherField={setOtherField}
+                  checkboxKey={screen.checkboxes.labels}
+                  firstCheckRef={firstCheckRef}
+                  checkedFields={checkedFields}
+                  otherTooLong={otherTooLong}
+                  setOtherTooLong={setOtherTooLong}
+                />
+              </>
+            )}
+            {screen.textInputs && t(screen.textInputs) && (
+              <TextboxList
+                inputs={t(screen.textInputs)}
+                setInputQuestions={setInputQuestions}
+                inputQuestions={inputQuestions}
+                inputRefs={inputRefs}
+              />
+            )}
+            {screen.buttons &&
+              screen.buttons.map(
+                ({ type, text, nextScreen, feedbackID }, index) => {
+                  return (
+                    <ModuleButton
+                      buttonText={t(text)}
+                      className={`flex-button flex-button--${type}`}
+                      networkError={failedRequest}
+                      onClick={() =>
+                        handleClick(type, text, nextScreen, feedbackID)
+                      }
+                      key={index}
+                    />
+                  );
+                }
+              )}
+          </Form>
+        </LightContainer>
       </GridContainer>
     </div>
   );

@@ -1,25 +1,29 @@
-.usa-button {
+.flex-button {
+  @extend .display-flex, .flex-column, .margin-y-1;
   &--submit {
-    @extend .flex-align-self-end, .width-auto;
+    @include mobile-lg("flex-justify-end", "flex-row");
+    .usa-button {
+      @extend .flex-align-self-end, .width-auto;
+      @include mobile-lg("margin-bottom-auto");
+    }
   }
   &--form {
     @extend .flex-align-self-start, .width-full;
+    .usa-button {
+      @extend .flex-align-self-start;
+    }
   }
+}
+
+.usa-button {
   box-sizing: border-box;
   @extend .text-left,
     .border-transparent,
     .padding-105,
     .border-2px,
     .shadow-btn,
-    .margin-y-1,
-    .margin-x-0;
-  @include mobile-lg(
-    "padding-x-205",
-    "padding-y-105",
-    "font-sans-md2",
-    "margin-y-105",
-    "width-auto"
-  );
+    .margin-0;
+  @include mobile-lg("padding-x-205", "font-sans-md2", "width-auto");
   &:hover {
     @extend .border-primary, .border-bottom-2px;
   }

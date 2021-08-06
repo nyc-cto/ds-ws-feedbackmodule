@@ -44,3 +44,15 @@ $height-settings: map-merge(
     responsive: true,
   )
 );
+$flex-direction-settings: map-merge(
+  $flex-direction-settings,
+  (
+    responsive: true,
+  )
+);
+$box-shadow-settings: map-merge(
+  $box-shadow-settings,
+  (
+    responsive: true,
+  )
+);

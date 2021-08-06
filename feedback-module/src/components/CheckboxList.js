@@ -12,9 +12,9 @@ function CheckboxList({
   setOtherField,
   checkboxKey,
   firstCheckRef,
+  checkedFields,
   otherTooLong,
   setOtherTooLong,
-  dir,
 }) {
   const { i18n, t } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -41,9 +41,7 @@ function CheckboxList({
   const otherCharError = (index) => {
     if (isOther(index) && otherTooLong) {
       otherTextboxRef.current.focus();
-      return (
-        <ErrorAlert errorText={t("errorMessages.charLimitError")} dir={dir} />
-      );
+      return <ErrorAlert errorText={t("errorMessages.charLimitError")} />;
     }
   };
 
@@ -56,7 +54,7 @@ function CheckboxList({
             <Grid
               row
               className={`flex-no-wrap ${
-                isOther(index) && "flex-align-baseline"
+                isOther(index) ? "flex-align-baseline" : ""
               }`}
             >
               <ModuleCheckbox
@@ -65,6 +63,7 @@ function CheckboxList({
                 onCheck={() => onCheckOther(index)}
                 className="width-full"
                 firstCheckRef={index === 0 ? firstCheckRef : undefined}
+                defaultChecked={checkedFields && checkedFields[index].checked}
               />
 
               {otherChecked && isOther(index) && (

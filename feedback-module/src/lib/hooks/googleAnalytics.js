@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useGA4React } from "ga-4-react";
 
+import { FORM_EVENTS } from "../constants";
+
 export default function googleAnalytics() {
   const ga = useGA4React();
 
-  const trackFutureResearch = () => {
-    ga &&
-      ga.event(
-        "future_research",
-        "user agreed to participate in research in the future"
-      );
+  const trackFormAction = (formID) => {
+    if (FORM_EVENTS[formID]) {
+      ga && ga.event(FORM_EVENTS[formID].event_name, FORM_EVENTS[formID].event);
+    }
   };
 
   const pageTitleAsScreen = (screenTitle) => {
@@ -55,7 +55,7 @@ export default function googleAnalytics() {
   };
 
   return {
-    trackFutureResearch,
+    trackFormAction,
     pageTitleAsScreen,
     pageChange,
     moduleOnScreen,
