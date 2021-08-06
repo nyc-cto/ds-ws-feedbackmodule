@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { GridContainer, Grid, Form } from "@trussworks/react-uswds";
 import { useTranslation } from "react-i18next";
 
-import { SCREENS, INITIAL_SCREEN, VALID_ENDPOINTS } from "../lib/constants";
+import { SCREENS, INITIAL_SCREEN, ENDPOINTS } from "../lib/constants";
 import requestService from "../services/requestService";
 import googleAnalytics from "../lib/hooks/googleAnalytics";
 import useCheckboxes from "../lib/hooks/useCheckboxes";
@@ -71,15 +71,14 @@ function Module({ pagetitle, endpoint, dir }) {
     }
   }, [screen]);
 
-  // requestInfo returns the object to be submitted
+  // requestInfo parses the user's info and returns the object that will be submitted to the Microsoft Flow endpoint
   const requestInfo = (formID) => {
-    if (VALID_ENDPOINTS.includes(formID)) {
+    if (ENDPOINTS.includes(formID)) {
       trackFormAction(formID);
       setCheckedOptions(checkedFields);
       setInputResponses(inputQuestions);
       setSource();
-      const submission = { id: endpoint };
-      submission[formID] = formData;
+      const submission = { id: endpoint, [formID]: formData };
       console.log(submission);
       return submission;
     }
@@ -118,10 +117,7 @@ function Module({ pagetitle, endpoint, dir }) {
         requestService(
           screen.formID,
           submissionObj,
-          () => {
-            setScreen(SCREENS[nextScreen]);
-            headerRef.current.scrollIntoView(true);
-          },
+          () => changeScreen(nextScreen),
           setFailedRequest,
           setLoading
         );
@@ -134,13 +130,18 @@ function Module({ pagetitle, endpoint, dir }) {
     e.preventDefault();
   };
 
-  const changeScreen = (type, text, nextScreen, feedbackID) => {
+  const changeScreen = (nextScreen) => {
+    setScreen(SCREENS[nextScreen]);
+    headerRef.current.scrollIntoView(true);
+  };
+
+  const handleClick = (type, text, nextScreen, feedbackID) => {
     // If button contains a feedbackID, update the feedbackType of the feedback object
     if (screen.formID && type === "submit") {
       submitForm(nextScreen);
     } else {
       feedbackID && setFeedbackType(en(text), feedbackID);
-      setScreen(SCREENS[nextScreen]);
+      changeScreen(nextScreen);
       setCheckboxError(false);
 
       let currentPageTitle = en(screen.title)
@@ -231,7 +232,7 @@ function Module({ pagetitle, endpoint, dir }) {
                       className={`flex-button flex-button--${type}`}
                       networkError={!checkboxError && failedRequest}
                       onClick={() =>
-                        changeScreen(type, text, nextScreen, feedbackID)
+                        handleClick(type, text, nextScreen, feedbackID)
                       }
                       key={index}
                     />

@@ -38,9 +38,7 @@ function CheckboxList({
               onCheck={() => onCheckOther(index)}
               className="width-full"
               firstCheckRef={index === 0 ? firstCheckRef : undefined}
-              defaultChecked={
-                checkedFields ? checkedFields[index].checked : false
-              }
+              defaultChecked={checkedFields && checkedFields[index].checked}
             />
             {otherChecked && en(checkboxKey)[index] === "Other" && (
               <Textbox
