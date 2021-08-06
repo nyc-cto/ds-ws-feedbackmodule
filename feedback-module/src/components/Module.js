@@ -93,11 +93,11 @@ function Module({ pagetitle, endpoint, dir }) {
   //Check to see if there are any errors within the form the user tries to submit
   const formErrors = () => {
     return (
+      (screen.textInputs && !inputsValidated()) ||
       (screen.checkboxes &&
         screen.checkboxes.required &&
         !checkboxValidated(checkedFields)) ||
-      !otherFieldValidated() ||
-      (screen.textInputs && !inputsValidated())
+      !otherFieldValidated()
     );
   };
 
@@ -117,8 +117,7 @@ function Module({ pagetitle, endpoint, dir }) {
         firstCheckRef.current && firstCheckRef.current.focus();
       } else if (!otherFieldValidated()) {
         setOtherTooLong(true);
-      }
-      if (screen.textInputs && !inputsValidated()) {
+      } else if (screen.textInputs && !inputsValidated()) {
         focusFirstError();
       }
     }
