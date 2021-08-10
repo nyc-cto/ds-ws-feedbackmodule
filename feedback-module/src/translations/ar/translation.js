@@ -87,8 +87,10 @@ export const TRANSLATIONS_AR = {
   },
 
   userFeedbackResults: {
-    title:
-      "[ar] Thank you for signing up to be a user research participant!  We’ll be in touch if there are any opportunities to test products and services.",
+    title: "[ar] Thank you for signing up to be a user research participant!",
+    plainText: [
+      "[ar] We’ll be in touch at the email or phone number you provided if there are any opportunities to test products and services. We won’t reach out to everyone who has signed up, so you might not hear from us. We’re grateful you are interested in participating!",
+    ],
   },
 
   errorMessages: {

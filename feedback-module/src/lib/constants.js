@@ -78,6 +78,7 @@ export const SCREENS = {
   },
   user_feedback_result: {
     titleInverse: "userFeedbackResults.title",
+    plainText: "userFeedbackResults.plainText",
   },
 };
 export const INITIAL_SCREEN = SCREENS.feedback_type;

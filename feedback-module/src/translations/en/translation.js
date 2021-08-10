@@ -23,7 +23,10 @@ export const TRANSLATIONS_EN = {
         type: "textarea",
         text: "What were you looking for or trying to do?",
       },
-      { type: "textarea", text: "Would you like to add anything else?" },
+      {
+        type: "textarea",
+        text: "Would you like to add anything else?",
+      },
     ],
   },
 
@@ -84,16 +87,17 @@ export const TRANSLATIONS_EN = {
   },
 
   userFeedbackResults: {
-    title:
-      "Thank you for signing up to be a user research participant!  We’ll be in touch if there are any opportunities to test products and services.",
+    title: "Thank you for signing up to be a user research participant!",
+    plainText: [
+      "We’ll be in touch at the email or phone number you provided if there are any opportunities to test products and services. We won’t reach out to everyone who has signed up, so you might not hear from us. We’re grateful you are interested in participating!",
+    ],
   },
 
   errorMessages: {
     checkboxError: "Please select at least one option.",
     nameError: "Please provide your name.",
     emailError: "Please provide a valid email address.",
-    phoneError:
-      "This is an invalid phone number. We only accept US numbers at the moment.",
+    phoneError: "This is an invalid phone number.",
     inputEmptyError: "Please provide a response.",
     requestFailure:
       "Sorry your feedback could not be submitted at this time. Please retry in a few moments.",
