@@ -1,4 +1,4 @@
-export const ENDPOINTS = ["feedback", "userResearch"];
+export const ENDPOINTS = ["feedback", "userResearch", "interaction"];
 export const FORM_EVENTS = {
   userResearch: {
     event_name: "future_research",

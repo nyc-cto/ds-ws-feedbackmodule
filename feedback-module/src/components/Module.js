@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { SCREENS, INITIAL_SCREEN, ENDPOINTS } from "../lib/constants";
 import requestService from "../services/requestService";
+import interactionService from "../services/interactionService";
 import googleAnalytics from "../lib/hooks/googleAnalytics";
 import useCheckboxes from "../lib/hooks/useCheckboxes";
 import useInputs from "../lib/hooks/useInputs";
@@ -97,13 +98,13 @@ function Module({ pagetitle, endpoint, dir }) {
     );
   };
 
-  const submitForm = (nextScreen) => {
+  const submitForm = (nextScreen, type, feedbackID, text) => {
     setOtherTooLong(false);
     setCheckboxError(false);
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
     // Make sure all required fields are completed and no inputs are over the character limit
-    if (formErrors()) {
+    if (type === "submit" && formErrors()) {
       if (
         screen.checkboxes &&
         screen.checkboxes.required &&
@@ -133,8 +134,8 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      const submissionObj = requestInfo(screen.formID);
-      if (submissionObj) {
+      if (type === "submit") {
+        const submissionObj = requestInfo(screen.formID);
         setLoading(true);
         requestService(
           screen.formID,
@@ -144,6 +145,11 @@ function Module({ pagetitle, endpoint, dir }) {
           setLoading
         );
         setFormData({});
+      } else if (type === "form" && feedbackID && text) {
+        setFeedbackType(en(text), feedbackID);
+        interactionService(requestInfo("interaction"), () =>
+          changeScreen(nextScreen)
+        );
       }
     }
   };
@@ -159,10 +165,9 @@ function Module({ pagetitle, endpoint, dir }) {
 
   const handleClick = (type, text, nextScreen, feedbackID) => {
     // If button contains a feedbackID, update the feedbackType of the feedback object
-    if (screen.formID && type === "submit") {
-      submitForm(nextScreen);
+    if (screen.formID) {
+      submitForm(nextScreen, type, feedbackID, text);
     } else {
-      feedbackID && setFeedbackType(en(text), feedbackID);
       changeScreen(nextScreen);
       setCheckboxError(false);
       setOtherTooLong(false);
