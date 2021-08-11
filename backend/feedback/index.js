@@ -7,7 +7,7 @@ module.exports = function (context, req) {
   const successMsg = () => {
     context.res = {
       status: 200,
-      body: "Your submission was successful!",
+      body: JSON.stringify(req.body),
     };
     context.done();
   };
