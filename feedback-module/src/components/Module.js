@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 import { SCREENS, INITIAL_SCREEN, ENDPOINTS } from "../lib/constants";
 import requestService from "../services/requestService";
-import interactionService from "../services/interactionService";
 import googleAnalytics from "../lib/hooks/googleAnalytics";
 import useCheckboxes from "../lib/hooks/useCheckboxes";
 import useInputs from "../lib/hooks/useInputs";
@@ -75,16 +74,25 @@ function Module({ pagetitle, endpoint, dir }) {
   }, [screen]);
 
   // requestInfo parses the user's info and returns the object that will be submitted to the Microsoft Flow endpoint
-  const requestInfo = (formID) => {
-    if (ENDPOINTS.includes(formID)) {
-      trackFormAction(formID);
-      setCheckedOptions(checkedFields);
-      setInputResponses(inputQuestions);
+  const requestInfo = (formID, feedbackID, text) => {
+    if (!ENDPOINTS.includes(formID)) return;
+    let submission;
+    setFeedbackType(en(text), feedbackID);
+    trackFormAction(formID);
+    setCheckedOptions(checkedFields);
+    setInputResponses(inputQuestions);
+
+    if (formID === "interaction") {
+      submission = {
+        id: endpoint,
+        feedbackType: formData.feedbackType,
+      };
+    } else {
       setSource();
-      const submission = { id: endpoint, [formID]: formData };
-      console.log(submission);
-      return submission;
+      submission = { id: endpoint, [formID]: formData };
     }
+    console.log(submission);
+    return submission;
   };
 
   //Check to see if there are any errors within the form the user tries to submit
@@ -134,22 +142,17 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      if (type === "submit") {
-        const submissionObj = requestInfo(screen.formID);
-        setLoading(true);
-        requestService(
-          screen.formID,
-          submissionObj,
-          () => changeScreen(nextScreen),
-          setFailedRequest,
-          setLoading
-        );
-        setFormData({});
-      } else if (type === "form" && feedbackID && text) {
-        setFeedbackType(en(text), feedbackID);
-        interactionService(endpoint, formData.feedbackType);
-        changeScreen(nextScreen);
-      }
+      const apiEndpoint = type === "form" ? "interaction" : screen.formID;
+      const submissionObj = requestInfo(apiEndpoint, feedbackID, text);
+      setLoading(true);
+      requestService(
+        apiEndpoint,
+        submissionObj,
+        () => changeScreen(nextScreen),
+        setFailedRequest,
+        setLoading
+      );
+      type === "submit" && setFormData({});
     }
   };
 
@@ -257,11 +260,14 @@ function Module({ pagetitle, endpoint, dir }) {
                     <ModuleButton
                       buttonText={t(text)}
                       className={`flex-button flex-button--${type}`}
-                      networkError={failedRequest}
+                      networkError={
+                        failedRequest && index === screen.buttons.length - 1
+                      }
                       onClick={() =>
                         handleClick(type, text, nextScreen, feedbackID)
                       }
                       key={index}
+                      type={type}
                     />
                   );
                 }

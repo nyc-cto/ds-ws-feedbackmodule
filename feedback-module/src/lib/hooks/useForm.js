@@ -12,10 +12,12 @@ export default function useForm() {
 
   const setFeedbackType = (text, feedbackID) => {
     let updatedData = formData;
-    updatedData.feedbackType = {
-      label: text,
-      feedbackID: feedbackID,
-    };
+    if (text && feedbackID) {
+      updatedData.feedbackType = {
+        label: text,
+        feedbackID: feedbackID,
+      };
+    }
     setFormData(updatedData);
   };
 
