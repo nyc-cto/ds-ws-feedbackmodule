@@ -147,9 +147,8 @@ function Module({ pagetitle, endpoint, dir }) {
         setFormData({});
       } else if (type === "form" && feedbackID && text) {
         setFeedbackType(en(text), feedbackID);
-        interactionService(requestInfo("interaction"), () =>
-          changeScreen(nextScreen)
-        );
+        interactionService(endpoint, formData.feedbackType);
+        changeScreen(nextScreen);
       }
     }
   };

@@ -1,16 +1,16 @@
 import axios from "axios";
 
-function interactionService(obj, final) {
+function interactionService(id, feedbackType) {
   axios
-    .post(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/interaction`, obj)
+    .post(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/interaction`, {
+      id: id,
+      feedbackType: feedbackType,
+    })
     .then((res) => {
       console.log(res);
     })
     .catch((err) => {
       console.log("err", err);
-    })
-    .finally(() => {
-      final();
     });
 }
 
