@@ -1,10 +1,9 @@
 @import "../abstracts/variables";
-
 // Colors
-$theme-color-primary: $feedback__dark;
-$theme-color-primary-light: $feedback__light;
-$theme-color-base: $feedback__dark;
-$theme-color-primary-lighter: $feedback__lightest;
+$theme-color-primary: $feedback__light;
+$theme-color-primary-light: $feedback__dark;
+$theme-color-base: $feedback__light;
+$theme-color-primary-lighter: $feedback__dark;
 
 // Typography
 $theme-font-type-sans: "public-sans";

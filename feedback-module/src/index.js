@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "@trussworks/react-uswds/lib/index.css";
 import "./i18n";
-import "./styles/index.scss";
+import "./styles/themes/_default.scss";
 import App from "./App";
 import GA4React from "ga-4-react";
 
@@ -13,6 +13,8 @@ const WidgetDivs = document.querySelectorAll("#feedback-widget");
 const renderApp = (Div, lang, endpoint) => {
   Div.attributes.lang && (lang = Div.attributes.lang.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
+  import(`./styles/themes/_${Div.attributes.theme.value ?? "default"}.scss`);
+  import("./styles/index.scss");
 
   ReactDOM.render(
     <React.StrictMode>
