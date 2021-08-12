@@ -75,7 +75,6 @@ function Module({ pagetitle, endpoint, dir }) {
 
   // requestInfo parses the user's info and returns the object that will be submitted to the Microsoft Flow endpoint
   const requestInfo = (formID, feedbackID, text) => {
-    if (!ENDPOINTS.includes(formID)) return;
     let submission;
     setFeedbackType(en(text), feedbackID);
     trackFormAction(formID);
@@ -87,7 +86,7 @@ function Module({ pagetitle, endpoint, dir }) {
         id: endpoint,
         feedbackType: formData.feedbackType,
       };
-    } else {
+    } else if (ENDPOINTS.includes(formID)) {
       setSource();
       submission = { id: endpoint, [formID]: formData };
     }
@@ -144,15 +143,17 @@ function Module({ pagetitle, endpoint, dir }) {
 
       const apiEndpoint = type === "form" ? "interaction" : screen.formID;
       const submissionObj = requestInfo(apiEndpoint, feedbackID, text);
-      setLoading(true);
-      requestService(
-        apiEndpoint,
-        submissionObj,
-        () => changeScreen(nextScreen),
-        setFailedRequest,
-        setLoading
-      );
-      type === "submit" && setFormData({});
+      if (submissionObj) {
+        setLoading(true);
+        requestService(
+          apiEndpoint,
+          submissionObj,
+          () => changeScreen(nextScreen),
+          setFailedRequest,
+          setLoading
+        );
+        type === "submit" && setFormData({});
+      }
     }
   };
 
