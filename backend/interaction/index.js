@@ -7,7 +7,7 @@ module.exports = function (context, req) {
   const successMsg = () => {
     context.res = {
       status: 200,
-      body: `The interaction, "${req.body.feedbackType}," was sucessfully logged at endpoint ${req.body.id}.`,
+      body: `The interaction, "${req.body.feedbackType.label}," was sucessfully logged at endpoint ${req.body.id}.`,
     };
     context.done();
   };
