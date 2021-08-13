@@ -25,6 +25,7 @@ function Module({ pagetitle, endpoint, dir }) {
     setCheckedOptions,
     setInputResponses,
     setSource,
+    setInteraction,
   } = useForm(screen);
   const [checkboxError, setCheckboxError] = useState(false);
   const [failedRequest, setFailedRequest] = useState(false);
@@ -74,21 +75,20 @@ function Module({ pagetitle, endpoint, dir }) {
   }, [screen]);
 
   // requestInfo parses the user's info and returns the object that will be submitted to the Microsoft Flow endpoint
-  const requestInfo = (formID, feedbackID, text) => {
+  const requestInfo = (formID, feedbackID, text, type) => {
     let submission;
     setFeedbackType(en(text), feedbackID);
     trackFormAction(formID);
     setCheckedOptions(checkedFields);
     setInputResponses(inputQuestions);
+    setInteraction(type === "form");
 
-    if (formID === "interaction") {
+    if (ENDPOINTS.includes(formID)) {
+      setSource();
       submission = {
         id: endpoint,
-        feedbackType: formData.feedbackType,
+        [formID]: formData,
       };
-    } else if (ENDPOINTS.includes(formID)) {
-      setSource();
-      submission = { id: endpoint, [formID]: formData };
     }
     console.log(submission);
     return submission;
@@ -141,12 +141,11 @@ function Module({ pagetitle, endpoint, dir }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      const apiEndpoint = type === "form" ? "interaction" : screen.formID;
-      const submissionObj = requestInfo(apiEndpoint, feedbackID, text);
+      const submissionObj = requestInfo(screen.formID, feedbackID, text, type);
       if (submissionObj) {
         setLoading(true);
         requestService(
-          apiEndpoint,
+          screen.formID,
           submissionObj,
           () => changeScreen(nextScreen),
           setFailedRequest,

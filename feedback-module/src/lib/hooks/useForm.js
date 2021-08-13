@@ -21,6 +21,12 @@ export default function useForm() {
     setFormData(updatedData);
   };
 
+  const setInteraction = (isInteraction) => {
+    let updatedData = formData;
+    updatedData.interaction = isInteraction;
+    setFormData(updatedData);
+  };
+
   const setCheckedOptions = (checkedFields) => {
     let updatedData = formData;
     if (checkedFields) {
@@ -48,6 +54,7 @@ export default function useForm() {
   };
 
   return {
+    setInteraction,
     formData,
     setFormData,
     setFeedbackType,
