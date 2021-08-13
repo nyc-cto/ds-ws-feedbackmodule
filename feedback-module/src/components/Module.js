@@ -18,15 +18,7 @@ import LoadingSpinner from "./common/LoadingSpinner";
 
 function Module({ pagetitle, endpoint, dir }) {
   const [screen, setScreen] = useState(INITIAL_SCREEN);
-  const {
-    formData,
-    setFormData,
-    setFeedbackType,
-    setCheckedOptions,
-    setInputResponses,
-    setSource,
-    setInteraction,
-  } = useForm(screen);
+  const { formData, setFormData, setSubmission } = useForm(screen);
   const [checkboxError, setCheckboxError] = useState(false);
   const [failedRequest, setFailedRequest] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -77,14 +69,10 @@ function Module({ pagetitle, endpoint, dir }) {
   // requestInfo parses the user's info and returns the object that will be submitted to the Microsoft Flow endpoint
   const requestInfo = (formID, feedbackID, text, type) => {
     let submission;
-    setFeedbackType(en(text), feedbackID);
+    setSubmission(type, en(text), feedbackID, checkedFields, inputQuestions);
     trackFormAction(formID);
-    setCheckedOptions(checkedFields);
-    setInputResponses(inputQuestions);
-    setInteraction(type === "form");
 
     if (ENDPOINTS.includes(formID)) {
-      setSource();
       submission = {
         id: endpoint,
         [formID]: formData,

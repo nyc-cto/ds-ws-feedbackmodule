@@ -10,56 +10,35 @@ import { flattenInputs } from "../utils/textboxUtil";
 export default function useForm() {
   const [formData, setFormData] = useState({});
 
-  const setFeedbackType = (text, feedbackID) => {
+  const setSubmission = (
+    type,
+    text,
+    feedbackID,
+    checkedFields,
+    inputQuestions
+  ) => {
     let updatedData = formData;
-    if (text && feedbackID) {
-      updatedData.feedbackType = {
+    updatedData.interaction = type === "form";
+    text &&
+      feedbackID &&
+      (updatedData.feedbackType = {
         label: text,
         feedbackID: feedbackID,
-      };
-    }
-    setFormData(updatedData);
-  };
-
-  const setInteraction = (isInteraction) => {
-    let updatedData = formData;
-    updatedData.interaction = isInteraction;
-    setFormData(updatedData);
-  };
-
-  const setCheckedOptions = (checkedFields) => {
-    let updatedData = formData;
-    if (checkedFields) {
-      updatedData.checkedOptions = flattenCheckboxes(checkedFields);
-    } else {
-      updatedData.checkedOptions = [];
-    }
-    setFormData(updatedData);
-  };
-
-  const setInputResponses = (inputQuestions) => {
-    let updatedData = formData;
-    if (inputQuestions) {
-      updatedData.inputResponses = flattenInputs(inputQuestions);
-    } else {
-      updatedData.inputResponses = [];
-    }
-    setFormData(updatedData);
-  };
-
-  const setSource = () => {
-    let updatedData = formData;
+      });
+    updatedData.checkedOptions = checkedFields
+      ? flattenCheckboxes(checkedFields)
+      : [];
+    updatedData.inputResponses = inputQuestions
+      ? flattenInputs(inputQuestions)
+      : [];
     updatedData.source = window.location.href;
+
     setFormData(updatedData);
   };
 
   return {
-    setInteraction,
+    setSubmission,
     formData,
     setFormData,
-    setFeedbackType,
-    setCheckedOptions,
-    setInputResponses,
-    setSource,
   };
 }
