@@ -19,3 +19,7 @@ $theme-alert-bar-width: 1;
 $theme-alert-padding-x: 2;
 $theme-color-error-lighter: $error-alert-bg-color;
 $theme-color-base-ink: $alert-text-color; //alert text color
+
+.text-error {
+  color: $error-alert-bar-color;
+}
