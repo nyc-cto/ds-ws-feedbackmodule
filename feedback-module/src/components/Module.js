@@ -98,6 +98,8 @@ function Module({ pagetitle, endpoint, dir }) {
   };
 
   const submitForm = (nextScreen) => {
+    setOtherTooLong(false);
+    setCheckboxError(false);
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
     // Make sure all required fields are completed and no inputs are over the character limit
@@ -120,7 +122,6 @@ function Module({ pagetitle, endpoint, dir }) {
     else {
       updateOtherField();
       setCheckboxError(false);
-      setOtherTooLong(false);
 
       let currentPageTitle = en(screen.title)
         ? en(screen.title, { page: pagetitle })
@@ -163,6 +164,8 @@ function Module({ pagetitle, endpoint, dir }) {
     } else {
       feedbackID && setFeedbackType(en(text), feedbackID);
       changeScreen(nextScreen);
+      setCheckboxError(false);
+      setOtherTooLong(false);
 
       let currentPageTitle = en(screen.title)
         ? en(screen.title, { page: pagetitle })
