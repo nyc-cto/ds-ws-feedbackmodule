@@ -28,9 +28,11 @@ function CheckboxList({
   };
 
   const onCheckOther = (index) => {
-    isOther(index) && setOtherChecked(!otherChecked);
-    setOtherTooLong(false);
-    setOtherField("");
+    if (isOther(index)) {
+      setOtherChecked(!otherChecked);
+      setOtherTooLong(false);
+      setOtherField("");
+    }
     onCheck(index);
   };
 
