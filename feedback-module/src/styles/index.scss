@@ -5,10 +5,10 @@
 @import "~uswds/src/stylesheets/theme/_uswds-theme-utilities.scss";
 @import "~uswds/src/stylesheets/packages/_required.scss";
 
+@import "abstracts/functions";
 @import "abstracts/variables";
 @import "abstracts/settings";
 @import "abstracts/mixins";
-@import "themes/default";
 
 .feedback-widget {
   @import "uswds";

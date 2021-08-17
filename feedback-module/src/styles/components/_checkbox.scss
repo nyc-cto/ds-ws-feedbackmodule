@@ -3,6 +3,7 @@
   @extend .bg-transparent, .margin-y-1, .text-no-uppercase;
   &__label::before {
     @include theme-aware("box-shadow", "feedback-checkbox-border");
+    @include theme-aware("background-color", "feedback-white");
   }
   @media screen and (max-width: 479px) {
     &__label {
@@ -17,6 +18,11 @@
       }
     }
   }
+}
+
+.usa-checkbox__input:checked + .usa-checkbox__label::before {
+  @include theme-aware("background-color", "feedback-primary");
+  @include theme-aware("background-image", "feedback-checkbox-svg");
 }
 
 .grid-container[dir="rtl"] {

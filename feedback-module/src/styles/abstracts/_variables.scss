@@ -21,6 +21,7 @@ $themes: (
     feedback-base: #042d36,
     feedback-white: #fff,
     feedback-checkbox-border: 0 0 0 2px #162e51,
+    feedback-checkbox-svg: checkbox("fff"),
   ),
   dark: (
     feedback-primary: #e1f3f8,
@@ -31,5 +32,6 @@ $themes: (
     feedback-base: #042d36,
     feedback-white: #000,
     feedback-checkbox-border: 0 0 0 2px #e1f3f8,
+    feedback-checkbox-svg: checkbox("000"),
   ),
 );
