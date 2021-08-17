@@ -21,7 +21,8 @@ module.exports = function (context, req) {
 
   const successMsg = () => {
     context.res = {
-      body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
+      status: 200,
+      body: `The feedback module for ${req.body.agency} has been generated! Check your email for confirmation and further instructions.`,
     };
     context.done();
   };
@@ -43,6 +44,17 @@ module.exports = function (context, req) {
     errorMsg("Please enter a valid agency name.");
   } else if (!body.emails || body.emails === "") {
     errorMsg("Please enter at least one valid email.");
+  } else if (
+    !body.method ||
+    !(
+      body.method === "spreadsheet" ||
+      body.method === "excel" ||
+      body.method === "email"
+    )
+  ) {
+    errorMsg(
+      "Please enter a valid method. Options include 'spreadsheet', 'excel', or 'email'."
+    );
   }
   const re =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;

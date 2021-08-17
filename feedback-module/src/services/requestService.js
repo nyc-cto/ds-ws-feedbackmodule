@@ -11,14 +11,14 @@ function requestService(
     .post(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/${apiEndpoint}`, obj)
     .then((res) => {
       console.log(res);
-      onSuccess();
-      setFailedRequest(false);
+      onSuccess && onSuccess();
+      setFailedRequest && setFailedRequest(false);
     })
     .catch((err) => {
       console.log("err", err);
-      setFailedRequest(true);
+      setFailedRequest && setFailedRequest(true);
     })
-    .finally(() => setLoading(false));
+    .finally(() => setLoading && setLoading(false));
 }
 
 export default requestService;
