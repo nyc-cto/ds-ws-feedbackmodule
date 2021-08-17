@@ -9,7 +9,7 @@ export const invalidEmail = (email, required) => {
 };
 
 export const invalidPhone = (phone, required) => {
-  const reUS = /^\W?\d*?\W*?(?<area>\d{3})\W*?(?<group1>\d{3})\W*?(?<group2>\d{4})\W*?$/;
+  const reUS = /^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/;
 
   //Commenting this out because probably won't accept interntional phone numbers
   //But keeping just in case:

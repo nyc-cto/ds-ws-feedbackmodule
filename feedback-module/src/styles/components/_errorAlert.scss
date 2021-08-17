@@ -9,6 +9,13 @@
   .feather-alert-triangle {
     @extend .margin-right-205, .padding-top-0;
   }
+  &--error {
+    @include theme-aware("background-color", "feedback-error-base");
+
+    &::before {
+      @include theme-aware("background-color", "feedback-error-accent");
+    }
+  }
 }
 
 .flex-button__alert {

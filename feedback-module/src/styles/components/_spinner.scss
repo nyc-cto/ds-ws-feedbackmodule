@@ -5,7 +5,7 @@
     .width-full,
     .height-full,
     .z-top;
-  @include theme-aware("background-color", "feedback-white");
+  @include theme-aware("background-color", "feedback-primary");
 
   &__wrapper {
     @extend .position-relative, .width-full, .height-full;
