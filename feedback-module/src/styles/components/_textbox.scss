@@ -9,23 +9,12 @@
 .usa-textarea,
 .usa-input {
   @extend .border-05;
-  @include theme-aware("border-color", "feedback-primary");
-  @include theme-aware("background-color", "feedback-inverse");
 
   &:focus {
     @extend .border-width-6px;
-    @include theme-aware("background-color", "feedback-inverse-lighter");
   }
 }
 
 .usa-input {
   @extend .height-auto, .flex-1;
-}
-
-.usa-hint {
-  @include theme-aware("color", "feedback-primary");
-}
-
-.usa-character-count__message--invalid {
-  @include theme-aware("color", "feedback-error-accent");
 }

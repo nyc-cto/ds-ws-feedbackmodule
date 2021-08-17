@@ -23,14 +23,10 @@
     .border-2px,
     .shadow-btn,
     .margin-0;
-  @include theme-aware("background-color", "feedback-primary");
-  @include theme-aware("color", "feedback-white");
 
   @include mobile-lg("padding-x-205", "font-sans-md2", "width-auto");
   &:hover {
     @extend .border-bottom-2px;
-    @include theme-aware("background-color", "feedback-inverse");
-    @include theme-aware("border-color", "feedback-primary");
   }
 }
 

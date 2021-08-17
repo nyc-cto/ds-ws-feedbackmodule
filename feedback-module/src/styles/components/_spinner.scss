@@ -5,7 +5,6 @@
     .width-full,
     .height-full,
     .z-top;
-  @include theme-aware("background-color", "feedback-inverse");
 
   &__wrapper {
     @extend .position-relative, .width-full, .height-full;
@@ -15,8 +14,5 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    svg {
-      @include theme-aware("fill", "feedback-primary");
-    }
   }
 }

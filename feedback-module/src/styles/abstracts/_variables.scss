@@ -19,9 +19,10 @@ $themes: (
     feedback-error-accent: #d24425,
     feedback-error-base: #ffe8e6,
     feedback-base: #042d36,
-    feedback-white: #fff,
+    feedback-contrast: #fff,
     feedback-checkbox-border: 0 0 0 2px #162e51,
     feedback-checkbox-svg: checkbox("fff"),
+    feedback-logo: logo("fff"),
   ),
   dark: (
     feedback-primary: #e1f3f8,
@@ -30,8 +31,9 @@ $themes: (
     feedback-error-accent: #d24425,
     feedback-error-base: #ffe8e6,
     feedback-base: #042d36,
-    feedback-white: #000,
+    feedback-contrast: #000,
     feedback-checkbox-border: 0 0 0 2px #e1f3f8,
     feedback-checkbox-svg: checkbox("000"),
+    feedback-logo: logo("000"),
   ),
 );
