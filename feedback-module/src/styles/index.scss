@@ -8,8 +8,9 @@
 @import "abstracts/variables";
 @import "abstracts/settings";
 @import "abstracts/mixins";
+@import "themes/default";
 
-#feedback-widget {
+.feedback-widget {
   @import "uswds";
   @import "base";
   @import "components/required";

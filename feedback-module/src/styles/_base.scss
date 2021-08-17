@@ -8,18 +8,18 @@
 .usa-input,
 .feedback-module__plaintext,
 .usa-button:hover {
-  @extend .text-primary;
+  @include theme-aware("color", "feedback-primary");
 }
 
 .feedback-module,
 .usa-button:hover,
 .usa-textarea,
 .usa-input {
-  @extend .bg-primary-light;
+  @include theme-aware("background-color", "feedback-inverse");
 }
 
 .feedback-module__header {
-  @extend .bg-primary;
+  @include theme-aware("background-color", "feedback-primary");
 }
 
 .feedback-module__plaintext,

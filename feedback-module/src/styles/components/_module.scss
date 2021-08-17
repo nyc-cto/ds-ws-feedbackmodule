@@ -12,6 +12,9 @@
   &__main {
     @extend .position-relative, .padding-x-5, .padding-y-205;
     @include mobile-lg("padding-x-7", "padding-y-6");
+    &--inverse {
+      @include theme-aware("background-color", "feedback-primary");
+    }
   }
   &__heading {
     @extend .text-left,
@@ -20,10 +23,10 @@
       .text-no-uppercase,
       .line-height-sans-2;
     &--inverse {
-      @extend .text-white;
+      @include theme-aware("color", "feedback-white");
     }
     &--default {
-      @extend .text-primary;
+      @include theme-aware("color", "feedback-primary");
     }
   }
   &__plaintext {
