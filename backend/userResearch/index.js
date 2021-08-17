@@ -16,7 +16,8 @@ module.exports = function (context, req) {
 
   const successMsg = () => {
     context.res = {
-      body: "Your feedback module has been generated! Check your email for confirmation and further instructions.",
+      status: 200,
+      body: JSON.stringify(req.body),
     };
     context.done();
   };

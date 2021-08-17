@@ -18,14 +18,7 @@ import LoadingSpinner from "./common/LoadingSpinner";
 
 function Module({ pagetitle, endpoint, dir, theme }) {
   const [screen, setScreen] = useState(INITIAL_SCREEN);
-  const {
-    formData,
-    setFormData,
-    setFeedbackType,
-    setCheckedOptions,
-    setInputResponses,
-    setSource,
-  } = useForm(screen);
+  const { formData, setFormData, setSubmission } = useForm(screen);
   const [checkboxError, setCheckboxError] = useState(false);
   const [failedRequest, setFailedRequest] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -74,16 +67,19 @@ function Module({ pagetitle, endpoint, dir, theme }) {
   }, [screen]);
 
   // requestInfo parses the user's info and returns the object that will be submitted to the Microsoft Flow endpoint
-  const requestInfo = (formID) => {
+  const requestInfo = (formID, feedbackID, text, type) => {
+    let submission;
+    setSubmission(type, en(text), feedbackID, checkedFields, inputQuestions);
+    trackFormAction(formID);
+
     if (ENDPOINTS.includes(formID)) {
-      trackFormAction(formID);
-      setCheckedOptions(checkedFields);
-      setInputResponses(inputQuestions);
-      setSource();
-      const submission = { id: endpoint, [formID]: formData };
-      console.log(submission);
-      return submission;
+      submission = {
+        id: endpoint,
+        [formID]: formData,
+      };
     }
+    console.log(submission);
+    return submission;
   };
 
   //Check to see if there are any errors within the form the user tries to submit
@@ -97,13 +93,13 @@ function Module({ pagetitle, endpoint, dir, theme }) {
     );
   };
 
-  const submitForm = (nextScreen) => {
+  const submitForm = (nextScreen, type, feedbackID, text) => {
     setOtherTooLong(false);
     setCheckboxError(false);
     // Submit form data if this screen contains a form
     // Make sure all checkboxes are checked if they exist on this page
     // Make sure all required fields are completed and no inputs are over the character limit
-    if (formErrors()) {
+    if (type === "submit" && formErrors()) {
       if (
         screen.checkboxes &&
         screen.checkboxes.required &&
@@ -133,7 +129,7 @@ function Module({ pagetitle, endpoint, dir, theme }) {
       pageTitleAsScreen(currentPageTitle);
       pageChange(currentPageTitle, nextPageTitle);
 
-      const submissionObj = requestInfo(screen.formID);
+      const submissionObj = requestInfo(screen.formID, feedbackID, text, type);
       if (submissionObj) {
         setLoading(true);
         requestService(
@@ -143,7 +139,7 @@ function Module({ pagetitle, endpoint, dir, theme }) {
           setFailedRequest,
           setLoading
         );
-        setFormData({});
+        type === "submit" && setFormData({});
       }
     }
   };
@@ -159,10 +155,9 @@ function Module({ pagetitle, endpoint, dir, theme }) {
 
   const handleClick = (type, text, nextScreen, feedbackID) => {
     // If button contains a feedbackID, update the feedbackType of the feedback object
-    if (screen.formID && type === "submit") {
-      submitForm(nextScreen);
+    if (screen.formID) {
+      submitForm(nextScreen, type, feedbackID, text);
     } else {
-      feedbackID && setFeedbackType(en(text), feedbackID);
       changeScreen(nextScreen);
       setCheckboxError(false);
       setOtherTooLong(false);
@@ -256,11 +251,14 @@ function Module({ pagetitle, endpoint, dir, theme }) {
                       <ModuleButton
                         buttonText={t(text)}
                         className={`flex-button flex-button--${type}`}
-                        networkError={failedRequest}
+                        networkError={
+                          failedRequest && index === screen.buttons.length - 1
+                        }
                         onClick={() =>
                           handleClick(type, text, nextScreen, feedbackID)
                         }
                         key={index}
+                        type={type}
                       />
                     );
                   }

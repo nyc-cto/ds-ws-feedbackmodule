@@ -20,7 +20,13 @@
 
 .flex-button__alert {
   @extend .order-1;
-  @include mobile-lg("order-initial", "margin-right-1", "margin-top-0");
+
+  &--submit {
+    @include mobile-lg("order-initial", "margin-right-1", "margin-top-0");
+  }
+  &--form {
+    @include mobile-lg("margin-top-4");
+  }
 }
 
 .grid-container[dir="rtl"] {
