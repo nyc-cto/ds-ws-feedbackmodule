@@ -14,12 +14,16 @@ function Textbox({
   invalid,
   inputRef,
   showErrors,
+  labelledBy,
 }) {
   return (
     <>
-      <Label className={className ?? null} htmlFor={id}>
-        {`${label}${required ? "*" : ""}`}
-      </Label>
+      {label && (
+        <Label className={className ?? null} htmlFor={id}>
+          {`${label}${required ? "*" : ""}`}
+        </Label>
+      )}
+      {console.log(`${labelledBy} ${invalid ? describedBy : undefined}`)}
       {showErrors}
       {type === "textarea" ? (
         <CharacterCount
@@ -40,6 +44,7 @@ function Textbox({
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}
+          aria-label={label}
           inputRef={inputRef}
           maxLength={OTHER_MAX_CHAR}
         />
@@ -48,7 +53,6 @@ function Textbox({
           id={id}
           name={label}
           type={type}
-          className={className ?? null}
           onChange={onChange}
           aria-invalid={invalid}
           aria-describedby={invalid ? describedBy : undefined}

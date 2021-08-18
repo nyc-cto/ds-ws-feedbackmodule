@@ -19,7 +19,7 @@
 }
 
 .usa-character-count__message--invalid {
-  @include theme-aware("color", "feedback-error-accent");
+  @include theme-aware("color", "feedback-error-contrast");
 }
 
 .feedback-module,

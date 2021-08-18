@@ -86,11 +86,13 @@ function CheckboxList({
                   <Textbox
                     id="other-field"
                     type="text"
+                    label={label}
                     onChange={onChangeOther}
-                    label=""
                     inputRef={otherTextboxRef}
                     describedBy={"other-too-long"}
                     invalid={otherTooLong}
+                    className="display-none"
+                    labelledBy={`feedback-checkbox-${index}`}
                   />
                 </div>
               )}
