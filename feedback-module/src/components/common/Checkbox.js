@@ -1,7 +1,16 @@
 import React from "react";
 import { Checkbox } from "@trussworks/react-uswds";
 
-function ModuleCheckbox({ label, id, onCheck, firstCheckRef, defaultChecked }) {
+function ModuleCheckbox({
+  label,
+  id,
+  onCheck,
+  firstCheckRef,
+  defaultChecked,
+  describedBy,
+  invalid,
+  labelledBy,
+}) {
   // Sets checkbox to checked when user presses enter
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -19,6 +28,9 @@ function ModuleCheckbox({ label, id, onCheck, firstCheckRef, defaultChecked }) {
       onKeyDown={handleKeyDown}
       inputRef={firstCheckRef}
       defaultChecked={defaultChecked}
+      aria-describedby={invalid ? describedBy : undefined}
+      aria-labelledby={labelledBy ?? undefined}
+      invalid={invalid}
     />
   );
 }

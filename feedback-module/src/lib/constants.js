@@ -1,4 +1,5 @@
 export const ENDPOINTS = ["feedback", "userResearch"];
+export const THEMES = ["default", "dark"];
 export const FORM_EVENTS = {
   userResearch: {
     event_name: "future_research",

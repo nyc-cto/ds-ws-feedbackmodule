@@ -6,8 +6,10 @@
     @include mobile-lg("padding-x-2", "padding-bottom-105", "padding-top-2");
   }
   &__logo {
-    @extend .width-auto, .height-2, .margin-top-1px;
+    @extend .width-full, .height-2, .margin-top-1px;
     @include mobile-lg("height-205");
+    background-size: contain;
+    background-repeat: no-repeat;
   }
   &__main {
     @extend .position-relative, .padding-x-5, .padding-y-205;
@@ -19,12 +21,6 @@
       .margin-bottom-3,
       .text-no-uppercase,
       .line-height-sans-2;
-    &--inverse {
-      @extend .text-white;
-    }
-    &--default {
-      @extend .text-primary;
-    }
   }
   &__plaintext {
     @extend .line-height-sans-3,

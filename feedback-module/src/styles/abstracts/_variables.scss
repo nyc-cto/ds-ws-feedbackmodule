@@ -10,3 +10,30 @@ $error: #d24425;
 $error-alert-bg-color: $error__lighter;
 $error-alert-bar-color: $error;
 $alert-text-color: $base__dark;
+
+$themes: (
+  default: (
+    feedback-primary: #162e51,
+    feedback-inverse: #e1f3f8,
+    feedback-inverse-lighter: #f3fcff,
+    feedback-error-accent: #d24425,
+    feedback-error-base: #ffe8e6,
+    feedback-error-contrast: #000,
+    feedback-contrast: #fff,
+    feedback-checkbox-border: 0 0 0 2px #162e51,
+    feedback-checkbox-svg: checkbox("fff"),
+    feedback-logo: logo("fff"),
+  ),
+  dark: (
+    feedback-primary: #e1f3f8,
+    feedback-inverse: #162e51,
+    feedback-inverse-lighter: #244371,
+    feedback-error-accent: #d24425,
+    feedback-error-base: #ffe8e6,
+    feedback-error-contrast: #fff,
+    feedback-contrast: #000,
+    feedback-checkbox-border: 0 0 0 2px #e1f3f8,
+    feedback-checkbox-svg: checkbox("000"),
+    feedback-logo: logo("000"),
+  ),
+);

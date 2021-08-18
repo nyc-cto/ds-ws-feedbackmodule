@@ -7,19 +7,81 @@
 .usa-textarea,
 .usa-input,
 .feedback-module__plaintext,
-.usa-button:hover {
-  @extend .text-primary;
+.usa-button:hover,
+.feedback-module__heading--default,
+.usa-hint {
+  @include theme-aware("color", "feedback-primary");
+}
+
+.usa-button,
+.feedback-module__heading--inverse {
+  @include theme-aware("color", "feedback-contrast");
+}
+
+.usa-character-count__message--invalid {
+  @include theme-aware("color", "feedback-error-contrast");
 }
 
 .feedback-module,
 .usa-button:hover,
 .usa-textarea,
+.usa-input,
+.usa-button:hover,
+.overlay,
+.usa-textarea,
 .usa-input {
-  @extend .bg-primary-light;
+  @include theme-aware("background-color", "feedback-inverse");
 }
 
-.feedback-module__header {
-  @extend .bg-primary;
+.usa-textarea,
+.usa-input {
+  &:focus {
+    @include theme-aware("background-color", "feedback-inverse-lighter");
+  }
+}
+
+.feedback-module__header,
+.usa-button,
+.usa-checkbox__input:checked + .usa-checkbox__label::before,
+.feedback-module__main--inverse {
+  @include theme-aware("background-color", "feedback-primary");
+}
+
+.usa-checkbox__label::before {
+  @include theme-aware("box-shadow", "feedback-checkbox-border");
+  @include theme-aware("background-color", "feedback-contrast");
+}
+
+.usa-alert {
+  &--error {
+    @include theme-aware("background-color", "feedback-error-base");
+
+    &::before {
+      @include theme-aware("background-color", "feedback-error-accent");
+    }
+  }
+}
+
+.usa-button:hover,
+.usa-textarea,
+.usa-input {
+  @include theme-aware("border-color", "feedback-primary");
+}
+
+.usa-checkbox__input:checked + .usa-checkbox__label::before {
+  @include theme-aware("background-image", "feedback-checkbox-svg");
+}
+
+.feedback-module__logo {
+  @include theme-aware("background-image", "feedback-logo");
+}
+
+.overlay {
+  &__spinner {
+    svg {
+      @include theme-aware("fill", "feedback-primary");
+    }
+  }
 }
 
 .feedback-module__plaintext,

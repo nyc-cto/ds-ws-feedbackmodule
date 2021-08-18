@@ -15,6 +15,7 @@ function CheckboxList({
   checkedFields,
   otherTooLong,
   setOtherTooLong,
+  checkboxError,
 }) {
   const { i18n, t } = useTranslation();
   const en = i18n.getFixedT("en");
@@ -43,7 +44,12 @@ function CheckboxList({
   const otherCharError = (index) => {
     if (isOther(index) && otherTooLong) {
       otherTextboxRef.current.focus();
-      return <ErrorAlert errorText={t("errorMessages.charLimitError")} />;
+      return (
+        <ErrorAlert
+          errorText={t("errorMessages.charLimitError")}
+          id="other-too-long"
+        />
+      );
     }
   };
 
@@ -66,6 +72,13 @@ function CheckboxList({
                 className="width-full"
                 firstCheckRef={index === 0 ? firstCheckRef : undefined}
                 defaultChecked={checkedFields && checkedFields[index].checked}
+                describedBy={index === 0 ? "no-checkbox-selection" : undefined}
+                invalid={checkboxError}
+                labelledBy={
+                  index === 0
+                    ? `screenTitle feedback-checkbox-${index}`
+                    : undefined
+                }
               />
 
               {otherChecked && isOther(index) && (
@@ -73,9 +86,12 @@ function CheckboxList({
                   <Textbox
                     id="other-field"
                     type="text"
+                    label={label}
                     onChange={onChangeOther}
-                    label=""
                     inputRef={otherTextboxRef}
+                    describedBy={"other-too-long"}
+                    invalid={otherTooLong}
+                    className="display-none"
                   />
                 </div>
               )}

@@ -5,6 +5,8 @@ export const TRANSLATIONS_EN = {
     title: "Do you have any feedback on {{page}}?",
   },
 
+  loading: "Loading",
+
   missing: {
     initialBtn: "I couldn't find what I was looking for",
     title:
@@ -46,8 +48,7 @@ export const TRANSLATIONS_EN = {
     textInputs: [
       {
         type: "textarea",
-        text:
-          "Can you give us more details on what you were trying to do, or the exact problem you encountered?",
+        text: "Can you give us more details on what you were trying to do, or the exact problem you encountered?",
       },
     ],
   },

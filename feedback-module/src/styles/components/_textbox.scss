@@ -8,16 +8,13 @@
 
 .usa-textarea,
 .usa-input {
-  @extend .border-05, .border-primary;
+  @extend .border-05;
+
   &:focus {
-    @extend .border-width-6px, .bg-primary-lighter;
+    @extend .border-width-6px;
   }
 }
 
 .usa-input {
   @extend .height-auto, .flex-1;
-}
-
-.usa-character-count__message--invalid {
-  @extend .text-error !optional;
 }
