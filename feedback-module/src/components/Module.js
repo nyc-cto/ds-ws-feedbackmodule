@@ -200,7 +200,10 @@ function Module({ pagetitle, endpoint, dir, theme }) {
           <LightContainer formID={screen.formID}>
             {loading && <LoadingSpinner overlay />}
             {screen.title && (
-              <p className="font-sans-md2 feedback-module__heading feedback-module__heading--default">
+              <p
+                className="font-sans-md2 feedback-module__heading feedback-module__heading--default"
+                id="screenTitle"
+              >
                 {`${t(screen.title, { page: pagetitle })}${
                   screen.checkboxes && screen.checkboxes.required ? "*" : ""
                 }`}
@@ -222,7 +225,10 @@ function Module({ pagetitle, endpoint, dir, theme }) {
               {screen.checkboxes && t(screen.checkboxes.labels) && (
                 <>
                   {checkboxError && (
-                    <ErrorAlert errorText={t("errorMessages.checkboxError")} />
+                    <ErrorAlert
+                      errorText={t("errorMessages.checkboxError")}
+                      id="no-checkbox-selection"
+                    />
                   )}
                   <CheckboxList
                     feedbackCheckboxes={t(screen.checkboxes.labels)}
@@ -233,6 +239,7 @@ function Module({ pagetitle, endpoint, dir, theme }) {
                     checkedFields={checkedFields}
                     otherTooLong={otherTooLong}
                     setOtherTooLong={setOtherTooLong}
+                    checkboxError={checkboxError}
                   />
                 </>
               )}

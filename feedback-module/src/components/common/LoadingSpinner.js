@@ -1,9 +1,12 @@
 import React from "react";
 import Loader from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
 function LoadingSpinner({ className, overlay = false }) {
+  const { t } = useTranslation();
+
   return overlay ? (
-    <div className="overlay">
+    <div className="overlay" aria-label={t("loading")}>
       <div className="overlay__wrapper">
         <Loader
           type="ThreeDots"
@@ -20,6 +23,7 @@ function LoadingSpinner({ className, overlay = false }) {
         height={75}
         width={75}
         className={className ?? null}
+        aria-label={t("loading")}
       />
     </div>
   );

@@ -1,6 +1,8 @@
 export const TRANSLATIONS_AR = {
   submitBtn: "[ar] Submit",
 
+  loading: "[ar] Loading",
+
   feedbackType: {
     title: "[ar] Do you have any feedback on {{page}}?",
   },
@@ -46,8 +48,7 @@ export const TRANSLATIONS_AR = {
     textInputs: [
       {
         type: "textarea",
-        text:
-          "[ar] Can you give us more details on what you were trying to do, or the exact problem you encountered?",
+        text: "[ar] Can you give us more details on what you were trying to do, or the exact problem you encountered?",
       },
     ],
   },
