@@ -92,7 +92,6 @@ function CheckboxList({
                     describedBy={"other-too-long"}
                     invalid={otherTooLong}
                     className="display-none"
-                    labelledBy={`feedback-checkbox-${index}`}
                   />
                 </div>
               )}

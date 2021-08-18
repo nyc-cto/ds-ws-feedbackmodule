@@ -14,7 +14,6 @@ function Textbox({
   invalid,
   inputRef,
   showErrors,
-  labelledBy,
 }) {
   return (
     <>
@@ -23,7 +22,6 @@ function Textbox({
           {`${label}${required ? "*" : ""}`}
         </Label>
       )}
-      {console.log(`${labelledBy} ${invalid ? describedBy : undefined}`)}
       {showErrors}
       {type === "textarea" ? (
         <CharacterCount
