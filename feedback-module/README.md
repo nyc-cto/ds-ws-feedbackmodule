@@ -10,38 +10,30 @@ Frustrating online experiences reflect poorly on government, undermining the pub
 
 The following are the main folders in this repository
 
-````
 
-
-### feedback-module
- {#feedback-module}```
+### `feedback-module`{#feedback-module}
 
 
 This folder contains the source files for our feedback module. It produces the widget that folks can click in order for them to pull out the feedback module.
 
 
-````
 
-### backend-stub
 
-{#backend-stub}```
+### `backend`{#backend-stub}
 
-This folder contains a simple backend that accepts any requests from `feedback-module`. It mainly responds `{ "status": 200, "data": "success!" }` or `{ "status": 500, "data": "Request error. {your error}"}` on command.
 
 The backend is built using Azure Functions. There are currently two endpoints at `/api/feedback`, which handles all feedback from the feedback module, and `/api/userResearch`, which handles all personal information from the user research form. To edit these functions, modify the files at `/backend-stub/feedback/index.js `and `/backend-stub/userResearch/index.js`.
 
-````
 
 
-### homepage
- {#homepage}```
+
+### `homepage`{#homepage}
 
 
 This is the folder containing an instance of the Landing Page as a Service (LPaaS) service. This would be the landing page dedicated to the feedback module, which will also demo the capabilities of the feedback module. It is run independently from `feedback-module`
 
 
-#
-Initial setup for agency webmasters {#initial-setup-for-agency-webmasters}
+# Initial setup for agency webmasters {#initial-setup-for-agency-webmasters}
 
 As an agency webmaster you can follow these instructions to set up how you will receive and store the feedback received on your site.
 
@@ -53,19 +45,16 @@ Note: you only need to go through this setup once when you are initially embeddi
 You will enter this command into a new terminal window in order to spin up a new feedback storage system for your site: (everything is bold you need to update with your specific information)
 
 
-````
-
+```
 $ curl -d '{"method": "method", "emails": "email", "agency": "agency"}' -H 'Content-Type: application/json' "https://ctofeedback.azurewebsites.net/api/setup"
-method
-
 ```
 
 
+**`method`**
+Your preferred method for storing feedback.
 
-    Your preferred method for storing feedback.
 
-
-    Method options:
+**Method options:**
 
 
 <table>
