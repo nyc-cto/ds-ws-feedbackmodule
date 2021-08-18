@@ -5,6 +5,7 @@ import "./i18n";
 import "./styles/index.scss";
 import App from "./App";
 import GA4React from "ga-4-react";
+import { THEMES } from "./lib/constants";
 
 import LoadingSpinner from "./components/common/LoadingSpinner";
 
@@ -13,6 +14,12 @@ const WidgetDivs = document.querySelectorAll("#feedback-widget");
 const renderApp = (Div, lang, endpoint) => {
   Div.attributes.lang && (lang = Div.attributes.lang.value);
   Div.attributes.endpoint && (endpoint = Div.attributes.endpoint.value);
+  const theme =
+    Div.attributes.theme &&
+    Div.attributes.theme.value &&
+    THEMES.includes(Div.attributes.theme.value)
+      ? Div.attributes.theme.value
+      : "default";
 
   ReactDOM.render(
     <React.StrictMode>
@@ -22,7 +29,7 @@ const renderApp = (Div, lang, endpoint) => {
           lang={lang}
           endpoint={endpoint}
           pagetitle={document.title.length > 75 ? "this page" : document.title}
-          theme={`feedback-theme-${Div.attributes.theme.value ?? "default"}`}
+          theme={`feedback-theme-${theme}`}
         />
       </Suspense>
     </React.StrictMode>,
