@@ -21,7 +21,7 @@
     - [endpoint](#endpoint)
     - [gaID](#gaid)
     - [`theme`](#theme-attribute)
-- [Setting up your own instance of the module](#setting-up-your-own-instance-of-the-module)]
+- [Setting up your own instance of the module](#setting-up-your-own-instance-of-the-module)
   - [System Requirements](#system-requirements)
     - [Docker](#docker)
     - [Excel Spreadsheet Templates](#excel-spreadsheet-templates)
