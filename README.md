@@ -250,7 +250,7 @@ Download the following spreadsheet templates and upload them to Google Drive. We
 
 Once you have uploaded the file, double click on it to open it. In order to use the file as a Google Sheets file in Microsoft Flow, click “File” and “Save as Google Sheets”:
 
-![Spreadsheet template example file](/documentation/assets/image2.png "image_tooltip")
+![Spreadsheet template example file](/documentation/assets/save_as_sheets.jpg)
 
 ### [Microsoft Flow](#microsoft-flow)
 
@@ -268,14 +268,14 @@ In order to get started, download the necessary templates. You may modify these 
 1. Download a template here.
 2. Once logged into Microsoft Flow, click on “My Flows” on the left-hand menu.
 3. In the top-left of the main interface, click “Import”.
-   ![Microsoft Flow import page](/documentation/assets/image3.jpg "image_tooltip")
+   ![Microsoft Flow import page](/documentation/assets/ms_import.jpg)
 4. When prompted to choose a package to import, click “Upload” and select the .zip file.
 5. Once the .zip file is uploaded, click “Import.”
 6. For each resource type under “Related resources,” click “Select during import.”
 7. Click on your connection, or create a new one by clicking “Create new,” and press “Save.” Repeat until all related resources have green check marks next to them.
-   ![Microsoft Flow new connection](/documentation/assets/image4.jpg "image_tooltip")
+   ![Microsoft Flow new connection](/documentation/assets/import_setup.jpg)
 8. Click on “Open Flow”
-   ![Microsoft Flow open flow link](/documentation/assets/image5.jpg "image_tooltip")
+   ![Microsoft Flow open flow link](/documentation/assets/open_flow.jpg)
 
 **Modifying the Initial Client Setup Flow**
 
@@ -304,7 +304,7 @@ Google Drive API is used to create and share Google Sheets spreadsheets for stor
 
 1. Log into [https://console.cloud.google.com/](https://console.cloud.google.com/).
 2. Create a new project by clicking “Select a project” and then “New project”
-   ![Creating a new Google Drive API project](/documentation/assets/image6.jpg "image_tooltip")
+   ![Creating a new Google Drive API project](/documentation/assets/new_project.jpg)
 3. Click the 3 lines in the top left corner and click “APIs & Services”
 4. In the left-hand menu, click “Library” and search for “Google Drive API,” then click on this option in the search results.
 5. Click “Enable”
