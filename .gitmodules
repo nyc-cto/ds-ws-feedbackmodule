@@ -1,0 +1,6 @@
+[submodule "uswds-practice"]
+	path = uswds-practice
+	url = https://github.com/michellexliu/uswds-practice
+[submodule "feedbackModule-LPAAS"]
+	path = feedbackModule-LPAAS
+	url = https://github.com/ksiegel1923/feedbackModule-LPAAS.git

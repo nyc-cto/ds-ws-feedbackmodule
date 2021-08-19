@@ -5,12 +5,15 @@
     justify-content: start;
     @extend .font-sans-xs, .line-height-sans-2;
     @include mobile-lg("font-sans-sm");
+
+    &:only-child {
+      @extend .padding-0;
+    }
   }
   .feather-alert-triangle {
     @extend .margin-right-205, .padding-top-0;
   }
 }
-
 .flex-button__alert {
   @extend .order-1;
 
