@@ -8,6 +8,7 @@
   - [`homepage`](#homepage)
 - [Initial setup for agency webmasters](#initial-setup-for-agency-webmasters)
   - [Setup via the command line interface](#setup-via-the-command-line-interface)
+    - [`method`](#method)
     - [`emails`](#emails)
     - [`agency`](#agency)
   - [Spreadsheets](#spreadsheets)
@@ -97,7 +98,7 @@ $ curl -d '{"method": "spreadsheet", "emails": "email@gmail.com", "agency": "Age
 
 ```
 
-**`method`**
+### [`method`](#method)
 
 Your preferred method for storing feedback.
 
