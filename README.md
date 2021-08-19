@@ -559,7 +559,7 @@ feedbackID: "data3",<br />&emsp;
 
 <table><tr><td><strong>Property</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
 <tr><td>feedbackID</td><td>String</td><td>The key of the spreadsheet tab to host the user’s feedback submission.</td></tr>
-<tr><td>label</td><td>String</td><td>The label of the feedback type. Default options include `I couldn’t find what I was looking for`, `Something appears to be broken or inaccurate`, `I have other feedback on this page or website</td></tr>
+<tr><td>label</td><td>String</td><td>The label of the feedback type. Default options include <code>I couldn’t find what I was looking for</code>, <code>Something appears to be broken or inaccurate</code>, <code>I have other feedback on this page or website</code></td></tr>
 </table>
  
 **Example Object:**
@@ -590,7 +590,7 @@ feedbackID: "data3",<br />&emsp;
 <tr><td>inputResponses</td><td>Array (<a  href="#input-response-object">Input Response Object</a>)</td><td>Input questions and the user’s responses to them.</td></tr>
 <tr><td>feedbackType (Optional)</td><td><a  href="#feedback-type-object">Feedback Type Object</a></td><td>The type of feedback response, if the submission is from a feedback form.</td></tr>
 <tr><td>source</td><td>String</td><td>The URL of the website that the form submission came from.</td></tr>
-<tr><td>interaction</td><td>Boolean</td><td>`true` if the button pressed has type “form” (is only meant to track an interaction), and `false` if the button pressed has type “submit.”</td></tr>
+<tr><td>interaction</td><td>Boolean</td><td><code>true</code> if the button pressed has type “form” (is only meant to track an interaction), and <code>false</code> if the button pressed has type “submit.”</td></tr>
 </table>
 
 **Example Object:**
@@ -833,7 +833,7 @@ Request Error. {Reason for error}
 </td>
 <td><code>String</code>
 </td>
-<td>Your preferred method for storing feedback. Possible values: `spreadsheet`, `excel`, `email`
+<td>Your preferred method for storing feedback. Possible values: <code>spreadsheet</code>, <code>excel</code>, <code>email</code>
 </td></tr>
 <tr>
 <td><code>emails</code>
