@@ -238,15 +238,15 @@ Once you have installed docker, make sure you have installed `docker-compose` if
 
 Download the following spreadsheet templates and upload them to your OneDrive files. We recommend creating a folder for storing the Feedback Module files.
 
-1. Feedback Module Dev Template.xlsx - the spreadsheet that manages all agency feedback responses, based on their unique ID’s, response collection method, and response endpoints.
-2. User Research Responses Template.xlsx - the spreadsheet that stores all users who sign up to be part of future user research testing. This file contains sensitive user information and should be secure.
-3. Feedback Template.xlsx - the template for storing feedback responses. This file will be duplicated during initial client setup whenever a user selects Excel as their feedback response storage method.
+1. [Feedback_Module_Dev_Template.xlsx](/documentation/spreadsheet_templates/Feedback_Module_Dev_Template.xlsx) - the spreadsheet that manages all agency feedback responses, based on their unique ID’s, response collection method, and response endpoints.
+2. [User_Research_Responses_Template.xlsx](/documentation/spreadsheet_templates/User_Research_Responses_Template.xlsx) - the spreadsheet that stores all users who sign up to be part of future user research testing. This file contains sensitive user information and should be secure.
+3. [Excel_Template.xlsx](/documentation/spreadsheet_templates/Excel_Template.xlsx) - the template for storing feedback responses. This file will be duplicated during initial client setup whenever a user selects Excel as their feedback response storage method.
 
 ### [Google Sheets Spreadsheet Templates](#google-sheets-spreadsheet-templates)
 
 Download the following spreadsheet templates and upload them to Google Drive. We recommend creating a folder for storing the Feedback Module files.
 
-1. Feedback Template.xlsx - the template for storing feedback responses. This file will be duplicated during initial client setup whenever a user selects Excel as their feedback response storage method.
+1. [Google_Sheets_Template.xlsx](/documentation/spreadsheet_templates/Google_Sheets_Template.xlsx) - the template for storing feedback responses. This file will be duplicated during initial client setup whenever a user selects Excel as their feedback response storage method.
 
 Once you have uploaded the file, double click on it to open it. In order to use the file as a Google Sheets file in Microsoft Flow, click “File” and “Save as Google Sheets”:
 
