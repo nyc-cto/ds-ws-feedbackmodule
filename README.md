@@ -93,9 +93,7 @@ Note: you only need to go through this setup once when you are initially embeddi
 You will enter this command into a new terminal window in order to spin up a new feedback storage system for your site: (everything is bold you need to update with your specific information)
 
 ```
-
 $ curl -d '{"method": "spreadsheet", "emails": "email@gmail.com", "agency": "Agency"}' -H 'Content-Type: application/json' "https://ctofeedback.azurewebsites.net/api/setup"
-
 ```
 
 ### [`method`](#method)
