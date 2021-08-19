@@ -566,8 +566,8 @@ feedbackID: "data3",<br />&emsp;
 **Example Object:**
 ```
 {
-"label": "I couldn't find what I was looking for",
-"feedbackID": "data1"
+  "label": "I couldn't find what I was looking for",
+  "feedbackID": "data1"
 }
 ```
 ### Input Response Object (#input-response-object)
@@ -579,8 +579,8 @@ feedbackID: "data3",<br />&emsp;
 
 ```
 {
-	"question": "What were you looking for or trying to do?",
-	"answer": "I was trying to navigate this page."
+  "question": "What were you looking for or trying to do?",
+  "answer": "I was trying to navigate this page."
 }
 ```
 
