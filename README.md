@@ -298,7 +298,7 @@ In order to get started, download the necessary templates. You may modify these 
 2. In the “Add a row into a table” action, click on the folder icon in the “File” field and select your “User Research Responses.xlsx” file from OneDrive. [See this section if you have not created this file already](#excel-spreadsheet-templates).
 3. Hit “Save”
 
-### Google Drive API (#google-drive-api)
+### [Google Drive API](#google-drive-api)
 
 Google Drive API is used to create and share Google Sheets spreadsheets for storing feedback responses that use the “spreadsheet” method. Follow these steps to set up your API configuration:
 
@@ -317,7 +317,7 @@ Google Drive API is used to create and share Google Sheets spreadsheets for stor
 12. Select JSON as the key type and click “Create”
 13. Save the newly-created JSON file to your computer
 
-### Azure (#azure)
+### [Azure](#azure)
 
 The feedback module uses a running proxy server via Node.js Azure functions as a middleware for user feedback.
 [Learn how to configure GitHub Actions workflows for static web apps](https://docs.microsoft.com/en-us/azure/static-web-apps/github-actions-workflow).
@@ -1013,7 +1013,7 @@ To view this metric go into `Reports` → `Life cycle` → `Engagement` → `Pag
 </td></tr>
 </table>
 
-### Updating tracking events (#updating-tracking-events)
+### [Updating tracking events](#updating-tracking-events)
 
 All of the google analytics events are stored as utility functions within the `feedback-module/src/lib/hooks/googleAnalytics.js` file. To create a new event just add another exportable function to this file. To actually trigger this new event, call your new function within the feedback module when you want the event triggered.
 
