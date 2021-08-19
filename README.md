@@ -142,7 +142,7 @@ Your agency name.
 
 If you choose to receive feedback either from a google or excel spreadsheet, the data will be stored the same way. The spreadsheet will have 4 different sheets: “data1”, “data2”, “data3” (pictured below) are used to store responses to the different categories of feedback, and “interactions” is used to store the amount of times each feedback button was clicked. The feedback is separated into these sheets depending on the category of feedback the user is giving (feedback_type). For example, if the user chooses the initial option “I couldn't find what I was looking for” their feedback will appear on the data1 sheet, but if the user were to have chosen “I have other feedback on this page or website” then their feedback would be saved on the data3 sheet.
 
-![spreadsheet setup](documentation/assets/sheets.jpg)
+![spreadsheet setup](/documentation/assets/sheets.jpg)
 
 **NOTE:** You should not edit the column headers or the sheet tab labels on the template unless you also edit the corresponding labels in `feedback-module/src/lib/constants.js` and/or the inputObjects variable in the “Feedback Flow HTTP” Microsoft Flow.
 
@@ -250,7 +250,7 @@ Download the following spreadsheet templates and upload them to Google Drive. We
 
 Once you have uploaded the file, double click on it to open it. In order to use the file as a Google Sheets file in Microsoft Flow, click “File” and “Save as Google Sheets”:
 
-![Spreadsheet template example file](documentation/assets/image2.png "image_tooltip")
+![Spreadsheet template example file](/documentation/assets/image2.png "image_tooltip")
 
 ### [Microsoft Flow](#microsoft-flow)
 
@@ -268,14 +268,14 @@ In order to get started, download the necessary templates. You may modify these 
 1. Download a template here.
 2. Once logged into Microsoft Flow, click on “My Flows” on the left-hand menu.
 3. In the top-left of the main interface, click “Import”.
-   ![Microsoft Flow import page](documentation/assets/image3.jpg "image_tooltip")
+   ![Microsoft Flow import page](/documentation/assets/image3.jpg "image_tooltip")
 4. When prompted to choose a package to import, click “Upload” and select the .zip file.
 5. Once the .zip file is uploaded, click “Import.”
 6. For each resource type under “Related resources,” click “Select during import.”
 7. Click on your connection, or create a new one by clicking “Create new,” and press “Save.” Repeat until all related resources have green check marks next to them.
-   ![Microsoft Flow new connection](documentation/assets/image4.jpg "image_tooltip")
+   ![Microsoft Flow new connection](/documentation/assets/image4.jpg "image_tooltip")
 8. Click on “Open Flow”
-   ![Microsoft Flow open flow link](documentation/assets/image5.jpg "image_tooltip")
+   ![Microsoft Flow open flow link](/documentation/assets/image5.jpg "image_tooltip")
 
 **Modifying the Initial Client Setup Flow**
 
@@ -304,7 +304,7 @@ Google Drive API is used to create and share Google Sheets spreadsheets for stor
 
 1. Log into [https://console.cloud.google.com/](https://console.cloud.google.com/).
 2. Create a new project by clicking “Select a project” and then “New project”
-   ![Creating a new Google Drive API project](documentation/assets/image6.jpg "image_tooltip")
+   ![Creating a new Google Drive API project](/documentation/assets/image6.jpg "image_tooltip")
 3. Click the 3 lines in the top left corner and click “APIs & Services”
 4. In the left-hand menu, click “Library” and search for “Google Drive API,” then click on this option in the search results.
 5. Click “Enable”
