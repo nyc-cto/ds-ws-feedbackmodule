@@ -402,7 +402,7 @@ Once this has finished running, run `make build`.
 
 ## [Testing the local build of your module](#testing-the-local-build-of-your-module)
 
-### Static website (`.html`) (#static-website-html)
+### [Static website (`.html`)](#static-website-html)
 
 Add the following code into your project:
 
@@ -570,7 +570,7 @@ feedbackID: "data3",<br />&emsp;
   "feedbackID": "data1"
 }
 ```
-### Input Response Object (#input-response-object)
+### [Input Response Object](#input-response-object)
 <table><tr><td><strong>Property</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
 <tr><td>question</td><td>String</td><td>The question that labels an input box.</td></tr>
 <tr><td>answer</td><td>String</td><td>The user’s response in the input box.</td></tr>
@@ -584,7 +584,7 @@ feedbackID: "data3",<br />&emsp;
 }
 ```
 
-### Form Response Object (#form-response-object)
+### [Form Response Object](#form-response-object)
 
 <table><tr><td><strong>Property</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
 <tr><td>checkedOptions</td><td>Array (String)</td><td>The checkbox options selected by the user.</td></tr>
