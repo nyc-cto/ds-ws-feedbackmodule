@@ -20,7 +20,7 @@
     - [`lang`](#lang)
     - [endpoint](#endpoint)
     - [gaID](#gaid)
-    - [`theme`](optional)
+    - [`theme`](#theme-attribute)
 - [Setting up your own instance of the module](#setting-up-your-own-instance-of-the-module)]
   - [System Requirements](#system-requirements)
     - [Docker](#docker)
@@ -220,7 +220,7 @@ The `endpoint` attribute is the unique ID for your agency, created during the in
 
 The `gaID` attribute is the unique google analytics measurement ID for your agency. To find this ID go into your Google Analytics account and look for the` Admin` tab. Then choose `Data Streams`, find your particular project, and copy the `Measurement ID` in the top right hand corner of the page.
 
-### [`theme` (optional)
+### [`theme`](#theme-attribute) (optional)
 
 The `theme` attribute is the unique google analytics measurement ID for your agency. To find this ID go into your Google Analytics account and look for the` Admin` tab. Then choose `Data Streams`, find your particular project, and copy the `Measurement ID` in the top right hand corner of the page.
 
