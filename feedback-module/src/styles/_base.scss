@@ -1,0 +1,132 @@
+// Common Styles
+.usa-checkbox,
+.usa-label,
+.usa-input,
+.usa-textarea,
+.usa-checkbox__label,
+.usa-textarea,
+.usa-input,
+.feedback-module__plaintext,
+.usa-button:hover,
+.feedback-module__heading--default,
+.usa-hint {
+  @include theme-aware("color", "feedback-primary");
+}
+
+.usa-button,
+.feedback-module__heading--inverse {
+  @include theme-aware("color", "feedback-contrast");
+}
+
+.usa-character-count__message--invalid {
+  @include theme-aware("color", "feedback-error-contrast");
+}
+
+.feedback-module,
+.usa-button:hover,
+.usa-textarea,
+.usa-input,
+.usa-button:hover,
+.overlay,
+.usa-textarea,
+.usa-input {
+  @include theme-aware("background-color", "feedback-inverse");
+}
+
+.usa-textarea,
+.usa-input {
+  &:focus {
+    @include theme-aware("background-color", "feedback-inverse-lighter");
+  }
+}
+
+.feedback-module__header,
+.usa-button,
+.usa-checkbox__input:checked + .usa-checkbox__label::before,
+.feedback-module__main--inverse {
+  @include theme-aware("background-color", "feedback-primary");
+}
+
+.usa-checkbox__label::before {
+  @include theme-aware("box-shadow", "feedback-checkbox-border");
+  @include theme-aware("background-color", "feedback-contrast");
+}
+
+.usa-alert {
+  &--error {
+    @include theme-aware("background-color", "feedback-error-base");
+
+    &::before {
+      @include theme-aware("background-color", "feedback-error-accent");
+    }
+  }
+}
+
+.usa-button:hover,
+.usa-textarea,
+.usa-input {
+  @include theme-aware("border-color", "feedback-primary");
+}
+
+.usa-checkbox__input:checked + .usa-checkbox__label::before {
+  @include theme-aware("background-image", "feedback-checkbox-svg");
+}
+
+.feedback-module__logo {
+  @include theme-aware("background-image", "feedback-logo");
+}
+
+.overlay {
+  &__spinner {
+    svg {
+      @include theme-aware("fill", "feedback-primary");
+    }
+  }
+}
+
+.feedback-module__plaintext,
+.usa-checkbox,
+.usa-input,
+.usa-textarea,
+.usa-checkbox__label {
+  @extend .font-sans-md, .text-left;
+  resize: none;
+}
+
+.usa-input,
+.usa-textarea,
+.usa-checkbox__label,
+.usa-checkbox,
+.feedback-module__plaintext {
+  @include mobile-lg("font-sans-lg");
+}
+
+.feedback-module__heading,
+.usa-label {
+  @include mobile-lg("font-sans-lg2");
+}
+
+.usa-alert__text,
+.usa-form,
+.feedback-module__header {
+  @extend .display-flex;
+}
+
+.usa-label,
+.usa-checkbox,
+.usa-checkbox__label,
+.feedback-module__heading {
+  @extend .text-bold;
+}
+
+.usa-form {
+  @extend .maxw-none, .width-full, .flex-column, .flex-align-stretch;
+}
+
+.grid-container[dir="rtl"] {
+  @extend .text-right;
+
+  .feedback-module__heading {
+    @extend .text-right;
+  }
+}

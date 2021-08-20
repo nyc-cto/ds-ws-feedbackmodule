@@ -1,0 +1,18 @@
+.overlay {
+  @extend .position-absolute,
+    .top-0,
+    .left-0,
+    .width-full,
+    .height-full,
+    .z-top;
+
+  &__wrapper {
+    @extend .position-relative, .width-full, .height-full;
+  }
+  &__spinner {
+    @extend .position-absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

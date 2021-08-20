@@ -1,0 +1,20 @@
+.usa-label {
+  @extend .font-sans-md2,
+    .line-height-sans-2,
+    .maxw-none,
+    .margin-y-205,
+    .text-no-uppercase;
+}
+
+.usa-textarea,
+.usa-input {
+  @extend .border-05;
+
+  &:focus {
+    @extend .border-width-6px;
+  }
+}
+
+.usa-input {
+  @extend .height-auto, .flex-1;
+}

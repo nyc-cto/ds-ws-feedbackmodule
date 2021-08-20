@@ -1,0 +1,72 @@
+@use "sass:map";
+
+$theme-show-notifications: false;
+$utilities-use-important: true;
+
+$theme-image-path: "~uswds/src/img";
+$theme-font-path: "~uswds/src/fonts";
+$theme-hero-image: "~uswds/src/img/hero.png";
+
+$border-width-manual-values: (
+  "6px": 6px,
+);
+$width-manual-values: (
+  "desktop-sm": 700px,
+);
+$font-manual-values: (
+  "sans-lg2": 1.75rem,
+  "sans-md2": 1.25rem,
+);
+$box-shadow-manual-values: (
+  "btn": 0px 4px 4px 0px #00000040,
+);
+$border-settings: map-merge(
+  $border-settings,
+  (
+    focus: true,
+  )
+);
+$border-width-settings: map-merge(
+  $border-width-settings,
+  (
+    focus: true,
+  )
+);
+$background-color-settings: map-merge(
+  $background-color-settings,
+  (
+    focus: true,
+  )
+);
+$height-settings: map-merge(
+  $height-settings,
+  (
+    responsive: true,
+  )
+);
+$flex-direction-settings: map-merge(
+  $flex-direction-settings,
+  (
+    responsive: true,
+  )
+);
+$box-shadow-settings: map-merge(
+  $box-shadow-settings,
+  (
+    responsive: true,
+  )
+);
+
+// Typography
+$theme-font-type-sans: "public-sans";
+$theme-process-list-heading-color: "primary";
+
+// Buttons
+$theme-button-border-radius: "md";
+
+//Checkbox
+$theme-checkbox-border-radius: 0;
+
+// Alert:
+$theme-alert-bar-width: 1;
+$theme-alert-padding-x: 2;
