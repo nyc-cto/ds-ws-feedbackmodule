@@ -89,7 +89,7 @@
 .usa-input,
 .usa-textarea,
 .usa-checkbox__label {
-  @extend .font-sans-md;
+  @extend .font-sans-md, .text-left;
   resize: none;
 }
 
