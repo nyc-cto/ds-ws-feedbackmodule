@@ -29,3 +29,8 @@ Once you have installed `docker` and `docker-compose`, run the following command
 ```
 $ docker-compose up --build
 ```
+
+# Thanks
+
+The Mayor's Office of the CTO would like to thank Michelle Liu (@michellexliu), Kara Siegel (@ksiegel1923), and Britney Johnson for their significant contributions to this project as a summer CIC Fellow in 2021.
+
